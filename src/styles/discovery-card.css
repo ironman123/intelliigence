@@ -1,0 +1,162 @@
+/* --- LAYOUT --- */
+.card-stage {
+    width: 100%;
+    margin-top: 6vh;
+}
+
+.card-grid {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 3rem;
+    max-height: 100vh;
+}
+
+/* --- CARD BASE --- */
+.discovery-card {
+    position: relative;
+    height: 360px;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+
+    /* 🔴 FIX 1: This forces the browser to respect border-radius during animation */
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    mask-image: radial-gradient(white, black);
+    transform: translateZ(0);
+
+    display: block;
+    will-change: transform;
+    z-index: 4;
+}
+
+/* --- IMAGES --- */
+.card-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-color: #000;
+}
+
+.card-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease, opacity 0.4s ease;
+}
+
+.discovery-card:hover .card-bg img {
+    transform: scale(1.04);
+    opacity: 0.45;
+    filter: brightness(0.8);
+}
+
+/* --- OVERLAY --- */
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top,
+            rgba(0, 0, 0, 0.65) 0%,
+            rgba(0, 0, 0, 0.25) 40%,
+            rgba(0, 0, 0, 0.05) 70%);
+}
+
+/* --- CONTENT --- */
+.card-content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    /* 🔴 FIX 2: Prevents items (like the button) from stretching full width */
+    align-items: flex-start;
+
+    padding: 2rem;
+    color: #fff;
+    pointer-events: none;
+    /* Clicks pass through empty areas */
+}
+
+/* --- HEADER --- */
+.card-header {
+    max-width: 80%;
+    z-index: 2;
+    margin-bottom: 0.5rem;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card-header h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.4rem;
+}
+
+.card-header .tagline {
+    font-size: 0.95rem;
+    opacity: 0.75;
+}
+
+/* --- BODY (ANIMATION) --- */
+.card-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transition:
+        grid-template-rows 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.35s ease;
+
+    width: 100%;
+    /* Ensure text can use width, but flex-start on parent keeps button small */
+}
+
+.card-body-inner {
+    overflow: hidden;
+}
+
+/* --- HOVER STATES --- */
+.discovery-card:hover .card-body {
+    grid-template-rows: 1fr;
+    opacity: 1;
+}
+
+.discovery-card:hover .card-header {
+    transform: translateY(-5px);
+}
+
+/* --- BUTTON & TEXT --- */
+.view-more {
+    margin-top: 1rem;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
+    padding: 0.5rem 1.2rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+
+    /* 🔴 FIX 3: Explicitly re-enable clicks and sizing */
+    pointer-events: auto;
+    width: max-content;
+
+    transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.view-more:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.55);
+}
+
+.description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

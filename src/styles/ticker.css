@@ -1,0 +1,25 @@
+.ticker-section {
+    margin-top: -2.7vh;
+    overflow: hidden;
+    background: #0a0a0a;
+    color: white;
+    padding: 3rem 0;
+    padding-top: 2rem;
+}
+
+.ticker-wrapper {
+    width: 100%;
+    white-space: nowrap;
+}
+
+.ticker-track {
+    display: inline-flex;
+    gap: 2rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    opacity: 0.85;
+}
+
+.ticker-track span {
+    display: inline-block;
+}

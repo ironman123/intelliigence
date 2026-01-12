@@ -1,0 +1,79 @@
+.solutions-gateway {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    padding: 0;
+    padding-top: 3rem;
+}
+
+/* PANEL */
+.solution-panel {
+    position: relative;
+    height: 100%;
+    cursor: pointer;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* sharp edges */
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Remove last divider */
+.solution-panel:last-child {
+    border-right: none;
+}
+
+/* GLASS OVERLAY */
+.solution-glass {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(255, 255, 255, 0.171);
+    backdrop-filter: blur(6px);
+
+    transition: background 0.3s ease;
+}
+
+/* CONTENT */
+.solution-content {
+    position: relative;
+    z-index: 2;
+
+    height: 100%;
+    padding: 6vh 4vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    color: #fff;
+
+    pointer-events: none;
+}
+
+.solution-content h2 {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    letter-spacing: 0.12em;
+    font-weight: 600;
+}
+
+.solution-content p {
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+/* Hover polish */
+.solution-panel:hover .solution-content h2 {
+    transform: translateY(-4px);
+}
+
+.solution-panel:hover .solution-content p {
+    opacity: 1;
+}

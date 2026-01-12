@@ -1,0 +1,54 @@
+/* Holds the whole slider */
+.card-stage {
+    position: relative;
+    margin-top: 3vh;
+}
+
+/* Clips horizontally only */
+.card-viewport {
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+
+/* This moves */
+.card-track {
+    display: flex;
+    will-change: transform;
+}
+
+/* This only lays out cards */
+.card-grid {
+    display: flex;
+    gap: 3rem;
+}
+
+/* FIXED CARD WIDTH */
+.card-wrapper {
+    flex: 0 0 320px;
+    /* <- card width */
+}
+
+.slider-controls {
+    position: absolute;
+    top: -3rem;
+    right: 0;
+    display: flex;
+    gap: 0.6rem;
+}
+
+.slider-controls button {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+
+    cursor: pointer;
+}
+
+.slider-controls button:disabled {
+    opacity: 0.35;
+    cursor: default;
+}

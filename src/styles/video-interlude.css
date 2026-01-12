@@ -1,0 +1,127 @@
+/* =========================
+   Global sanity
+========================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* =========================
+   Scroll duration controller
+========================= */
+.video-interlude-wrapper {
+    position: relative;
+    height: 220vh;
+    width: 100%;
+    overflow-x: clip;
+    padding: 0;
+    /* prevent horizontal bleed */
+}
+
+/* =========================
+   Sticky full-bleed layer
+========================= */
+.video-sticky-layer {
+    position: sticky;
+    top: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+
+    /* GPU stability */
+    transform: translateZ(0);
+    z-index: 2;
+}
+
+/* =========================
+   Video frame (clipping mask)
+========================= */
+.video-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+
+    overflow: hidden;
+    will-change: transform, border-radius;
+    z-index: 3;
+    isolation: isolate;
+
+}
+
+.video-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+    pointer-events: none;
+}
+
+
+/* =========================
+   Video element (background layer)
+========================= */
+.video-element {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    /* Remove subpixel seams during transforms */
+    transform: scale(1.02);
+    z-index: 0;
+}
+
+/* =========================
+   Overlay text
+========================= */
+.video-overlay {
+    position: absolute;
+    bottom: 12vh;
+    left: clamp(1.5rem, 8vw, 8rem);
+    max-width: 520px;
+
+    z-index: 2;
+}
+
+/* =========================
+   Text polish
+========================= */
+.outlined-text {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+
+
+    -webkit-text-stroke: 0.9px rgba(0, 0, 0, 0.35);
+    text-shadow:
+        0 3px 3px rgba(0, 0, 0, 0.25),
+        0 0 12px rgba(0, 0, 0, 0.15);
+}
+
+.outlined-subtext {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.6;
+    opacity: 0.85;
+
+    -webkit-text-stroke: 0.4px rgba(0, 0, 0, 0.25);
+    text-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.2),
+        0 0 8px rgba(0, 0, 0, 0.12);
+}

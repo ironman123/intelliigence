@@ -1,0 +1,12 @@
+:root {
+    --black: #000000;
+    --white: #ffffff;
+
+    --accent-blue: #1e90ff;
+    --accent-amber: #ffb703;
+
+    --font-main: Inter, system-ui, sans-serif;
+
+    --transition-fast: 0.25s ease;
+    --transition-slow: 0.6s ease;
+}

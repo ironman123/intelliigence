@@ -1,0 +1,89 @@
+/* --- THE TRACK --- */
+.category-toggle {
+    display: inline-flex;
+    /* Or 'flex' if you want it full width of container */
+    padding: 4px;
+    border-radius: 999px;
+    gap: 0.3rem;
+    /* Gap usually 0 for seamless segmented controls, or small if separated */
+
+    background: rgba(118, 118, 128, 0.24);
+    backdrop-filter: blur(12px);
+    border: 0.5px solid rgba(255, 255, 255, 0.1);
+
+    /* OPTIONAL: Set a min-width if you want the whole toggle to be substantial */
+    /* min-width: 400px; */
+}
+
+/* --- THE BUTTONS --- */
+.toggle-pill {
+    /* 1. RESET DEFAULTS */
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    background: transparent;
+    outline: none;
+
+    /* 2. FORCE EQUAL WIDTHS */
+    flex: 1;
+    /* 🟢 KEY FIX: Makes all items grow equally */
+    flex-basis: 0;
+    /* 🟢 KEY FIX: Ensures starting size is 0 before growing */
+    min-width: 100px;
+    /* Optional: Ensures they don't get too small */
+
+    /* 3. LAYOUT */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    /* 4. SIZING */
+    box-sizing: border-box;
+    height: 3rem;
+    /* Keep your height if you like it */
+    padding: 0 1rem;
+    /* Horizontal padding is less important if flex:1 is used */
+    margin: 0;
+
+    /* 5. TEXT STYLES */
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.65);
+    white-space: nowrap;
+
+    cursor: pointer;
+    z-index: 1;
+    transition: color 0.2s ease;
+}
+
+/* Hover state for inactive buttons */
+.toggle-pill:not(.active):hover {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Active Text Color (Black) */
+.toggle-pill.active {
+    color: #000000;
+}
+
+/* --- THE SLIDING WHITE BACKGROUND --- */
+.active-pill-bg {
+    position: absolute;
+    inset: 0;
+    background: #FFFFFF;
+    border-radius: 999px;
+
+    /* "Lifted" shadow effect */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12), 0 3px 1px rgba(0, 0, 0, 0.04);
+
+    z-index: -1;
+    /* Sits BEHIND the text */
+}
+
+/* Ensure text stays on top */
+.pill-text {
+    position: relative;
+    z-index: 2;
+}

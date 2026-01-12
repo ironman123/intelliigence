@@ -1,0 +1,89 @@
+.solution-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4.5rem;
+    align-items: center;
+
+    padding: 7vh 8vw;
+    background: #ffffff;
+}
+
+/* Alternate layout */
+.solution-row.reverse .solution-image {
+    order: 2;
+}
+
+.solution-row.reverse .solution-text {
+    order: 1;
+}
+
+/* IMAGE */
+
+.solution-image-frame {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #f2f2f2;
+}
+
+.solution-image-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* TEXT */
+
+.solution-text h3 {
+    font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: #111;
+}
+
+.solution-text p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #444;
+    max-width: 520px;
+    margin-bottom: 1.4rem;
+}
+
+.solution-text ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    display: grid;
+    gap: 0.6rem;
+}
+
+.solution-text li {
+    position: relative;
+    padding-left: 1.2rem;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.solution-text li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #ff5a1f;
+}
+
+/* Mobile */
+
+@media (max-width: 900px) {
+    .solution-row {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding: 6vh 6vw;
+    }
+
+    .solution-row.reverse .solution-image,
+    .solution-row.reverse .solution-text {
+        order: initial;
+    }
+}

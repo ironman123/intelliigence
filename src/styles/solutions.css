@@ -1,0 +1,504 @@
+/* --- BASE VARIABLES --- */
+:root {
+    --bg-dark: #0a0a0a;
+    /* Slightly lighter than pure black */
+    --glass-panel: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-muted: #a1a1aa;
+
+    /* Theme Colors */
+    --theme-blue: #3b82f6;
+    --theme-purple: #8b5cf6;
+    --theme-emerald: #10b981;
+}
+
+.solutions-page {
+    background-color: var(--bg-dark);
+    color: #ff0000;
+    min-height: 100vh;
+    padding-top: 120px;
+    font-family: sans-serif;
+    transition: background-color 0.5s ease;
+}
+
+/* --- HEADER & TOGGLE --- */
+.sol-header {
+    text-align: center;
+    padding-bottom: 4rem;
+}
+
+.header-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.header-content p {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+}
+
+.highlight-left {
+    background: linear-gradient(to left, #888888, #2f2f2f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.highlight-right {
+    background: linear-gradient(to right, #888888, #2f2f2f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* THE PILL TOGGLE */
+.toggle-container {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.toggle-pill {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    padding: 6px;
+    border-radius: 999px;
+    display: flex;
+    gap: 8px;
+    border: 1px solid var(--glass-border);
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: #888;
+    padding: 10px 24px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+    border-radius: 999px;
+    transition: color 0.3s ease;
+}
+
+.toggle-btn.active {
+    color: #000;
+    /* Dark text on light pill for contrast */
+}
+
+.active-bg {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    /* White pill for active state */
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* --- STAGE & CARDS --- */
+.sol-stage {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem 8rem;
+}
+
+.stage-intro {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.stage-intro h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.stage-intro p {
+    color: var(--text-muted);
+}
+
+/* --- MODULAR CARD STYLES --- */
+.sol-card-modern {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.03) 100%);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    /* More rounded as requested */
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.sol-card-modern:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px;
+    border-radius: 16px;
+    color: #fff;
+}
+
+.card-tag {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 6px 12px;
+    border-radius: 100px;
+    background: rgba(0, 0, 0, 0.3);
+    color: #aaa;
+}
+
+.card-body h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-body h4 {
+    font-size: 1rem;
+    color: #fff;
+    opacity: 0.8;
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+.card-body p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* --- THEME SPECIFIC ACCENTS --- */
+/* Core = Blue */
+.theme-blue .icon-box {
+    color: var(--theme-blue);
+    background: rgba(59, 130, 246, 0.15);
+}
+
+.theme-blue .card-body h4 {
+    color: var(--theme-blue);
+}
+
+/* Emerging = Purple */
+.theme-purple .icon-box {
+    color: var(--theme-purple);
+    background: rgba(139, 92, 246, 0.15);
+}
+
+.theme-purple .card-body h4 {
+    color: var(--theme-purple);
+}
+
+/* Vision = Emerald */
+.theme-emerald .icon-box {
+    color: var(--theme-emerald);
+    background: rgba(16, 185, 129, 0.15);
+}
+
+.theme-emerald .card-body h4 {
+    color: var(--theme-emerald);
+}
+
+
+/* --- LAYOUTS --- */
+/* Core: 3 Column Grid */
+.layout-core {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+}
+
+/* Emerging: Staggered (Z-Pattern) */
+.layout-emerging {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.layout-emerging .sol-card-modern {
+    flex-direction: row;
+    align-items: center;
+}
+
+.layout-emerging .sol-card-modern:nth-child(even) {
+    flex-direction: row-reverse;
+    /* Flip for Z-pattern */
+}
+
+@media (max-width: 768px) {
+    .layout-emerging .sol-card-modern {
+        flex-direction: column !important;
+    }
+}
+
+/* Vision: Centered Focus */
+.layout-vision {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.layout-vision .sol-card-modern {
+    text-align: center;
+    align-items: center;
+    padding: 3rem 2rem;
+}
+
+@media (max-width: 900px) {
+    .layout-vision {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* --- FOOTER CTA --- */
+.sol-footer {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.cta-modern {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 1rem 2.5rem;
+    border-radius: 100px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.cta-modern:hover {
+    transform: scale(1.05);
+}
+
+.cta-blue {
+    background: var(--theme-blue);
+    color: #fff;
+}
+
+.cta-purple {
+    background: var(--theme-purple);
+    color: #fff;
+}
+
+.cta-emerald {
+    background: var(--theme-emerald);
+    color: #000;
+}
+
+/* --- COMPARISON SECTION (Barriers vs Solutions) --- */
+.comparison-container {
+    max-width: 1200px;
+    margin: 4rem auto 6rem;
+    padding: 0 2rem;
+}
+
+.comparison-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.comparison-header h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #1e293b;
+    /* Dark Slate */
+}
+
+.comparison-header p {
+    color: #64748b;
+    /* Slate Gray */
+    font-size: 1.1rem;
+}
+
+/* THE GRID */
+.comparison-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    position: relative;
+}
+
+/* HEADERS (Barriers | Solutions) */
+.grid-headers {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    /* Matches row layout */
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+    font-size: 0.85rem;
+}
+
+.text-barrier {
+    text-align: right;
+    padding-right: 2rem;
+    color: #f12929;
+    /* Red hint for barrier */
+}
+
+.text-solution {
+    text-align: left;
+    grid-column: 3;
+    padding-left: 2rem;
+    color: #04ba7d;
+    /* Green hint for solution */
+}
+
+/* THE ROWS */
+.comparison-row {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    /* Left | Arrow | Right */
+    align-items: flex-start;
+    /* Align to top of text */
+    position: relative;
+}
+
+/* SIDES */
+.comp-side {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    transition: background 0.3s ease;
+}
+
+.barrier-side {
+    flex-direction: row;
+    justify-content: flex-end;
+    text-align: right;
+    /* Optional: faint red tint on hover */
+}
+
+.barrier-side:hover {
+    background: rgba(239, 68, 68, 0.03);
+}
+
+.solution-side {
+    flex-direction: row-reverse;
+    /* Keeps icon next to center */
+    justify-content: flex-end;
+    /* Pushes content towards center */
+    text-align: left;
+    /* Optional: faint green tint on hover */
+}
+
+.solution-side:hover {
+    background: rgba(16, 185, 129, 0.03);
+}
+
+/* TEXT TYPOGRAPHY */
+.comp-text h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: #0f172a;
+}
+
+.comp-text p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #64748b;
+    margin: 0;
+}
+
+/* ICONS IN CARDS */
+.comp-icon {
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f1f5f9;
+}
+
+.solution-side .comp-icon {
+    background: #d1fae5;
+    /* Light green bg */
+    color: #059669;
+    /* Green icon */
+}
+
+.barrier-side .comp-icon {
+    background: #fad1d1;
+    /* Light green bg */
+    color: #960505;
+    /* Green icon */
+}
+
+/* CONNECTOR (The Arrow in the middle) */
+.comp-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 100%;
+}
+
+.arrow-indicator {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #eef7ff;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #667588;
+    font-size: 14px;
+    z-index: 2;
+}
+
+/* RESPONSIVE (Mobile Stack) */
+@media (max-width: 768px) {
+    .comparison-row {
+        display: flex;
+        flex-direction: column;
+        background: #f8fafc;
+        border-radius: 16px;
+        padding: 1.5rem;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .grid-headers,
+    .comp-connector {
+        display: none;
+        /* Hide header and arrows on mobile */
+    }
+
+    .comp-side {
+        padding: 0;
+        text-align: left;
+        justify-content: flex-start;
+        flex-direction: row;
+        /* Reset flex direction */
+    }
+
+    .barrier-side {
+        border-bottom: 1px dashed #cbd5e1;
+        padding-bottom: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .solution-side {
+        flex-direction: row;
+        /* Reset from row-reverse */
+    }
+}

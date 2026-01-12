@@ -1,0 +1,100 @@
+.solutions-cta {
+    padding: 120px 24px;
+    background: #09090b;
+    /* Default Dark Base */
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- THEMES (Add these missing blocks) --- */
+
+/* 1. CORE: Cyan */
+.solutions-cta--core {
+    --cta-accent: #06b6d4;
+    /* Subtle glow at the bottom */
+    background: radial-gradient(circle at 50% 100%, rgba(6, 182, 212, 0.1), transparent 50%), #09090b;
+}
+
+/* 2. EMERGING: Orange */
+.solutions-cta--emerging {
+    --cta-accent: #f97316;
+    background: radial-gradient(circle at 50% 100%, rgba(249, 115, 22, 0.1), transparent 50%), #09090b;
+}
+
+/* 3. VISION: Purple */
+.solutions-cta--vision {
+    --cta-accent: #8b5cf6;
+    background: radial-gradient(circle at 50% 100%, rgba(139, 92, 246, 0.1), transparent 50%), #09090b;
+}
+
+/* --- CONTENT --- */
+
+.solutions-cta-inner {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    position: relative;
+    z-index: 2;
+}
+
+/* 1. The Icon Badge (Uses the accent color now) */
+.cta-icon-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    color: var(--cta-accent);
+    /* <--- This makes the icon colorful */
+}
+
+.cta-icon-badge span {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    color: var(--cta-accent);
+    /* <--- This makes the label colorful */
+}
+
+/* 2. Text Styling */
+.solutions-cta-inner h2 {
+    font-size: 2.5rem;
+    line-height: 1.1;
+    color: white;
+    margin: 0;
+}
+
+.solutions-cta-inner p {
+    font-size: 1.1rem;
+    color: #a1a1aa;
+    /* Zinc 400 */
+    line-height: 1.6;
+}
+
+/* 3. The Bridge Link */
+.cta-bridge-link {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+    padding-bottom: 2px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.2s ease;
+}
+
+.cta-bridge-link:hover {
+    border-bottom: 1px solid var(--cta-accent);
+    /* Underline becomes colorful on hover */
+    color: var(--cta-accent);
+    /* Text becomes colorful on hover */
+    gap: 12px;
+}

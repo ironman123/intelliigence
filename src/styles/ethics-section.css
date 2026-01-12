@@ -1,0 +1,115 @@
+.ethics-section {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+
+    padding: 6rem 6vw;
+    background: #eef2f3;
+    border-radius: 28px;
+}
+
+/* LEFT */
+.ethics-left {
+    display: flex;
+    align-items: center;
+}
+
+.ethics-text h2 {
+    font-size: clamp(2rem, 3vw, 2.6rem);
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.ethics-text p {
+    max-width: 520px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    opacity: 0.75;
+}
+
+/* RIGHT GRID */
+.ethics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.6rem;
+}
+
+/* TILE */
+.ethics-tile {
+    background: #f7f9fa;
+    border-radius: 16px;
+    padding: 1.4rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+
+    cursor: pointer;
+    transition: box-shadow 0.25s ease;
+
+    position: relative;
+    border-radius: 18px;
+    padding: 1.4rem;
+
+    background: #f7f9fa;
+
+    /* Needed for masking */
+    z-index: 0;
+    overflow: hidden;
+}
+
+.ethics-tile::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1.2px;
+    /* border thickness */
+
+    border-radius: inherit;
+    background-size: 200% 200%;
+
+    background: linear-gradient(120deg,
+            #f1d370,
+            /* gold */
+            #e6e6e6,
+            /* silver */
+            #ecd59d,
+            /* warm gold */
+            #f0f0f0
+            /* light silver */
+        );
+
+    /* Mask trick to hollow center */
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+
+    pointer-events: none;
+    z-index: -1;
+}
+
+.ethics-tile:hover {
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.ethics-tile:hover::before {
+    background: linear-gradient(120deg,
+            #ffe68a,
+            #ffffff,
+            #ebc64e,
+            #f5f5f5);
+
+    background-position: 100% 50%;
+    transition: background-position 0.8s ease;
+}
+
+.ethics-icon {
+    font-size: 1.5rem;
+}
+
+.ethics-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
