@@ -32,7 +32,7 @@ export const EMERGING_SOLUTIONS = {
                 "Early disease detection and risk stratification",
                 "Accelerated drug compound screening",
             ],
-            image: "/images/emerging-health.jpg",
+            image: "/images/emerging-health.webp",
         },
 
         {
@@ -45,7 +45,7 @@ export const EMERGING_SOLUTIONS = {
                 "Soil moisture analysis and irrigation automation",
                 "Yield forecasting based on weather and historical data",
             ],
-            image: "/images/emerging-agri.jpg",
+            image: "/images/emerging-agri.webp",
         },
 
         {
@@ -58,7 +58,7 @@ export const EMERGING_SOLUTIONS = {
                 "Interactive, conversational tutoring in natural language",
                 "Personalized progress tracking and performance insights",
             ],
-            image: "/images/emerging-tutor.jpg",
+            image: "/images/emerging-tutor.webp",
         },
 
         {
@@ -71,7 +71,7 @@ export const EMERGING_SOLUTIONS = {
                 "Public transit demand prediction",
                 "Zoning impact analysis and population modeling",
             ],
-            image: "/images/emerging-urban.jpg",
+            image: "/images/emerging-urban.webp",
         },
 
         {
@@ -84,7 +84,7 @@ export const EMERGING_SOLUTIONS = {
                 "Predictive maintenance for utility infrastructure",
                 "Carbon footprint tracking and reduction strategies",
             ],
-            image: "/images/emerging-energy.jpg",
+            image: "/images/emerging-energy.webp",
         },
         {
             id: "disaster",
@@ -96,7 +96,7 @@ export const EMERGING_SOLUTIONS = {
                 "Flood risk analysis and early warning systems",
                 "Biodiversity and deforestation tracking",
             ],
-            image: "/images/emerging-climate.jpg",
+            image: "/images/emerging-climate.webp",
         },
     ],
 };

@@ -32,7 +32,7 @@ export const VISION_SOLUTIONS = {
                 "Visual-motor policy training",
                 "Adaptive navigation in changing physical spaces",
             ],
-            image: "/images/vision-embodied.jpg",
+            image: "/images/vision-embodied.webp",
         },
 
         {
@@ -45,7 +45,7 @@ export const VISION_SOLUTIONS = {
                 "Self-organizing supply chain logistics",
                 "Resilient systems with no single point of failure",
             ],
-            image: "/images/vision-swarms.jpg",
+            image: "/images/vision-swarms.webp",
         },
 
         {
@@ -58,7 +58,7 @@ export const VISION_SOLUTIONS = {
                 "Predictive modeling of industrial accidents",
                 "Infinite-scenario testing for autonomous vehicles",
             ],
-            image: "/images/vision-simulation.jpg",
+            image: "/images/vision-simulation.webp",
         },
 
         {
@@ -71,7 +71,7 @@ export const VISION_SOLUTIONS = {
                 "Rule-compliant automated legal systems",
                 "Explainable AI (XAI) for high-stakes regulation",
             ],
-            image: "/images/vision-neurosymbolic.jpg",
+            image: "/images/vision-neurosymbolic.webp",
         },
         {
             id: "bci",
@@ -83,7 +83,7 @@ export const VISION_SOLUTIONS = {
                 "Cognitive load monitoring for operators",
                 "Direct thought-to-text input research",
             ],
-            image: "/images/vision-bci.jpg",
+            image: "/images/vision-bci.webp",
         },
     ],
 };

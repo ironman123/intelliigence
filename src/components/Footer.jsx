@@ -31,16 +31,26 @@ export default function Footer()
                 {/* --- TOP ROW: BRANDING & CTA --- */}
                 <div className="footer-top">
                     <div className="footer-brand-lockup">
+                        {/* 1. Use /images/... (remove public) 
+        2. Use 'style' (not styles) 
+        3. Increased width to be visible */}
+                        <img
+                            src="/images/logo.png"
+                            alt="Company Logo"
+                            style={{ width: '10rem', marginBottom: '1rem' }}
+                        />
+
                         <h1 className="footer-headline">
                             Intelligence, <br />
-                            <span className="text-gradient">Engineered.</span>
+                            {/* If you want the gradient back, wrap this in the span again */}
+                            Engineered.
                         </h1>
+
                         <p className="footer-subhead">
                             From enterprise RAG systems to autonomous robotics.
                             We build the infrastructure for the next decade.
                         </p>
                     </div>
-
                     <div className="footer-cta-wrapper">
                         {/* ACTION 1: Start a Project (Go to Page) */}
                         <button

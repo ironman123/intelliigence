@@ -32,7 +32,7 @@ export const CORE_SOLUTIONS = {
                 "Customer-facing Chatbots with high context retention",
                 "Hallucination-free answers based on your documents",
             ],
-            image: "/images/service-genai.jpg",
+            image: "/images/service-genai.webp",
         },
         {
             id: "data-engineering",
@@ -44,7 +44,7 @@ export const CORE_SOLUTIONS = {
                 "Executive dashboards and business intelligence reporting",
                 "Legacy data migration to modern cloud platforms",
             ],
-            image: "/images/service-data.jpg",
+            image: "/images/service-data.webp",
         },
         {
             id: "automation",
@@ -56,7 +56,7 @@ export const CORE_SOLUTIONS = {
                 "Natural Language to SQL (NL2SQL) for easy data querying",
                 "Human-in-the-loop approval workflows",
             ],
-            image: "/images/service-automation.jpg",
+            image: "/images/service-automation.webp",
         },
         {
             id: "predictive-ml",
@@ -68,7 +68,7 @@ export const CORE_SOLUTIONS = {
                 "Risk assessment and anomaly detection",
                 "Sentiment analysis and customer churn prediction",
             ],
-            image: "/images/service-predictive.jpg",
+            image: "/images/service-predictive.webp",
         },
         {
             id: "software-engineering",
@@ -80,7 +80,7 @@ export const CORE_SOLUTIONS = {
                 "Computer Vision & Speech integration for physical workflows",
                 "Modernizing legacy software with intelligent features",
             ],
-            image: "/images/service-vision.jpg",
+            image: "/images/service-vision.webp",
         },
     ],
 };

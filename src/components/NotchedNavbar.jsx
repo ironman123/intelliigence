@@ -71,8 +71,21 @@ export default function NotchedNavbar()
                 onMouseLeave={() => setHovered(false)}
             >
                 <div className="nav-inner">
-                    <Link to="/" className="nav-logo" style={{ textDecoration: 'none' }}>
-                        INTELLIGENCE
+
+                    <Link
+                        to="/"
+                        className="nav-logo"
+                        style={{
+                            textDecoration: 'none',
+                            display: 'flex',
+                            alignItems: 'center',    // Vertically aligns image and text
+                            justifyContent: 'center', // Centers the group horizontally
+                        }}
+                    >
+                        {/* Note: 'public' is usually the root folder, so the path starts with /images */}
+                        <img src="/images/logo.png" alt="Logo" style={{ width: '6rem', display: 'block' }} />
+
+                        <span style={{ fontSize: '1.2rem' }}>INTELLIGENCE</span>
                     </Link>
 
                     <ul className="nav-links">
@@ -152,6 +165,7 @@ export default function NotchedNavbar()
                                     <a
                                         href="/#discovery"
                                         onClick={(e) => handleScrollToSection(e, "discovery")}
+                                        style={{ textDecoration: 'none', color: '#fff' }}
                                     >
                                         Discovery
                                     </a>
