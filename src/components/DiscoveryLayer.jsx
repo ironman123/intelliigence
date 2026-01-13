@@ -75,7 +75,7 @@ export default function DiscoveryLayer()
                 {/* HEADER */}
                 <div className="discovery-header">
                     <div className="discovery-text">
-                        <h2>{active.heading}</h2>
+                        <h1>{active.heading}</h1>
                         <p>{active.subheading}</p>
                     </div>
 

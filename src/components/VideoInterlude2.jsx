@@ -70,9 +70,9 @@ export default function VideoInterlude2()
                         className="video-overlay"
                         style={{ color: textColor, opacity: textOpacity }}
                     >
-                        <h2 className="outlined-text" style={{ textShadow: "0 0 3px #4a4a4aff" }}>
+                        <h1 className="outlined-text" style={{ textShadow: "0 0 3px #4a4a4aff" }}>
                             Intelligence built into System
-                        </h2>
+                        </h1>
                         <p className="outlined-subtext" style={{ textShadow: "0 0 3px #4a4a4aff" }}>
                             Combining AI, Data Engineering and modern software to solve operational problems at scale.
                         </p>

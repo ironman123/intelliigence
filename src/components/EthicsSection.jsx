@@ -53,7 +53,7 @@ export default function EthicsSection()
                             exit="exitRight"
                             className="ethics-text"
                         >
-                            <h2>Responsible AI, Built with Care</h2>
+                            <h1>Responsible AI, Built with Care</h1>
                             <p>
                                 Trust is foundational. Our systems are designed to be ethical,
                                 transparent, and accountable at every layer.
@@ -70,7 +70,7 @@ export default function EthicsSection()
                             exit="exitLeft"
                             className="ethics-text"
                         >
-                            <h2>{activeItem.title}</h2>
+                            <h1>{activeItem.title}</h1>
                             <p>{activeItem.description}</p>
                         </motion.div>
                     )}
