@@ -70,7 +70,7 @@ export default function App()
 
     // 2. Set the image source
     // Ensure 'favicon.png' is in your /public folder
-    link.href = 'public/images/favicon.png';
+    link.href = '/images/favicon.png';
 
     // Optional: Change title dynamically too
     document.title = "Intelligence";
