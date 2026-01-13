@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Hero from "./components/Hero";
 import NotchedNavbar from "./components/NotchedNavbar";
@@ -55,6 +56,26 @@ function AnimatedRoutes()
 
 export default function App()
 {
+  useEffect(() =>
+  {
+    // 1. Find existing favicon or create a new one
+    let link = document.querySelector("link[rel~='icon']");
+
+    if (!link)
+    {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+
+    // 2. Set the image source
+    // Ensure 'favicon.png' is in your /public folder
+    link.href = 'public/images/favicon.png';
+
+    // Optional: Change title dynamically too
+    document.title = "Intelligence";
+
+  }, []);
   return (
     <Router>
       <NotchedNavbar /> {/* Navbar stays on all pages */}
