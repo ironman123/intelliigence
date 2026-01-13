@@ -20,7 +20,7 @@ export default function Hero()
                 loop
                 playsInline
             >
-                <source src="/src/assets/videos/pageVideo2.mp4" type="video/mp4" />
+                <source src="public/videos/pageVideo2.mp4" type="video/mp4" />
             </video>
 
             {/* Content layer */}

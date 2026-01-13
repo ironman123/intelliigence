@@ -57,7 +57,7 @@ export default function VideoInterlude2()
                 >
                     <video
                         className="video-element"
-                        src="/src/assets/videos/ler.mp4"
+                        src="/videos/ler.mp4"
                         muted
                         autoPlay
                         loop
