@@ -56,7 +56,7 @@
    Heading (Left)
 ========================= */
 
-.discovery-text h2 {
+.discovery-text h1 {
     font-size: clamp(2rem, 3vw, 2.6rem);
     font-weight: 600;
     line-height: 1.1;

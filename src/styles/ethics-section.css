@@ -14,7 +14,7 @@
     align-items: center;
 }
 
-.ethics-text h2 {
+.ethics-text h1 {
     font-size: clamp(2rem, 3vw, 2.6rem);
     font-weight: 500;
     margin-bottom: 1rem;

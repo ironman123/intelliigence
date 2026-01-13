@@ -59,7 +59,7 @@ export default function SolutionsCTA({ layer })
                 </div>
 
                 {/* 2. Philosophy Text (No "Sales" Pitch) */}
-                <h2>{data.headline}</h2>
+                <h1>{data.headline}</h1>
                 <p>{data.text}</p>
 
                 {/* 3. The "Bridge" Link (Subtle Navigation) */}

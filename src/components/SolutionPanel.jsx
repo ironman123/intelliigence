@@ -59,7 +59,7 @@ export default function SolutionPanel({ layer, index, onClick })
 
             {/* Content */}
             <div className="solution-content">
-                <h2>{layer.label}</h2>
+                <h1>{layer.label}</h1>
                 <p>{layer.tagline}</p>
             </div>
         </motion.div>

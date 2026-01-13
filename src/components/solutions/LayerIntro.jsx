@@ -37,7 +37,7 @@ export default function LayerIntro({ headline, description, bullets })
             viewport={{ once: true, amount: 0.4 }}
         >
             <div className="layer-intro-inner">
-                <motion.h2 variants={item}>{headline}</motion.h2>
+                <motion.h1 variants={item}>{headline}</motion.h1>
 
                 <motion.p variants={item} className="layer-intro-description">
                     {description}

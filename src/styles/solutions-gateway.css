@@ -57,7 +57,7 @@
     pointer-events: none;
 }
 
-.solution-content h2 {
+.solution-content h1 {
     font-size: clamp(1.6rem, 3vw, 2.4rem);
     letter-spacing: 0.12em;
     font-weight: 600;
@@ -70,7 +70,7 @@
 }
 
 /* Hover polish */
-.solution-panel:hover .solution-content h2 {
+.solution-panel:hover .solution-content h1 {
     transform: translateY(-4px);
 }
 

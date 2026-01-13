@@ -66,7 +66,7 @@ export default function ComparisonSection()
     return (
         <section className="comparison-container">
             <div className="comparison-header">
-                <h2><span className="highlight-right">Your Problem</span> <span className="highlight-left">Our Solution</span></h2>
+                <h1><span className="highlight-right">Your Problem</span> <span className="highlight-left">Our Solution</span></h1>
                 <p>Moving from barriers to breakthroughs.</p>
             </div>
 
