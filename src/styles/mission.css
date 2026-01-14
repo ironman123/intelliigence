@@ -1,0 +1,140 @@
+/* --- LAYOUT & CONTAINER --- */
+.mission-section {
+    position: relative;
+    width: 100%;
+    padding: 8rem 1.5rem;
+    background-color: #ffffff;
+    /* Clean White */
+    /* A very subtle gradient to give it depth without being dark */
+    background-image: linear-gradient(to bottom, #ffffff, #f8fafc);
+    overflow: hidden;
+    font-family: system-ui, -apple-system, sans-serif;
+    text-align: center;
+}
+
+.mission-container {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- BACKGROUND EFFECTS (Subtle) --- */
+.mission-bg-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Subtle Grid on Light Background */
+.mission-grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    /* Fade out at bottom */
+    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+}
+
+/* A very faint ambient wash (barely visible) */
+.mission-glow-center {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    /* Soft blue/purple wash */
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 60%);
+    filter: blur(60px);
+    z-index: 0;
+}
+
+/* --- BADGE STYLES (Clean Pill) --- */
+.mission-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.85rem;
+    background-color: #f1f5f9;
+    /* Slate-100 */
+    border: 1px solid #e2e8f0;
+    /* Slate-200 */
+    border-radius: 6px;
+    margin-bottom: 2rem;
+}
+
+.badge-text {
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #475569;
+    /* Slate-600 */
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge-pulse {
+    position: relative;
+    display: flex;
+    height: 6px;
+    width: 6px;
+}
+
+.badge-dot-inner {
+    position: relative;
+    display: inline-block;
+    border-radius: 50%;
+    height: 6px;
+    width: 6px;
+    background-color: #0ea5e9;
+    /* Sky-500 */
+}
+
+/* --- TYPOGRAPHY --- */
+.mission-heading {
+    font-size: 3rem;
+    /* Large but clean */
+    font-weight: 700;
+    color: #0f172a;
+    /* Slate-900 (Deep Dark Grey) */
+    line-height: 1.15;
+    margin: 0 0 1.5rem 0;
+    letter-spacing: -0.02em;
+}
+
+/* Subtle Gradient on text */
+.mission-gradient-text {
+    background: linear-gradient(135deg, #1e293b 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.mission-subtext {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: #64748b;
+    /* Slate-500 (Medium Grey) */
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .mission-section {
+        padding: 5rem 1.5rem;
+    }
+
+    .mission-heading {
+        font-size: 2.25rem;
+    }
+}

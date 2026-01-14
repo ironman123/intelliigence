@@ -8,10 +8,14 @@ import Ticker from "./components/Ticker";
 import VideoInterlude from "./components/VideoInterlude";
 import VideoInterlude2 from "./components/VideoInterlude2";
 import DiscoveryLayer from "./components/DiscoveryLayer";
+import DiscoverySlider from "./components/DsicoverySlider";
 import EthicsSection from "./components/EthicsSection";
 import Footer from "./components/Footer";
 import SolutionsPage from "./components/solutions/SolutionsPage";
 import SolutionsGateway from "./components/SolutionsGateway";
+import MissionSection from "./components/MissionSection";
+import FeaturesLayout from "./components/FeatureLayout";
+import ToolsSection from "./components/ToolSection";
 
 import ChatWidget from "./components/ChatWidget";
 
@@ -20,9 +24,12 @@ const Home = () => (
   <>
     <Hero />
     <Ticker />
+    <MissionSection />
+    <FeaturesLayout />
     <VideoInterlude2 />
-    <DiscoveryLayer />
+    <DiscoverySlider />
     <EthicsSection />
+    <ToolsSection />
   </>
 );
 function AnimatedRoutes()

@@ -1,0 +1,334 @@
+/* --- VARIABLES --- */
+:root {
+    --core-color: #3b82f6;
+    /* Blue */
+    --emerging-color: #10b981;
+    /* Emerald */
+    --vision-color: #8b5cf6;
+    /* Violet */
+
+    --slate-900: #0f172a;
+    --slate-50: #f8fafc;
+    --slate-200: #e2e8f0;
+}
+
+/* --- SECTION LAYOUT --- */
+.discovery-section {
+    padding: 3rem 1.5rem;
+    background-color: var(--slate-50);
+    overflow: hidden;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.discovery-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+/* --- HEADER & TABS --- */
+.discovery-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+    gap: 1.5rem;
+    padding-bottom: 0.1rem;
+}
+
+@media (min-width: 768px) {
+    .discovery-header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+}
+
+.discovery-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    line-height: 1.1;
+    margin: 0;
+    padding-bottom: 1.5rem;
+}
+
+.tab-container {
+    display: inline-flex;
+    background-color: #fff;
+    /* Reduced container padding (was 0.3rem) */
+    padding: 0.2rem;
+    border-radius: 100px;
+    border: 1px solid var(--slate-200);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+
+    /* Ensure it doesn't overflow on small screens */
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.tab-btn {
+    /* Significantly reduced padding (was 0.75rem 2rem) */
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+    border: none;
+    background: transparent;
+
+    /* Smaller font (was 0.9rem) */
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #64748b;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+    white-space: nowrap;
+    /* Prevent text wrapping */
+}
+
+/* Active Tab States */
+.tab-btn.active[data-theme="core"] {
+    background-color: var(--core-color);
+    color: #fff;
+}
+
+.tab-btn.active[data-theme="emerging"] {
+    background-color: var(--emerging-color);
+    color: #fff;
+}
+
+.tab-btn.active[data-theme="vision"] {
+    background-color: var(--vision-color);
+    color: #fff;
+}
+
+/* --- MOBILE SPECIFIC SHRINK --- */
+@media (max-width: 640px) {
+    .tab-container {
+        width: 100%;
+        /* Use full width */
+        justify-content: space-between;
+        /* Spread buttons out */
+        padding: 0.15rem;
+        /* Minimal container padding */
+    }
+
+    .tab-btn {
+        padding: 0.4rem 0;
+        /* minimal horizontal padding */
+        flex: 1;
+        /* Force equal width */
+        font-size: 0.75rem;
+        /* Tiny text for mobile */
+        text-align: center;
+    }
+}
+
+.nav-arrows {
+    display: none;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .nav-arrows {
+        display: flex;
+    }
+}
+
+.arrow-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--slate-200);
+    background: #fff;
+    color: #0f172a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+
+.arrow-btn:hover {
+    background: var(--slate-900);
+    color: #fff;
+    border-color: var(--slate-900);
+}
+
+/* --- SLIDER TRACK --- */
+.slider-track {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 4rem;
+    /* Space for shadow */
+    scrollbar-width: none;
+}
+
+.slider-track::-webkit-scrollbar {
+    display: none;
+}
+
+/* --- IMMERSIVE CARD STYLES --- */
+.discovery-card {
+    /* Mobile: 85% width */
+    width: 85vw;
+    max-width: 350px;
+    height: 500px;
+
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: #0f172a;
+    border: 2px solid transparent;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    /* Transform handled by Framer */
+}
+
+/* Desktop: Fixed 600px width */
+@media (min-width: 768px) {
+    .discovery-card {
+        width: 600px;
+        /* Double width */
+        max-width: none;
+        scroll-snap-align: start;
+    }
+}
+
+/* Hover Shadow (Transform handled by Framer Motion) */
+.discovery-card:hover {
+    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
+}
+
+/* Theme Borders */
+.discovery-card[data-theme="core"]:hover {
+    border-color: var(--core-color);
+}
+
+.discovery-card[data-theme="emerging"]:hover {
+    border-color: var(--emerging-color);
+}
+
+.discovery-card[data-theme="vision"]:hover {
+    border-color: var(--vision-color);
+}
+
+/* Background Image */
+.card-bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    /* Transform handled by Framer Motion */
+}
+
+/* Strong Gradient Overlay */
+.card-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(to bottom,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 0) 30%,
+            rgba(0, 0, 0, 0.6) 60%,
+            rgba(0, 0, 0, 0.95) 100%);
+}
+
+/* Content Layer */
+.card-content {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2.5rem;
+    color: #fff;
+}
+
+/* Text Styles */
+.card-tagline {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    border-radius: 6px;
+}
+
+/* Tagline Colors */
+.discovery-card[data-theme="core"] .card-tagline {
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.5);
+}
+
+.discovery-card[data-theme="emerging"] .card-tagline {
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.5);
+}
+
+.discovery-card[data-theme="vision"] .card-tagline {
+    color: #a78bfa;
+    border: 1px solid rgba(139, 92, 246, 0.5);
+}
+
+.card-title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 0 0 1rem 0;
+    line-height: 1.1;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+}
+
+.card-desc {
+    font-size: 1.1rem;
+    color: #f1f5f9;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    opacity: 0.95;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #fff;
+    text-decoration: none;
+    opacity: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* --- PARTICLES --- */
+.particle-field {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(1px);
+}

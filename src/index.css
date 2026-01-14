@@ -1,17 +1,3 @@
 html {
     scroll-behavior: smooth;
 }
-
-/* src/index.css or src/globals.css */
-
-html,
-body {
-    width: 100%;
-    max-width: 100vw;
-    overflow-x: hidden;
-    /* <--- Kills the horizontal scroll */
-    background-color: #050505;
-    /* <--- Matches your site theme (prevents white bars) */
-    margin: 0;
-    padding: 0;
-}

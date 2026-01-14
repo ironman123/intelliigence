@@ -1,3 +1,4 @@
+/* --- CONTAINER --- */
 .ethics-section {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
@@ -6,18 +7,24 @@
     padding: 6rem 6vw;
     background: #eef2f3;
     border-radius: 28px;
+    overflow: hidden;
+    /* Keeps border-radius clean */
 }
 
-/* LEFT */
+/* --- LEFT (Text Area) --- */
 .ethics-left {
     display: flex;
     align-items: center;
+    min-height: 200px;
+    /* Prevents collapse during transitions */
 }
 
 .ethics-text h1 {
-    font-size: clamp(2rem, 3vw, 2.6rem);
-    font-weight: 500;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 600;
     margin-bottom: 1rem;
+    color: #1a1a1a;
+    line-height: 1.2;
 }
 
 .ethics-text p {
@@ -25,19 +32,21 @@
     font-size: 1.05rem;
     line-height: 1.6;
     opacity: 0.75;
+    color: #333;
 }
 
-/* RIGHT GRID */
+/* --- RIGHT (Grid Area) --- */
 .ethics-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.6rem;
 }
 
-/* TILE */
+/* --- TILE STYLES --- */
 .ethics-tile {
+    position: relative;
     background: #f7f9fa;
-    border-radius: 16px;
+    border-radius: 18px;
     padding: 1.4rem;
 
     display: flex;
@@ -45,28 +54,19 @@
     gap: 0.6rem;
 
     cursor: pointer;
-    transition: box-shadow 0.25s ease;
-
-    position: relative;
-    border-radius: 18px;
-    padding: 1.4rem;
-
-    background: #f7f9fa;
-
-    /* Needed for masking */
+    transition: transform 0.2s ease, box-shadow 0.25s ease;
     z-index: 0;
-    overflow: hidden;
+    /* overflow: hidden; Removed to allow shadow to spread nicely */
 }
 
+/* Gradient Border Effect */
 .ethics-tile::before {
     content: "";
     position: absolute;
     inset: 0;
-    padding: 1.2px;
-    /* border thickness */
-
+    padding: 1.5px;
+    /* Border thickness */
     border-radius: inherit;
-    background-size: 200% 200%;
 
     background: linear-gradient(120deg,
             #f1d370,
@@ -78,8 +78,9 @@
             #f0f0f0
             /* light silver */
         );
+    background-size: 200% 200%;
 
-    /* Mask trick to hollow center */
+    /* Mask trick to create hollow border */
     -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
@@ -88,28 +89,68 @@
 
     pointer-events: none;
     z-index: -1;
+    transition: background-position 0.6s ease;
 }
 
+/* Hover States */
 .ethics-tile:hover {
+    transform: translateY(-2px);
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
 }
 
 .ethics-tile:hover::before {
-    background: linear-gradient(120deg,
-            #ffe68a,
-            #ffffff,
-            #ebc64e,
-            #f5f5f5);
-
     background-position: 100% 50%;
-    transition: background-position 0.8s ease;
 }
 
 .ethics-icon {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
 }
 
 .ethics-label {
-    font-size: 0.95rem;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #222;
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 900px) {
+    .ethics-section {
+        grid-template-columns: 1fr;
+        /* Stack vertically */
+        gap: 3rem;
+        padding: 3rem 1.5rem;
+        /* Reduce padding */
+        border-radius: 20px;
+    }
+
+    .ethics-left {
+        align-items: flex-start;
+        min-height: auto;
+        text-align: left;
+    }
+
+    .ethics-text h1 {
+        font-size: 1.75rem;
+        /* Fixed smaller size for mobile */
+    }
+
+    .ethics-text p {
+        font-size: 1rem;
+        max-width: 100%;
+    }
+
+    /* Keep grid 2-columns on mobile for better density, 
+     or change to 1fr if you want big stacked tiles */
+    .ethics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+/* Very Small Screens (e.g. narrow phones) */
+@media (max-width: 480px) {
+    .ethics-grid {
+        grid-template-columns: 1fr;
+        /* Full width tiles */
+    }
 }
