@@ -1,5 +1,5 @@
 /* =========================
-   Global sanity
+   1. Global Sanity & Section Base
 ========================= */
 *,
 *::before,
@@ -7,121 +7,254 @@
     box-sizing: border-box;
 }
 
-/* =========================
-   Scroll duration controller
-========================= */
-.video-interlude-wrapper {
+.interlude-section {
     position: relative;
-    height: 220vh;
     width: 100%;
-    overflow-x: clip;
-    padding: 0;
-    /* prevent horizontal bleed */
+    padding: 6rem 1.5rem;
+    overflow: hidden;
+    /* Deep Slate / Midnight Blue Background */
+    background-color: #0f172a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* =========================
-   Sticky full-bleed layer
+   2. Background Elements (Grid & Particles)
 ========================= */
-.video-sticky-layer {
-    position: sticky;
-    top: 0;
-
-    width: 100vw;
-    height: 100vh;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+.interlude-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
     overflow: hidden;
+}
 
+.bg-grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+}
 
-    /* GPU stability */
-    transform: translateZ(0);
+.floating-icon-wrapper {
+    position: absolute;
+    color: #3b82f6;
+    /* Tailwind Blue-500 */
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+}
+
+.glowing-icon {
+    stroke-width: 1.5px;
+    opacity: 0.8;
+}
+
+/* =========================
+   3. Layout Container (Grid vs Flex)
+========================= */
+.interlude-container {
+    max-width: 1200px;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+
+    /* Mobile Default: Flex Column with NO gap */
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+@media (min-width: 992px) {
+    .interlude-section {
+        height: 100vh;
+        min-height: 700px;
+        padding: 0;
+    }
+
+    .interlude-container {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: 1fr;
+        align-items: center;
+        gap: 0;
+    }
+}
+
+/* =========================
+   4. Video Card Layer (Left / Top)
+========================= */
+.video-card-layer {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    background: #000;
+
+    /* Mobile: Taller height to ensure visibility under overlap */
+    height: 450px;
+    width: 100%;
+    z-index: 10;
+}
+
+.cinematic-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-tint {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            rgba(15, 23, 42, 0.2),
+            rgba(59, 130, 246, 0.1));
     z-index: 2;
 }
 
-/* =========================
-   Video frame (clipping mask)
-========================= */
-.video-frame {
-    position: relative;
-    width: 100%;
-    height: 100%;
-
-
-    overflow: hidden;
-    will-change: transform, border-radius;
-    z-index: 3;
-    isolation: isolate;
-
+@media (min-width: 992px) {
+    .video-card-layer {
+        grid-column: 1 / 9;
+        /* Spans 8 columns */
+        grid-row: 1;
+        height: 550px;
+    }
 }
 
-.video-frame::after {
-    content: "";
-    position: absolute;
-    inset: 0;
+/* =========================
+   5. Glass Card Layer (Right / Bottom)
+========================= */
+.glass-card-layer {
+    z-index: 20;
 
-    background: rgba(0, 0, 0, 0.45);
-    z-index: 1;
+    /* MOBILE OVERLAP MAGIC */
+    /* Negative margin pulls this card UP over the video */
+    margin-top: -120px;
+    /* Side padding keeps it from touching screen edges */
+    padding: 0 1rem;
+}
+
+@media (min-width: 992px) {
+    .glass-card-layer {
+        grid-column: 8 / 13;
+        /* Overlaps video columns 8-9 */
+        grid-row: 1;
+        margin-top: 4rem;
+        /* Desktop offset */
+        padding: 0;
+    }
+}
+
+.glass-panel {
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+
+    /* Strong blur for readability */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    overflow: hidden;
+}
+
+/* =========================
+   6. Typography (The Fix)
+========================= */
+.glass-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* HEADING FIX: Force White Color */
+.glass-content h1 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.1;
+
+    /* !important ensures this overrides any global theme settings */
+    color: #ffffff !important;
+
+    margin: 0 0 1.5rem 0;
+    letter-spacing: -0.04em;
+}
+
+/* GRADIENT SPAN */
+.highlight-text {
+    background: linear-gradient(90deg, #60a5fa, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+
+    /* Ensure only this span gets the gradient, not the parent */
+    color: transparent;
+}
+
+/* SUBTEXT: Monospace & Light Grey */
+.glass-subtext {
+    font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', monospace;
+    font-size: 0.95rem;
+    line-height: 1.7;
+
+    /* Light grey for readability on dark bg */
+    color: #cbd5e1;
+
+    font-weight: 400;
+    max-width: 480px;
+    opacity: 1;
+}
+
+/* SUBTEXT HIGHLIGHT: Blue, Regular Weight */
+.glass-subtext strong {
+    font-weight: 400;
+    color: #60a5fa;
+}
+
+/* Desktop Typography Scaling */
+@media (min-width: 992px) {
+    .glass-content h1 {
+        font-size: 3.5rem;
+    }
+
+    .glass-subtext {
+        font-size: 1.05rem;
+    }
+}
+
+/* =========================
+   7. Decorative Shine Animation
+========================= */
+.shine-edge {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent);
+    transform: skewX(-20deg);
+    animation: shine 6s infinite;
     pointer-events: none;
 }
 
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
 
-/* =========================
-   Video element (background layer)
-========================= */
-.video-element {
-    position: absolute;
-    inset: 0;
+    20% {
+        left: 200%;
+    }
 
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-    object-position: center;
-
-    /* Remove subpixel seams during transforms */
-    transform: scale(1.02);
-    z-index: 0;
-}
-
-/* =========================
-   Overlay text
-========================= */
-.video-overlay {
-    position: absolute;
-    bottom: 12vh;
-    left: clamp(1.5rem, 8vw, 8rem);
-    max-width: 520px;
-
-    z-index: 2;
-}
-
-/* =========================
-   Text polish
-========================= */
-.outlined-text {
-    font-size: clamp(1.8rem, 3vw, 2.6rem);
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-
-
-    -webkit-text-stroke: 0.9px rgba(0, 0, 0, 0.35);
-    text-shadow:
-        0 3px 3px rgba(0, 0, 0, 0.25),
-        0 0 12px rgba(0, 0, 0, 0.15);
-}
-
-.outlined-subtext {
-    font-size: 1.15rem;
-    font-weight: 700;
-    line-height: 1.6;
-    opacity: 0.85;
-
-    -webkit-text-stroke: 0.4px rgba(0, 0, 0, 0.25);
-    text-shadow:
-        0 1px 1px rgba(0, 0, 0, 0.2),
-        0 0 8px rgba(0, 0, 0, 0.12);
+    100% {
+        left: 200%;
+    }
 }

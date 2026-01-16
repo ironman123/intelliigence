@@ -88,7 +88,7 @@ export default function ComparisonSection()
                     >
                         {/* LEFT: BARRIER */}
                         <div className="comp-side barrier-side">
-                            <div className="comp-icon mobile-only">
+                            <div className="comp-icon">
                                 <XCircle size={20} />
                             </div>
                             <div className="comp-text">

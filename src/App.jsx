@@ -23,10 +23,10 @@ import ChatWidget from "./components/ChatWidget";
 const Home = () => (
   <>
     <Hero />
-    <Ticker />
     <MissionSection />
-    <FeaturesLayout />
+    <Ticker />
     <VideoInterlude2 />
+    <FeaturesLayout />
     <DiscoverySlider />
     <EthicsSection />
     <ToolsSection />
@@ -65,24 +65,32 @@ export default function App()
 {
   useEffect(() =>
   {
-    // 1. Find existing favicon or create a new one
+    // 1. Manage Favicon
     let link = document.querySelector("link[rel~='icon']");
-
     if (!link)
     {
       link = document.createElement('link');
       link.rel = 'icon';
       document.head.appendChild(link);
     }
-
-    // 2. Set the image source
-    // Ensure 'favicon.png' is in your /public folder
     link.href = '/images/favicon.png';
 
-    // Optional: Change title dynamically too
-    document.title = "Intelligence";
+    // 2. Manage Document Title
+    document.title = "Intelligence | Data meets AI";
+
+    // 3. Manage Meta Description
+    let metaDescription = document.querySelector("meta[name='description']");
+    if (!metaDescription)
+    {
+      metaDescription = document.createElement('meta');
+      metaDescription.name = "description";
+      document.head.appendChild(metaDescription);
+    }
+    // Set your description text here
+    metaDescription.content = "Transform raw data into real-world action. We engineer systems that combine AI and data architecture to reason, adapt, and evolve.";
 
   }, []);
+
   return (
     <Router>
       <NotchedNavbar /> {/* Navbar stays on all pages */}
