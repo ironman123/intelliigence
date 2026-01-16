@@ -14,7 +14,7 @@
 
 /* --- SECTION LAYOUT --- */
 .discovery-section {
-    padding: 3rem 1.5rem;
+    padding: 2rem 1.5rem;
     background-color: var(--slate-50);
     overflow: hidden;
     font-family: system-ui, -apple-system, sans-serif;
@@ -124,17 +124,12 @@
     }
 }
 
+/* Base container for buttons */
 .nav-arrows {
-    display: none;
     gap: 1rem;
 }
 
-@media (min-width: 768px) {
-    .nav-arrows {
-        display: flex;
-    }
-}
-
+/* Button styling (Unchanged) */
 .arrow-btn {
     width: 48px;
     height: 48px;
@@ -155,6 +150,38 @@
     border-color: var(--slate-900);
 }
 
+/* --- RESPONSIVE DISPLAY LOGIC --- */
+
+/* 1. Mobile State (Default) */
+.desktop-only {
+    display: none;
+    /* Hide top buttons on mobile */
+}
+
+.mobile-only {
+    display: flex;
+    /* Show bottom buttons */
+    justify-content: center;
+    /* Center them */
+    width: 100%;
+    margin-top: 0.5rem;
+    /* Add space between slider and buttons */
+    padding-bottom: 1rem;
+}
+
+/* 2. Desktop State (Tablets and up) */
+@media (min-width: 768px) {
+    .desktop-only {
+        display: flex;
+        /* Show top buttons */
+    }
+
+    .mobile-only {
+        display: none;
+        /* Hide bottom buttons */
+    }
+}
+
 /* --- SLIDER TRACK --- */
 .slider-track {
     display: flex;
@@ -162,7 +189,7 @@
     overflow-x: auto;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
-    padding-bottom: 4rem;
+    padding-bottom: 1rem;
     /* Space for shadow */
     scrollbar-width: none;
 }

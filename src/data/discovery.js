@@ -29,7 +29,7 @@ export const DISCOVERY_CARDS = {
             link: "/solutions/core#predictive-ml"
         },
         {
-            title: "AI-Native Software Engineering",
+            title: "AI-Native Softwares",
             tagline: "Intelligence built into the core.",
             description: "Full-stack web and mobile applications where AI isn't an afterthought—it's the foundation. From vision-enabled tools to smart SaaS platforms.",
             image: "/images/ai-software.webp",

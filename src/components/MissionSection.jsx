@@ -19,7 +19,7 @@ const MissionSection = () =>
                     <span className="badge-pulse">
                         <span className="badge-dot-inner" />
                     </span>
-                    <span className="badge-text">SYSTEM_OBJECTIVE</span>
+                    <span className="badge-text">ABOUT_US</span>
                 </div>
 
                 {/* The Heading */}

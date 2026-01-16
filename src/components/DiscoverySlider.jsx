@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef } from "react";
-import { ArrowRight, ChevronLeft, ChevronRight, Image as ImageIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight, Image as ImageIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DISCOVERY_CARDS } from "../data/discovery";
 import "../styles/discovery.css";
@@ -14,7 +14,7 @@ export default function DiscoverySlider()
     {
         if (scrollContainerRef.current)
         {
-            const scrollAmount = 600; // Match desktop card width
+            const scrollAmount = 600;
             scrollContainerRef.current.scrollBy({
                 left: direction === "left" ? -scrollAmount : scrollAmount,
                 behavior: "smooth",
@@ -51,7 +51,8 @@ export default function DiscoverySlider()
                         </div>
                     </div>
 
-                    <div className="nav-arrows">
+                    {/* DESKTOP NAV: Top Right (Hidden on Mobile) */}
+                    <div className="nav-arrows desktop-only">
                         <button onClick={() => scroll('left')} className="arrow-btn"><ChevronLeft /></button>
                         <button onClick={() => scroll('right')} className="arrow-btn"><ChevronRight /></button>
                     </div>
@@ -71,7 +72,6 @@ export default function DiscoverySlider()
                                 transition={{ duration: 0.4, delay: index * 0.05 }}
                                 whileHover="hover"
                             >
-                                {/* Background Image with Zoom Effect */}
                                 {card.image ? (
                                     <motion.img
                                         src={card.image}
@@ -85,11 +85,7 @@ export default function DiscoverySlider()
                                         <ImageIcon color="#475569" size={64} />
                                     </div>
                                 )}
-
-                                {/* Gradient Overlay for Readability */}
                                 <div className="card-gradient" />
-
-                                {/* Text Content */}
                                 <div className="card-content">
                                     <motion.div
                                         variants={{ hover: { y: -8 } }}
@@ -104,10 +100,17 @@ export default function DiscoverySlider()
                         ))}
                     </AnimatePresence>
                 </div>
+
+                {/* MOBILE NAV: Bottom Center (Hidden on Desktop) */}
+                <div className="nav-arrows mobile-only">
+                    <button onClick={() => scroll('left')} className="arrow-btn"><ChevronLeft /></button>
+                    <button onClick={() => scroll('right')} className="arrow-btn"><ChevronRight /></button>
+                </div>
             </div>
         </section>
     );
 }
+
 
 // --- Background Particles Sub-Component ---
 const FloatingParticles = ({ theme }) =>

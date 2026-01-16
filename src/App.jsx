@@ -8,7 +8,7 @@ import Ticker from "./components/Ticker";
 import VideoInterlude from "./components/VideoInterlude";
 import VideoInterlude2 from "./components/VideoInterlude2";
 import DiscoveryLayer from "./components/DiscoveryLayer";
-import DiscoverySlider from "./components/DsicoverySlider";
+import DiscoverySlider from "./components/DiscoverySlider";
 import EthicsSection from "./components/EthicsSection";
 import Footer from "./components/Footer";
 import SolutionsPage from "./components/solutions/SolutionsPage";
