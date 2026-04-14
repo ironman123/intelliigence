@@ -2,15 +2,15 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import
-    {
-        ArrowRight, CheckCircle2, Play, Star, Quote,
-        Calculator, ShieldCheck, Receipt, TrendingUp, CreditCard, LineChart,
-        Target, BrainCircuit, MessageCircle, Users, Zap, Mail,
-        BookOpen, Coins, Calendar, GraduationCap, Bell, BarChart,
-        Radar, BarChart3, Building2, Truck, ScanLine,
-        FileText, CalendarDays, Microscope, Smartphone, Pill,
-        MonitorPlay, Network, Timer, PackageMinus, Activity, TerminalSquare
-    } from "lucide-react";
+{
+    ArrowRight, CheckCircle2, Play, Star, Quote,
+    Calculator, ShieldCheck, Receipt, TrendingUp, CreditCard, LineChart,
+    Target, BrainCircuit, MessageCircle, Users, Zap, Mail,
+    BookOpen, Coins, Calendar, GraduationCap, Bell, BarChart,
+    Radar, BarChart3, Building2, Truck, ScanLine,
+    FileText, CalendarDays, Microscope, Smartphone, Pill,
+    MonitorPlay, Network, Timer, PackageMinus, Activity, TerminalSquare
+} from "lucide-react";
 
 // ─── PRODUCT DATA ────────────────────────────────────────────────────────────
 const PRODUCT_DATA = {
@@ -350,10 +350,16 @@ export default function ProductPage({ productId })
                     <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }}>
                         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
                             {data.stats.map((stat, i) => (
-                                <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: i * 0.1 }}
                                     style={{
                                         padding: "48px 40px",
                                         borderRight: i < 2 ? "1px solid #f1f5f9" : "none",
+                                        textAlign: "center" // ← Added this property to center the content
                                     }}
                                 >
                                     <div style={{ fontSize: 13, color: "#94a3b8", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 12 }}>
