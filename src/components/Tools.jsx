@@ -2,7 +2,7 @@ import React from "react";
 import { TOOLS_DATA } from "../data/tools";
 import "../styles/tools.css";
 
-export default function ToolsSection()
+export default function Tools()
 {
     return (
         <section className="tools-section">

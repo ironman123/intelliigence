@@ -1,3 +1,4 @@
+// App.jsx
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
@@ -15,9 +16,11 @@ import SolutionsPage from "./components/solutions/SolutionsPage";
 import SolutionsGateway from "./components/SolutionsGateway";
 import MissionSection from "./components/MissionSection";
 import FeaturesLayout from "./components/FeatureLayout";
-import ToolsSection from "./components/ToolSection";
-
+import Tools from "./components/Tools";
+import SaaSSection from "./components/SaaSSection";
+import ToolsSection from "./components/ToolsSection";
 import ChatWidget from "./components/ChatWidget";
+import ProductPage from "./components/ProductPage";
 
 //Create a wrapper for the Home page to keep App.js clean
 const Home = () => (
@@ -26,10 +29,12 @@ const Home = () => (
     <MissionSection />
     <Ticker />
     <VideoInterlude2 />
-    <FeaturesLayout />
+    {/* <FeaturesLayout /> */}
+    <SaaSSection />
+    <ToolsSection />
     <DiscoverySlider />
     <EthicsSection />
-    <ToolsSection />
+    <Tools />
   </>
 );
 function AnimatedRoutes()
@@ -38,25 +43,37 @@ function AnimatedRoutes()
 
   return (
     <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
-        <Route path="/solutions" element={<SolutionsGateway />} />
+      <div key={location.pathname} style={{ overflow: "visible" }}>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Home />} />
+          <Route path="/solutions" element={<SolutionsGateway />} />
 
-        <Route
-          path="/solutions/core"
-          element={<SolutionsPage layer="core" />}
-        />
-        <Route
-          path="/solutions/emerging"
-          element={<SolutionsPage layer="emerging" />}
-        />
-        <Route
-          path="/solutions/vision"
-          element={<SolutionsPage layer="vision" />}
-        />
+          <Route
+            path="/solutions/core"
+            element={<SolutionsPage layer="core" />}
+          />
+          <Route
+            path="/solutions/emerging"
+            element={<SolutionsPage layer="emerging" />}
+          />
+          <Route
+            path="/solutions/vision"
+            element={<SolutionsPage layer="vision" />}
+          />
 
-        <Route path="*" element={<Home />} />
-      </Routes>
+
+
+          // In your router:
+          <Route path="/products/financeiq" element={<ProductPage productId="financeiq" />} />
+          <Route path="/products/nexuscrm" element={<ProductPage productId="nexuscrm" />} />
+          <Route path="/products/scholaros" element={<ProductPage productId="scholaros" />} />
+          <Route path="/products/inventoryai" element={<ProductPage productId="inventoryai" />} />
+          <Route path="/products/mediswarm" element={<ProductPage productId="mediswarm" />} />
+          <Route path="/products/kitchensync" element={<ProductPage productId="kitchensync" />} />
+
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </div>
     </AnimatePresence>
   );
 }

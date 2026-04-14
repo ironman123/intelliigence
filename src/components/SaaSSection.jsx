@@ -1,0 +1,147 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import
+{
+    Activity,
+    ChefHat,
+    GraduationCap,
+    Satellite,
+    LineChart,
+    Users,
+    ArrowRight
+} from "lucide-react";
+import "../styles/saas.css";
+
+const SAAS_PRODUCTS = [
+    {
+        id: "financeiq",
+        category: "FINANCIAL MANAGEMENT",
+        icon: <LineChart size={20} strokeWidth={2} className="text-blue-500" />,
+        iconBg: "bg-blue-50",
+        themeColor: "#3b82f6",
+        title: "FinanceIQ",
+        description: "Accounting, invoicing, tax compliance, and cash flow forecasting powered by intelligent document processing.",
+        tags: ["GST-ready", "Auto-reconciliation", "Multi-currency"],
+        link: "/products/financeiq"
+    },
+    {
+        id: "nexuscrm",
+        category: "CUSTOMER EXPERIENCE",
+        icon: <Users size={20} strokeWidth={2} className="text-emerald-500" />,
+        iconBg: "bg-emerald-50",
+        themeColor: "#10b981",
+        title: "NexusCRM",
+        description: "Track every deal, automate follow-ups, and personalize every customer touchpoint with highly constrained agentic workflows.",
+        tags: ["Sales pipeline", "Lead scoring", "WhatsApp integration"],
+        link: "/products/nexuscrm"
+    },
+    {
+        id: "scholaros",
+        category: "EDUCATION",
+        icon: <GraduationCap size={20} strokeWidth={2} className="text-indigo-500" />,
+        iconBg: "bg-indigo-50",
+        themeColor: "#6366f1",
+        title: "ScholarOS",
+        description: "Purpose-built Learning Management System optimized for high-stakes competitive exams like KPSC and GATE.",
+        tags: ["Exam scraping", "Mock engines", "Performance analytics"],
+        link: "/products/scholaros"
+    },
+    {
+        id: "omnisense",
+        category: "DEFENSE & INFRA",
+        icon: <Satellite size={20} strokeWidth={2} className="text-slate-700" />,
+        iconBg: "bg-slate-100",
+        themeColor: "#334155",
+        title: "OmniSense",
+        description: "Autonomous sensor fusion and drone management systems designed for robust operational awareness and asset tracking.",
+        tags: ["Sensor fusion", "Edge AI", "AaaS"],
+        link: "/products/omnisense"
+    },
+    {
+        id: "mediswarm",
+        category: "HEALTHCARE",
+        icon: <Activity size={20} strokeWidth={2} className="text-rose-500" />,
+        iconBg: "bg-rose-50",
+        themeColor: "#f43f5e",
+        title: "MediSwarm",
+        description: "Physician-First Automation workflow. Hard-locked simulation architecture ensuring no inferences pass without licensed doctor review.",
+        tags: ["Physician-in-the-loop", "Compliance-ready", "EMR Integration"],
+        link: "/products/mediswarm"
+    },
+    {
+        id: "kitchensync",
+        category: "HOSPITALITY",
+        icon: <ChefHat size={20} strokeWidth={2} className="text-amber-500" />,
+        iconBg: "bg-amber-50",
+        themeColor: "#f59e0b",
+        title: "KitchenSync",
+        description: "Production-ready Kitchen Display System (KDS) engineered for multi-branch synchronization and real-time order routing.",
+        tags: ["Multi-branch", "Real-time routing", "Inventory tracking"],
+        link: "/products/kitchensync"
+    }
+];
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.08, delayChildren: 0.1 }
+    }
+};
+
+const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
+};
+
+export default function SaaSSection()
+{
+    return (
+        <section className="saas-section">
+            <div className="saas-header">
+                <span className="saas-eyebrow">INTELLIIGENCE BUSINESS ECOSYSTEM</span>
+                <h2 className="saas-title">Equip every team with purpose-built software</h2>
+                <p className="saas-subtitle">
+                    Equip every team with the tools to adapt, scale, and deliver real results.
+                </p>
+            </div>
+
+            <motion.div
+                className="saas-grid"
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+            >
+                {SAAS_PRODUCTS.map((product) => (
+                    <motion.div key={product.id} className="saas-card" variants={cardVariants} style={{ "--card-theme": product.themeColor }}>
+                        <div className="saas-card-header">
+                            <div className={`saas-icon-wrapper ${product.iconBg}`}>
+                                {product.icon}
+                            </div>
+                            <span className="saas-category">{product.category}</span>
+                        </div>
+
+                        <div className="saas-card-body">
+                            <h3 className="saas-card-title">{product.title}</h3>
+                            <p className="saas-card-description">{product.description}</p>
+                        </div>
+
+                        <div className="saas-tags">
+                            {product.tags.map((tag, index) => (
+                                <span key={index} className="saas-tag">{tag}</span>
+                            ))}
+                        </div>
+
+                        <div className="saas-card-footer">
+                            <Link to={product.link} className="saas-explore-link">
+                                Explore <ArrowRight size={16} className="arrow-icon" />
+                            </Link>
+                        </div>
+                    </motion.div>
+                ))}
+            </motion.div>
+        </section>
+    );
+}

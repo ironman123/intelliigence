@@ -1,0 +1,235 @@
+/* Color Palette & Variables mimicking shadcn/ui */
+:root {
+    --saas-bg: #ffffff;
+    --saas-border: hsl(214.3, 31.8%, 91.4%);
+    /* Crisp, light gray border */
+    --saas-border-hover: hsl(214.3, 31.8%, 80%);
+    --saas-foreground: hsl(222.2, 84%, 4.9%);
+    /* Near black for headings */
+    --saas-muted: hsl(215.4, 16.3%, 46.9%);
+    /* Perfect reading gray */
+    --saas-tag-bg: hsl(210, 40%, 96.1%);
+    --saas-tag-fg: hsl(215.4, 16.3%, 46.9%);
+    --saas-primary: #2563eb;
+    /* Crisp blue */
+}
+
+.saas-section {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+    background-color: transparent;
+}
+
+.saas-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.saas-eyebrow {
+    color: var(--saas-primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.saas-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--saas-foreground);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.saas-subtitle {
+    font-size: 1.125rem;
+    color: var(--saas-muted);
+    line-height: 1.5;
+}
+
+/* Grid Layout */
+.saas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Card Styling (Shadcn Card Component feel) */
+.saas-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--saas-bg);
+    border: 1px solid var(--saas-border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05);
+}
+
+.saas-card:hover {
+    /* Uses the dynamic variable injected from React, falls back to default if missing */
+    border-color: var(--card-theme, var(--saas-border-hover));
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+}
+
+/* Card Header & Icons */
+.saas-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    margin-bottom: 1.5rem;
+}
+
+.saas-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+/* Icon Background Utility Classes */
+.bg-rose-50 {
+    background-color: #fff1f2;
+}
+
+.bg-amber-50 {
+    background-color: #fffbeb;
+}
+
+.bg-indigo-50 {
+    background-color: #eef2ff;
+}
+
+.bg-slate-100 {
+    background-color: #f1f5f9;
+}
+
+.bg-blue-50 {
+    background-color: #eff6ff;
+}
+
+.bg-emerald-50 {
+    background-color: #ecfdf5;
+}
+
+/* Icon Color Utility Classes */
+.text-rose-500 {
+    color: #f43f5e;
+}
+
+.text-amber-500 {
+    color: #f59e0b;
+}
+
+.text-indigo-500 {
+    color: #6366f1;
+}
+
+.text-slate-700 {
+    color: #334155;
+}
+
+.text-blue-500 {
+    color: #3b82f6;
+}
+
+.text-emerald-500 {
+    color: #10b981;
+}
+
+.saas-category {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #94a3b8;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* Card Body */
+.saas-card-body {
+    flex-grow: 1;
+}
+
+.saas-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--saas-foreground);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+}
+
+.saas-card-description {
+    font-size: 0.9375rem;
+    color: var(--saas-muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+/* Tags (Pill design) */
+.saas-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.saas-tag {
+    background: var(--saas-tag-bg);
+    color: var(--saas-tag-fg);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    /* Pill shape */
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid var(--saas-border);
+}
+
+/* Footer Link */
+.saas-card-footer {
+    margin-top: auto;
+    padding-top: 0.5rem;
+}
+
+.saas-explore-link {
+    display: inline-flex;
+    align-items: center;
+    color: var(--saas-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.saas-explore-link .arrow-icon {
+    margin-left: 0.25rem;
+    transition: transform 0.2s ease;
+}
+
+.saas-card:hover .saas-explore-link .arrow-icon {
+    transform: translateX(4px);
+}
+
+.saas-explore-link:hover {
+    color: #1d4ed8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .saas-section {
+        padding: 4rem 1rem;
+    }
+
+    .saas-title {
+        font-size: 1.875rem;
+    }
+}
