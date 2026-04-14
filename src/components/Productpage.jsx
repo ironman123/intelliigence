@@ -399,7 +399,7 @@ export default function ProductPage({ productId })
 
                 {/* ── CAPABILITIES ─────────────────────────────────────────────── */}
                 <section style={{ background: "#ffffff", padding: "120px 0", borderTop: "1px solid #f1f5f9" }}>
-                    <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }}>
+                    <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px 0 90px" }}>
                         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
                             <motion.div variants={fadeUp} style={{ marginBottom: 64 }}>
                                 <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: "0.08em", color: theme.primary, textTransform: "uppercase" }}>
