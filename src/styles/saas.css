@@ -110,6 +110,10 @@
     background-color: #eef2ff;
 }
 
+.bg-orange-50 {
+    background-color: #fcefec;
+}
+
 .bg-slate-100 {
     background-color: #f1f5f9;
 }
@@ -133,6 +137,10 @@
 
 .text-indigo-500 {
     color: #6366f1;
+}
+
+.text-orange-700 {
+    color: #ff7512;
 }
 
 .text-slate-700 {

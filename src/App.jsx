@@ -64,12 +64,12 @@ function AnimatedRoutes()
 
 
           // In your router:
-          <Route path="/products/financeiq" element={<ProductPage productId="financeiq" />} />
-          <Route path="/products/nexuscrm" element={<ProductPage productId="nexuscrm" />} />
-          <Route path="/products/scholaros" element={<ProductPage productId="scholaros" />} />
-          <Route path="/products/inventoryai" element={<ProductPage productId="inventoryai" />} />
-          <Route path="/products/mediswarm" element={<ProductPage productId="mediswarm" />} />
-          <Route path="/products/kitchensync" element={<ProductPage productId="kitchensync" />} />
+          <Route path="/products/financemanager" element={<ProductPage productId="financemanager" />} />
+          <Route path="/products/crmportal" element={<ProductPage productId="crmportal" />} />
+          <Route path="/products/schoolmanager" element={<ProductPage productId="schoolmanager" />} />
+          <Route path="/products/inventorymanager" element={<ProductPage productId="inventorymanager" />} />
+          <Route path="/products/clinicmanager" element={<ProductPage productId="clinicmanager" />} />
+          <Route path="/products/kitchendisplaysystem" element={<ProductPage productId="kitchendisplaysystem" />} />
 
           <Route path="*" element={<Home />} />
         </Routes>

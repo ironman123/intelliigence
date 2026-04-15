@@ -14,9 +14,9 @@ import
 
 // ─── PRODUCT DATA ────────────────────────────────────────────────────────────
 const PRODUCT_DATA = {
-    financeiq: {
+    financemanager: {
         badge: "FINANCIAL MANAGEMENT",
-        title: "FinanceIQ",
+        title: "Finance Manager",
         tagline: "Financial management that thinks ahead.",
         description: "Complete accounting, invoicing, tax compliance and cash flow forecasting — all in one intelligent platform designed for modern businesses.",
         theme: { primary: "#2563eb", light: "#eff6ff", border: "#bfdbfe", accent: "#1d4ed8", soft: "rgba(37,99,235,0.08)", glow: "rgba(37,99,235,0.15)" },
@@ -40,12 +40,12 @@ const PRODUCT_DATA = {
             { title: "Invoicing & Payments", items: ["Professional invoice templates", "Payment gateway integration", "Recurring invoices and subscriptions", "Automatic payment reminders", "Credit and debit note management"] },
             { title: "Analytics & Insights", items: ["Cash flow forecasting with AI", "Profit margin analysis by product/service", "Customer payment behavior insights", "Budget vs actuals comparison", "Custom financial dashboards"] },
         ],
-        testimonial: { quote: "FinanceIQ cut our month-end close from 5 days to 6 hours. Our CA now just reviews instead of doing manual entry. It's been transformational.", name: "Arjun Mehta", role: "CFO, Meridian Exports" },
+        testimonial: { quote: "Finance Manager cut our month-end close from 5 days to 6 hours. Our CA now just reviews instead of doing manual entry. It's been transformational.", name: "Arjun Mehta", role: "CFO, Meridian Exports" },
     },
 
-    nexuscrm: {
+    crmportal: {
         badge: "CUSTOMER RELATIONSHIP",
-        title: "NexusCRM",
+        title: "CRM Portal",
         tagline: "Relationships powered by intelligence.",
         description: "Track every deal, automate follow-ups, and personalise every customer touchpoint with AI-driven insights that close more sales.",
         theme: { primary: "#059669", light: "#ecfdf5", border: "#a7f3d0", accent: "#047857", soft: "rgba(5,150,105,0.08)", glow: "rgba(5,150,105,0.15)" },
@@ -69,12 +69,12 @@ const PRODUCT_DATA = {
             { title: "Customer Engagement", items: ["WhatsApp, SMS, and email integration", "Customer portal for self-service", "Support ticket management", "Customer satisfaction surveys", "Loyalty program integration"] },
             { title: "Analytics & Reporting", items: ["Sales funnel conversion analysis", "Team performance metrics", "Customer lifetime value tracking", "Campaign ROI measurement", "Custom report builder"] },
         ],
-        testimonial: { quote: "NexusCRM's AI lead scoring helped us prioritize high-value prospects. Our conversion rate tripled and our sales team is closing deals faster than ever before.", name: "Vikram Patel", role: "Head of Sales, TechVentures India" },
+        testimonial: { quote: "CRM Portal's AI lead scoring helped us prioritize high-value prospects. Our conversion rate tripled and our sales team is closing deals faster than ever before.", name: "Vikram Patel", role: "Head of Sales, TechVentures India" },
     },
 
-    scholaros: {
+    schoolmanager: {
         badge: "EDUCATION MANAGEMENT",
-        title: "ScholarOS",
+        title: "School Manager",
         tagline: "Management that empowers educators.",
         description: "Run admissions, fees, timetables, exams, and parent communication from a single system built for modern educational institutions.",
         theme: { primary: "#7c3aed", light: "#f5f3ff", border: "#ddd6fe", accent: "#6d28d9", soft: "rgba(124,58,237,0.08)", glow: "rgba(124,58,237,0.15)" },
@@ -98,12 +98,12 @@ const PRODUCT_DATA = {
             { title: "Fee & Finance", items: ["Multi-tier fee structures", "Online payment gateway integration", "Fee concessions and scholarships", "Late fee calculation and reminders", "Detailed financial reports for trustees"] },
             { title: "Communication Hub", items: ["Mobile app for parents and students", "Push notifications for important updates", "Parent-teacher meeting scheduler", "Event calendar and announcements", "Emergency broadcast messaging"] },
         ],
-        testimonial: { quote: "ScholarOS replaced 4 separate tools. Parents love the app and our staff spends half the time on admin tasks. We can finally focus on what matters — teaching.", name: "Priya Sharma", role: "Principal, Delhi Modern School" },
+        testimonial: { quote: "School Manager replaced 4 separate tools. Parents love the app and our staff spends half the time on admin tasks. We can finally focus on what matters — teaching.", name: "Priya Sharma", role: "Principal, Delhi Modern School" },
     },
 
-    inventoryai: {
+    inventorymanager: {
         badge: "SUPPLY CHAIN",
-        title: "InventoryAI",
+        title: "Inventory Manager",
         tagline: "Intelligence that anticipates demand.",
         description: "Real-time stock tracking with AI demand forecasting across multiple warehouses, eliminating stockouts and reducing excess inventory.",
         theme: { primary: "#d97706", light: "#fffbeb", border: "#fde68a", accent: "#b45309", soft: "rgba(217,119,6,0.08)", glow: "rgba(217,119,6,0.15)" },
@@ -127,12 +127,12 @@ const PRODUCT_DATA = {
             { title: "Warehouse Operations", items: ["Bin location management", "Pick, pack, and ship workflows", "Inter-warehouse transfers", "Goods receipt and quality check", "Mobile app for warehouse staff"] },
             { title: "AI & Forecasting", items: ["Demand forecasting with machine learning", "Automatic reorder point calculation", "Seasonal trend analysis", "Dead stock and slow-moving item alerts", "Optimal stock level recommendations"] },
         ],
-        testimonial: { quote: "InventoryAI's demand forecasting reduced our excess stock by 35% while eliminating stockouts. We finally have the right products at the right time.", name: "Rajesh Kumar", role: "Supply Chain Director, Bharat Retail Group" },
+        testimonial: { quote: "Inventory Managers's demand forecasting reduced our excess stock by 35% while eliminating stockouts. We finally have the right products at the right time.", name: "Rajesh Kumar", role: "Supply Chain Director, Bharat Retail Group" },
     },
 
-    mediswarm: {
+    clinicmanager: {
         badge: "PHYSICIAN-FIRST AUTOMATION",
-        title: "MediSwarm",
+        title: "Clinic Manager",
         tagline: "Management that prioritizes patient care.",
         description: "Patient records, appointments, lab reports and billing built for clinics and diagnostics, with hard-locked physician oversight ensuring compliance at every step.",
         theme: { primary: "#dc2626", light: "#fef2f2", border: "#fecaca", accent: "#b91c1c", soft: "rgba(220,38,38,0.08)", glow: "rgba(220,38,38,0.15)" },
@@ -156,13 +156,13 @@ const PRODUCT_DATA = {
             { title: "Revenue Cycle", items: ["Registration and billing workflows", "Insurance verification and pre-authorization", "Claim submission and tracking", "Payment collection and receipts", "Revenue and collection reports"] },
             { title: "Patient Engagement", items: ["Online appointment booking", "Automated SMS and email reminders", "Patient mobile app access", "Telemedicine consultation", "Health education and follow-up campaigns"] },
         ],
-        testimonial: { quote: "MediSwarm streamlined our entire workflow. From appointments to lab reports to billing, everything is connected. Our patients love the mobile app and we've seen dramatic improvements in efficiency.", name: "Dr. Sunita Rao", role: "Medical Director, Apollo Diagnostics Centre" },
+        testimonial: { quote: "Clinic Manager streamlined our entire workflow. From appointments to lab reports to billing, everything is connected. Our patients love the mobile app and we've seen dramatic improvements in efficiency.", name: "Dr. Sunita Rao", role: "Medical Director, Apollo Diagnostics Centre" },
     },
 
-    kitchensync: {
+    kitchendisplaysystem: {
         badge: "HOSPITALITY",
-        title: "KitchenSync",
-        tagline: "Kitchen intelligence that never misses an order.",
+        title: "Kitchen Display System",
+        tagline: "Kitchen system that never misses an order.",
         description: "Production-ready Kitchen Display System engineered for multi-branch synchronization and real-time order routing across every station.",
         theme: { primary: "#f59e0b", light: "#fffbeb", border: "#fde68a", accent: "#d97706", soft: "rgba(245,158,11,0.08)", glow: "rgba(245,158,11,0.15)" },
         heroImage: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80",
@@ -185,7 +185,7 @@ const PRODUCT_DATA = {
             { title: "Inventory & Recipes", items: ["Recipe costing and yield management", "Real-time ingredient consumption tracking", "Automated purchase order triggers", "Waste logging and variance reports", "Supplier management and ordering"] },
             { title: "Analytics & Reporting", items: ["Average ticket time by station and shift", "Menu item performance analysis", "Peak hour demand forecasting", "Staff productivity metrics", "Food cost and margin reports"] },
         ],
-        testimonial: { quote: "KitchenSync eliminated the chaos in our kitchen. Orders route to the right station instantly and our ticket times dropped by 40%. It's the backbone of our operations now.", name: "Chef Anand Krishnamurthy", role: "Executive Chef, Spice Route Restaurants" },
+        testimonial: { quote: "Kitchen Display System eliminated the chaos in our kitchen. Orders route to the right station instantly and our ticket times dropped by 40%. It's the backbone of our operations now.", name: "Chef Anand Krishnamurthy", role: "Executive Chef, Spice Route Restaurants" },
     },
 };
 
@@ -313,9 +313,9 @@ export default function ProductPage({ productId })
                                         onMouseEnter={(e) => { e.currentTarget.style.background = theme.accent; e.currentTarget.style.transform = "translateY(-2px)"; }}
                                         onMouseLeave={(e) => { e.currentTarget.style.background = theme.primary; e.currentTarget.style.transform = "translateY(0)"; }}
                                     >
-                                        Start Free Trial <ArrowRight size={18} />
+                                        Book a Demo <ArrowRight size={18} />
                                     </button>
-                                    <button style={{
+                                    {/* <button style={{
                                         display: "flex", alignItems: "center", gap: 8,
                                         background: "rgba(255,255,255,0.05)", color: "#f8fafc",
                                         border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10,
@@ -326,7 +326,7 @@ export default function ProductPage({ productId })
                                         onMouseLeave={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.05)"}
                                     >
                                         <Play size={16} /> Watch Demo
-                                    </button>
+                                    </button> */}
                                 </motion.div>
                             </motion.div>
 
@@ -453,7 +453,7 @@ export default function ProductPage({ productId })
                                 onMouseEnter={(e) => { e.currentTarget.style.background = theme.accent; e.currentTarget.style.transform = "translateY(-2px)"; }}
                                 onMouseLeave={(e) => { e.currentTarget.style.background = theme.primary; e.currentTarget.style.transform = "translateY(0)"; }}
                             >
-                                Start Free Trial
+                                Book a Demo
                             </button>
                         </div>
                         <p style={{ fontSize: 14, color: "#475569", marginTop: 24, fontWeight: 500 }}>
@@ -468,17 +468,17 @@ export default function ProductPage({ productId })
 
 // ─── DEMO WRAPPER ────────────────────────────────────────────────────────────
 const PRODUCTS = [
-    { id: "financeiq", label: "FinanceIQ", color: "#2563eb" },
-    { id: "nexuscrm", label: "NexusCRM", color: "#059669" },
-    { id: "scholaros", label: "ScholarOS", color: "#7c3aed" },
+    { id: "financemanager", label: "Finance Manager", color: "#2563eb" },
+    { id: "crmportal", label: "CRM Portal", color: "#059669" },
+    { id: "schoolmanager", label: "School Manager", color: "#7c3aed" },
     { id: "inventoryai", label: "InventoryAI", color: "#d97706" },
-    { id: "mediswarm", label: "MediSwarm", color: "#dc2626" },
-    { id: "kitchensync", label: "KitchenSync", color: "#f59e0b" },
+    { id: "clinicmanager", label: "Clinic Manager", color: "#dc2626" },
+    { id: "kitchendisplaysystem", label: "Kitchen Display System", color: "#f59e0b" },
 ];
 
 export function ProductPageDemo()
 {
-    const [active, setActive] = useState("financeiq");
+    const [active, setActive] = useState("financemanager");
 
     return (
         <div style={{ fontFamily: "'Inter', sans-serif" }}>
