@@ -11,6 +11,7 @@ import
     FileText, CalendarDays, Microscope, Smartphone, Pill,
     MonitorPlay, Network, Timer, PackageMinus, Activity, TerminalSquare
 } from "lucide-react";
+import ProjectModal from "./ProjectModal";
 
 // ─── PRODUCT DATA ────────────────────────────────────────────────────────────
 const PRODUCT_DATA = {
@@ -253,9 +254,11 @@ const CapabilityGroup = ({ title, items, theme }) => (
 );
 
 // ─── MAIN PRODUCT PAGE COMPONENT ─────────────────────────────────────────────
-export default function ProductPage({ productId })
+export function ProductPage({ productId })
 {
     const data = PRODUCT_DATA[productId];
+
+    const [isProjectOpen, setIsProjectOpen] = useState(false);
 
     if (!data) return <div style={{ padding: 80, textAlign: "center" }}>Product not found.</div>;
     const { theme } = data;
@@ -310,6 +313,7 @@ export default function ProductPage({ productId })
                                         borderRadius: 10, padding: "16px 32px", fontSize: 15, fontWeight: 600,
                                         cursor: "pointer", transition: "all 0.2s", boxShadow: `0 8px 24px -8px ${theme.primary}`
                                     }}
+                                        onClick={e => { e.stopPropagation(); setIsProjectOpen(true); }}
                                         onMouseEnter={(e) => { e.currentTarget.style.background = theme.accent; e.currentTarget.style.transform = "translateY(-2px)"; }}
                                         onMouseLeave={(e) => { e.currentTarget.style.background = theme.primary; e.currentTarget.style.transform = "translateY(0)"; }}
                                     >
@@ -450,6 +454,7 @@ export default function ProductPage({ productId })
                                 padding: "16px 36px", fontSize: 16, fontWeight: 600, cursor: "pointer",
                                 transition: "all 0.2s", boxShadow: `0 8px 24px -8px ${theme.primary}`
                             }}
+                                onClick={e => { e.stopPropagation(); setIsProjectOpen(true); }}
                                 onMouseEnter={(e) => { e.currentTarget.style.background = theme.accent; e.currentTarget.style.transform = "translateY(-2px)"; }}
                                 onMouseLeave={(e) => { e.currentTarget.style.background = theme.primary; e.currentTarget.style.transform = "translateY(0)"; }}
                             >
@@ -462,7 +467,9 @@ export default function ProductPage({ productId })
                     </div>
                 </section>
             </motion.div>
+            <ProjectModal isOpen={isProjectOpen} onClose={() => setIsProjectOpen(false)} />
         </AnimatePresence>
+
     );
 }
 

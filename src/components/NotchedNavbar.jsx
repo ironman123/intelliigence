@@ -4,8 +4,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import
 {
     LineChart, Users, GraduationCap, Activity, ChefHat,
-    Satellite, ChevronDown, ArrowUpRight, X
+    Satellite, ChevronDown, ArrowUpRight, X,
+    Package
 } from "lucide-react";
+import ProjectModal from "./ProjectModal";
 import { navVariants, drawerVariants, notchVariants } from "../animations/navbarAnimations";
 import "../styles/navbar.css";
 
@@ -67,16 +69,27 @@ const SAAS_PRODUCTS = [
         link: "/products/kitchendisplaysystem",
     },
     {
-        id: "omnisense",
-        category: "DEFENSE & INFRA",
-        icon: Satellite,
-        iconColor: "#94a3b8",
-        iconBg: "rgba(148,163,184,0.12)",
-        title: "OmniSense",
-        description: "Autonomous sensor fusion and drone management for operational awareness.",
-        tags: ["Sensor fusion", "Edge AI"],
-        link: "/products/omnisense",
+        id: "inventorymanager",
+        category: "SUPPLY CHAIN",
+        icon: Package,
+        iconColor: "#d97709",
+        iconBg: "rgba(217,119,9,0.12)",
+        title: "Inventory Manager",
+        description: "Plug capital leaks with predictive, real-time inventory tracking.",
+        tags: ["Predictive Forecasting", "Real-Time Tracking", "Loss Prevention"],
+        link: "/products/inventorymanager"
     },
+    // {
+    //     id: "omnisense",
+    //     category: "DEFENSE & INFRA",
+    //     icon: Satellite,
+    //     iconColor: "#94a3b8",
+    //     iconBg: "rgba(148,163,184,0.12)",
+    //     title: "OmniSense",
+    //     description: "Autonomous sensor fusion and drone management for operational awareness.",
+    //     tags: ["Sensor fusion", "Edge AI"],
+    //     link: "/products/omnisense",
+    // },
 ];
 
 // ─── Mega Menu ───────────────────────────────────────────────────────────────
@@ -193,6 +206,8 @@ export default function NotchedNavbar()
     const [megaOpen, setMegaOpen] = useState(false);
     const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
     const megaTimeoutRef = useRef(null);
+    const [isProjectOpen, setIsProjectOpen] = useState(false);
+
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -316,9 +331,9 @@ export default function NotchedNavbar()
                     </ul>
 
                     {/* CTA */}
-                    {/* <Link to="/solutions" className="nb-cta">
+                    <button onClick={e => { e.stopPropagation(); setIsProjectOpen(true); }} className="nb-cta">
                         Get Started
-                    </Link> */}
+                    </button>
 
                     {/* Mobile toggle */}
                     <button className="nb-mobile-toggle" onClick={() => setDrawerOpen(true)}>
@@ -441,6 +456,7 @@ export default function NotchedNavbar()
                     </>
                 )}
             </AnimatePresence>
+            <ProjectModal isOpen={isProjectOpen} onClose={() => setIsProjectOpen(false)} />
         </>
     );
 }

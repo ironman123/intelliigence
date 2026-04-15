@@ -20,7 +20,7 @@ import Tools from "./components/Tools";
 import SaaSSection from "./components/SaaSSection";
 import ToolsSection from "./components/ToolsSection";
 import ChatWidget from "./components/ChatWidget";
-import ProductPage from "./components/ProductPage";
+import { ProductPage, ProductPageDemo } from "./components/ProductPage";
 
 //Create a wrapper for the Home page to keep App.js clean
 const Home = () => (
@@ -70,6 +70,8 @@ function AnimatedRoutes()
           <Route path="/products/inventorymanager" element={<ProductPage productId="inventorymanager" />} />
           <Route path="/products/clinicmanager" element={<ProductPage productId="clinicmanager" />} />
           <Route path="/products/kitchendisplaysystem" element={<ProductPage productId="kitchendisplaysystem" />} />
+
+          {/* <Route path="/products/demo-playground" element={<ProductPageDemo />} /> */}
 
           <Route path="*" element={<Home />} />
         </Routes>

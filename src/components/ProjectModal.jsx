@@ -54,12 +54,12 @@ const PROJECT_TYPES = [
 const S = {
     dialog: {
         border: "none",
-        borderRadius: "16px 0 0 16px",
+        borderRadius: "16px 16px 16px 16px",
         padding: 0,
         background: "transparent",
         maxWidth: 560,
         width: "calc(100vw - 32px)",
-        height: "100vh",
+        // height: "100vh",
         maxHeight: "90vh",
         overflowY: "auto",
         boxShadow: "-10px 0 80px rgba(0,0,0,0.6)",
