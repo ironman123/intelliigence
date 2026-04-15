@@ -319,7 +319,7 @@ export default function NotchedNavbar()
                             </Link>
                         </li>
 
-                        <li>
+                        {/* <li>
                             <a
                                 href="/#discovery"
                                 className="nb-link"
@@ -327,7 +327,7 @@ export default function NotchedNavbar()
                             >
                                 Discovery
                             </a>
-                        </li>
+                        </li> */}
                     </ul>
 
                     {/* CTA */}
