@@ -55,14 +55,14 @@ export default function Hero()
                             </motion.button>
 
                             {/* ACTION 2: Navigate to Solutions (using react-router-dom) */}
-                            <motion.button
+                            {/* <motion.button
                                 className="btn-secondary"
                                 onClick={() => navigate("/solutions")}
                                 animate={{ opacity: [1, 0.65, 1] }}
                                 transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
                             >
                                 View Solutions
-                            </motion.button>
+                            </motion.button> */}
                         </motion.div>
                     </div>
                 </div>

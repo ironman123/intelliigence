@@ -361,11 +361,11 @@ export default function Footer()
                     <div style={styles.bottomBar}>
                         <div style={styles.socials}>
                             {[
-                                { icon: <Linkedin size={16} />, label: "LinkedIn", href: "#" },
-                                { icon: <Twitter size={16} />, label: "Twitter", href: "#" },
-                                { icon: <Youtube size={16} />, label: "YouTube", href: "#" },
-                                { icon: <Facebook size={16} />, label: "Facebook", href: "#" },
-                                { icon: <MessageCircle size={16} />, label: "WhatsApp", href: "https://wa.me/917060816597" },
+                                { icon: <Linkedin size={16} />, label: "LinkedIn", href: "https://www.linkedin.com/company/111516910" },
+                                // { icon: <Twitter size={16} />, label: "Twitter", href: "#" },
+                                // { icon: <Youtube size={16} />, label: "YouTube", href: "#" },
+                                // { icon: <Facebook size={16} />, label: "Facebook", href: "#" },
+                                // { icon: <MessageCircle size={16} />, label: "WhatsApp", href: "https://wa.me/917060816597" },
                             ].map(s => (
                                 <a
                                     key={s.label}

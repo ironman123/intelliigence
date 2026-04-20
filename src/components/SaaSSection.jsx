@@ -43,8 +43,8 @@ const SAAS_PRODUCTS = [
         iconBg: "bg-indigo-50",
         themeColor: "#6366f1",
         title: "School Manager",
-        description: "Purpose-built Learning Management System optimized for high-stakes competitive exams like KPSC and GATE.",
-        tags: ["Exam scraping", "Mock engines", "Performance analytics"],
+        description: "All-in-one school management platform covering admissions, attendance, fees, exams, and parent communication — built for institutions that want to run smarter.",
+        tags: ["Admissions", "Fee automation", "Parent portal"],
         link: "/products/schoolmanager"
     },
     {
@@ -54,8 +54,8 @@ const SAAS_PRODUCTS = [
         iconBg: "bg-rose-50",
         themeColor: "#f43f5e",
         title: "Clinic Manager",
-        description: "Physician-First Automation workflow. Hard-locked simulation architecture ensuring no inferences pass without licensed doctor review.",
-        tags: ["Physician-in-the-loop", "Compliance-ready", "EMR Integration"],
+        description: "End-to-end clinic operations software with appointment scheduling, patient records, billing, and prescription management — designed for solo practitioners and multi-branch clinics alike.",
+        tags: ["Appointments", "EMR & billing", "Prescription tracking"],
         link: "/products/clinicmanager"
     },
     {

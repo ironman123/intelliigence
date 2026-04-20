@@ -9,7 +9,8 @@ import
     BookOpen, Coins, Calendar, GraduationCap, Bell, BarChart,
     Radar, BarChart3, Building2, Truck, ScanLine,
     FileText, CalendarDays, Microscope, Smartphone, Pill,
-    MonitorPlay, Network, Timer, PackageMinus, Activity, TerminalSquare
+    MonitorPlay, Network, Timer, PackageMinus, Activity, TerminalSquare, ClipboardList,
+    CalendarCheck
 } from "lucide-react";
 import ProjectModal from "./ProjectModal";
 
@@ -73,33 +74,158 @@ const PRODUCT_DATA = {
         testimonial: { quote: "CRM Portal's AI lead scoring helped us prioritize high-value prospects. Our conversion rate tripled and our sales team is closing deals faster than ever before.", name: "Vikram Patel", role: "Head of Sales, TechVentures India" },
     },
 
+    // Full detail objects (for product pages)
+
     schoolmanager: {
         badge: "EDUCATION MANAGEMENT",
         title: "School Manager",
-        tagline: "Management that empowers educators.",
-        description: "Run admissions, fees, timetables, exams, and parent communication from a single system built for modern educational institutions.",
-        theme: { primary: "#7c3aed", light: "#f5f3ff", border: "#ddd6fe", accent: "#6d28d9", soft: "rgba(124,58,237,0.08)", glow: "rgba(124,58,237,0.15)" },
-        heroImage: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&q=80",
+        tagline: "Run your school. Not just your spreadsheets.",
+        description: "From the moment a student applies to the day they graduate — admissions, attendance, fees, exams, and parent engagement all managed from one unified platform built for modern schools.",
+        theme: {
+            primary: "#6366f1",
+            light: "#eef2ff",
+            border: "#c7d2fe",
+            accent: "#4f46e5",
+            soft: "rgba(99,102,241,0.08)",
+            glow: "rgba(99,102,241,0.15)"
+        },
+        heroImage: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1200&q=80",
         stats: [
-            { value: "4 to 1", label: "Systems consolidated", prior: "unified platform" },
-            { value: "50%", label: "Reduction in admin time", prior: "automated workflows" },
-            { value: "98%", label: "Parent app adoption", prior: "active engagement" },
+            { value: "70%", label: "Reduction in manual admin work", prior: "automated workflows" },
+            { value: "3x", label: "Faster fee collection cycles", prior: "online payment integration" },
+            { value: "95%", label: "Parent app engagement rate", prior: "real-time notifications" },
         ],
         features: [
-            { icon: BookOpen, title: "Admissions Portal", desc: "Online application forms, document verification, and automated enrollment workflows that save weeks of admin time." },
-            { icon: Coins, title: "Fee Management", desc: "Flexible fee structures, online payment collection, and automated receipt generation with parent portal access." },
-            { icon: Calendar, title: "Timetable Engine", desc: "Intelligent scheduling that handles teacher availability, room allocation, and subject conflicts automatically." },
-            { icon: GraduationCap, title: "Exam & Results", desc: "Grade management, report card generation, and parent-teacher meeting scheduling in one integrated system." },
-            { icon: Bell, title: "Parent Communication", desc: "Automated notifications, event updates, and two-way messaging via app, SMS, and email." },
-            { icon: BarChart, title: "Analytics Dashboard", desc: "Track student performance, attendance trends, and fee collection metrics in real-time." },
+            { icon: ClipboardList, title: "Admissions Portal", desc: "Digital application forms, document uploads, merit-based shortlisting, and automated enrollment — handle hundreds of applicants without a single paper form." },
+            { icon: Users, title: "Student Profiles", desc: "Centralized records for every student: academic history, attendance, health info, emergency contacts, and disciplinary logs in one always-accessible profile." },
+            { icon: Coins, title: "Fee Management", desc: "Configure multi-tier fee structures, automate payment reminders, accept online payments, and generate instant receipts — with a full ledger for trustees." },
+            { icon: Calendar, title: "Timetable Engine", desc: "Smart scheduling that accounts for teacher availability, subject loads, and room capacity — resolve conflicts in minutes, not days." },
+            { icon: GraduationCap, title: "Exams & Report Cards", desc: "Manage internal assessments, publish results, generate customizable report cards, and schedule parent-teacher meetings from one screen." },
+            { icon: Bell, title: "Parent Communication", desc: "Push notifications, SMS alerts, event announcements, and two-way messaging — parents stay informed without a single phone call to the front desk." },
         ],
         capabilities: [
-            { title: "Student Management", items: ["Complete student profiles and records", "Attendance tracking with biometric integration", "Disciplinary records and behavior tracking", "Medical records and emergency contacts", "Alumni database and engagement"] },
-            { title: "Academic Operations", items: ["Curriculum planning and lesson tracking", "Assignment and homework management", "Internal assessment and grading", "Report card customization", "Certificate and bonafide generation"] },
-            { title: "Fee & Finance", items: ["Multi-tier fee structures", "Online payment gateway integration", "Fee concessions and scholarships", "Late fee calculation and reminders", "Detailed financial reports for trustees"] },
-            { title: "Communication Hub", items: ["Mobile app for parents and students", "Push notifications for important updates", "Parent-teacher meeting scheduler", "Event calendar and announcements", "Emergency broadcast messaging"] },
+            {
+                title: "Student Lifecycle",
+                items: [
+                    "Online admissions with document verification",
+                    "Biometric-ready attendance tracking",
+                    "Health records and emergency contact management",
+                    "Disciplinary log and behavior tracking",
+                    "Alumni records and engagement tools"
+                ]
+            },
+            {
+                title: "Academic Operations",
+                items: [
+                    "Curriculum and lesson plan management",
+                    "Homework and assignment tracking",
+                    "Internal grading and mark entry",
+                    "Customizable report card templates",
+                    "Certificate and bonafide letter generation"
+                ]
+            },
+            {
+                title: "Finance & Fees",
+                items: [
+                    "Flexible, multi-tier fee structures",
+                    "Online payment gateway integration",
+                    "Scholarship and concession management",
+                    "Automated late fee calculation",
+                    "Real-time financial reports for management"
+                ]
+            },
+            {
+                title: "Communication & Engagement",
+                items: [
+                    "Parent and student mobile app",
+                    "Push, SMS, and email notification channels",
+                    "Event calendar and school announcements",
+                    "Parent-teacher meeting scheduler",
+                    "Emergency broadcast messaging"
+                ]
+            },
         ],
-        testimonial: { quote: "School Manager replaced 4 separate tools. Parents love the app and our staff spends half the time on admin tasks. We can finally focus on what matters — teaching.", name: "Priya Sharma", role: "Principal, Delhi Modern School" },
+        testimonial: {
+            quote: "We replaced three different tools with School Manager. Our admin team saves hours every day, fee collection went from chaotic to seamless, and parents actually know what's happening — that alone was worth it.",
+            name: "Rekha Nair",
+            role: "Principal, Greenfield International School"
+        },
+    },
+
+    clinicmanager: {
+        badge: "HEALTHCARE MANAGEMENT",
+        title: "Clinic Manager",
+        tagline: "Less paperwork. More patient care.",
+        description: "A complete clinic operations platform — appointments, patient records, prescriptions, billing, and follow-ups — built for solo practitioners and growing multi-branch clinics that want to run efficiently without sacrificing care quality.",
+        theme: {
+            primary: "#f43f5e",
+            light: "#fff1f2",
+            border: "#fecdd3",
+            accent: "#e11d48",
+            soft: "rgba(244,63,94,0.08)",
+            glow: "rgba(244,63,94,0.15)"
+        },
+        heroImage: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1200&q=80",
+        stats: [
+            { value: "60%", label: "Drop in scheduling conflicts", prior: "smart appointment engine" },
+            { value: "40%", label: "Faster patient billing cycles", prior: "integrated invoicing" },
+            { value: "80%", label: "Reduction in missed follow-ups", prior: "automated reminders" },
+        ],
+        features: [
+            { icon: CalendarCheck, title: "Appointment Scheduling", desc: "Online and walk-in booking with real-time slot availability, doctor-wise calendars, and automated patient reminders via SMS and WhatsApp." },
+            { icon: FileText, title: "Electronic Medical Records", desc: "Structured patient histories, visit notes, lab results, and uploaded documents — all searchable and accessible across branches in seconds." },
+            { icon: Pill, title: "Prescription Management", desc: "Digital prescriptions with a drug database, dosage templates, and one-click refills. Print or share with patients instantly." },
+            { icon: Receipt, title: "Billing & Invoicing", desc: "Generate itemized invoices, track payments, manage insurance claims, and produce GST-compliant receipts — all from within the patient visit flow." },
+            { icon: Bell, title: "Follow-up Automation", desc: "Scheduled reminders for post-visit follow-ups, medication renewals, and preventive care — sent automatically so no patient falls through the cracks." },
+            { icon: BarChart, title: "Clinic Analytics", desc: "Track patient footfall, revenue trends, doctor performance, and appointment no-show rates with dashboards built for clinic owners and administrators." },
+        ],
+        capabilities: [
+            {
+                title: "Patient Management",
+                items: [
+                    "Complete patient registration and profiles",
+                    "Visit history and clinical notes",
+                    "Lab and diagnostic report uploads",
+                    "Allergy and chronic condition flags",
+                    "Family and dependent record linking"
+                ]
+            },
+            {
+                title: "Clinical Workflow",
+                items: [
+                    "Doctor-wise appointment queues",
+                    "Digital prescription with drug database",
+                    "Referral letter and certificate generation",
+                    "Procedure and treatment tracking",
+                    "Vitals and nursing notes capture"
+                ]
+            },
+            {
+                title: "Billing & Compliance",
+                items: [
+                    "Itemized invoice and receipt generation",
+                    "Insurance and TPA claim management",
+                    "GST-compliant billing",
+                    "Payment tracking and outstanding reports",
+                    "Audit trail for every transaction"
+                ]
+            },
+            {
+                title: "Operations & Growth",
+                items: [
+                    "Multi-branch management from one dashboard",
+                    "Staff scheduling and shift management",
+                    "Inventory tracking for consumables and medicines",
+                    "Patient satisfaction surveys",
+                    "Revenue and growth analytics"
+                ]
+            },
+        ],
+        testimonial: {
+            quote: "Before Clinic Manager, we were managing appointments on paper and billing on a separate system. Now everything is in one place, our staff is less stressed, and patients actually get their follow-up reminders. It changed how we run the clinic.",
+            name: "Dr. Arjun Mehta",
+            role: "Founder, Mehta Family Clinic (3 branches)"
+        },
     },
 
     inventorymanager: {
@@ -129,35 +255,6 @@ const PRODUCT_DATA = {
             { title: "AI & Forecasting", items: ["Demand forecasting with machine learning", "Automatic reorder point calculation", "Seasonal trend analysis", "Dead stock and slow-moving item alerts", "Optimal stock level recommendations"] },
         ],
         testimonial: { quote: "Inventory Managers's demand forecasting reduced our excess stock by 35% while eliminating stockouts. We finally have the right products at the right time.", name: "Rajesh Kumar", role: "Supply Chain Director, Bharat Retail Group" },
-    },
-
-    clinicmanager: {
-        badge: "PHYSICIAN-FIRST AUTOMATION",
-        title: "Clinic Manager",
-        tagline: "Management that prioritizes patient care.",
-        description: "Patient records, appointments, lab reports and billing built for clinics and diagnostics, with hard-locked physician oversight ensuring compliance at every step.",
-        theme: { primary: "#dc2626", light: "#fef2f2", border: "#fecaca", accent: "#b91c1c", soft: "rgba(220,38,38,0.08)", glow: "rgba(220,38,38,0.15)" },
-        heroImage: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=1200&q=80",
-        stats: [
-            { value: "60%", label: "Reduction in no-shows", prior: "automated scheduling" },
-            { value: "100%", label: "Digital report delivery", prior: "secure portal" },
-            { value: "40%", label: "Faster claim processing", prior: "unified billing" },
-        ],
-        features: [
-            { icon: FileText, title: "Electronic Medical Records", desc: "Complete patient history, prescriptions, and clinical notes accessible from any device with HIPAA-compliant security." },
-            { icon: CalendarDays, title: "Appointment Scheduling", desc: "Online booking, SMS reminders, and calendar sync to reduce no-shows and optimize doctor schedules." },
-            { icon: Microscope, title: "Lab Integration", desc: "Order tests, track samples, and deliver digital reports directly to patients via mobile app." },
-            { icon: Smartphone, title: "Patient Portal", desc: "Empower patients with access to their records, test results, and appointment history on mobile." },
-            { icon: CreditCard, title: "Billing & Insurance", desc: "Generate bills, process insurance claims, and track payments with automated reconciliation." },
-            { icon: Pill, title: "Prescription Management", desc: "Digital prescriptions with drug database, dosage validation, and interaction warnings." },
-        ],
-        capabilities: [
-            { title: "Clinical Operations", items: ["OPD and IPD patient management", "Doctor consultation notes and templates", "Treatment plans and care protocols", "Medication and allergy tracking", "Vital signs and clinical observations"] },
-            { title: "Diagnostics & Lab", items: ["Lab test ordering and tracking", "Sample collection and barcode labeling", "Result entry and validation", "Digital report delivery to patients", "Quality control and audit trails"] },
-            { title: "Revenue Cycle", items: ["Registration and billing workflows", "Insurance verification and pre-authorization", "Claim submission and tracking", "Payment collection and receipts", "Revenue and collection reports"] },
-            { title: "Patient Engagement", items: ["Online appointment booking", "Automated SMS and email reminders", "Patient mobile app access", "Telemedicine consultation", "Health education and follow-up campaigns"] },
-        ],
-        testimonial: { quote: "Clinic Manager streamlined our entire workflow. From appointments to lab reports to billing, everything is connected. Our patients love the mobile app and we've seen dramatic improvements in efficiency.", name: "Dr. Sunita Rao", role: "Medical Director, Apollo Diagnostics Centre" },
     },
 
     kitchendisplaysystem: {
