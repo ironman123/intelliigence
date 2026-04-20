@@ -48,8 +48,8 @@ export default function MissionSection()
                 variants={fadeUp} initial="hidden"
                 animate={inView ? "visible" : "hidden"} custom={1}
             >
-                We build software for the gaps<br />
-                <span style={styles.headlineMuted}>the big players left behind.</span>
+                We don't follow standards.<br />
+                <span style={styles.headlineMuted}>We code them.</span>
             </motion.h2>
 
             {/* Sub copy */}

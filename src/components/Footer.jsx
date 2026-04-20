@@ -394,7 +394,7 @@ export default function Footer()
 
                         <div style={styles.legal}>
                             <span style={styles.legalText}>
-                                © {currentYear} AI Intelligence Inc. · Made in India 🇮🇳
+                                © {currentYear} AI Intelligence Inc. All rights reserved.
                             </span>
                             <div style={styles.legalLinks}>
                                 {[

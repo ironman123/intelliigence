@@ -50,11 +50,11 @@ const COMMITMENTS = [
     {
         key: "compliance",
         number: "06",
-        title: "Built for Indian regulatory reality.",
-        short: "Local compliance",
+        title: "Built for a borderless regulatory reality.",
+        short: "Global compliance",
         description:
-            "GST, DPDPA, HIPAA-equivalent standards, NMC guidelines for healthcare AI — built in from day one, not retrofitted at launch when it costs ten times more to fix.",
-        detail: "We track regulatory changes across every vertical we operate in. When the law changes, your system gets updated — included in your plan.",
+            "GDPR, SOC 2, HIPAA, and complex regional data frameworks — built in from day one, not retrofitted at launch when it costs ten times more to fix.",
+        detail: "We track regulatory shifts across jurisdictions and verticals. When global or local laws change, your system adapts seamlessly — included in your plan.",
     },
 ];
 
