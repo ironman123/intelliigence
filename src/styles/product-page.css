@@ -1,0 +1,200 @@
+/* ── product-page.css ────────────────────────────────────────────────────── */
+
+/* Base Layout */
+.pp-wrapper {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: #f8fafc;
+}
+
+.pp-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+@media (max-width: 768px) {
+    .pp-container {
+        padding: 0 20px;
+        /* Tighter padding on mobile */
+    }
+}
+
+/* Typography (Fluid typography using clamp for automatic scaling) */
+.pp-hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.05;
+    margin: 0 0 24px;
+    letter-spacing: -0.03em;
+}
+
+.pp-hero-tagline {
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+    color: #e2e8f0;
+    font-weight: 400;
+    margin-bottom: 24px;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+}
+
+.pp-hero-desc {
+    font-size: clamp(1rem, 2vw, 1.0625rem);
+    color: #94a3b8;
+    line-height: 1.7;
+    margin-bottom: 48px;
+    max-width: 520px;
+}
+
+.pp-section-title {
+    font-size: clamp(2rem, 4vw, 2.625rem);
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.03em;
+    margin: 0 0 16px;
+}
+
+.pp-section-subtitle {
+    font-size: clamp(1.0625rem, 2vw, 1.125rem);
+    color: #64748b;
+    margin: 0 auto;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+/* Grids */
+.pp-hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.pp-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.pp-features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.pp-cap-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 64px 100px;
+}
+
+/* Components */
+.pp-hero-image-wrap {
+    border-radius: 24px 24px 0 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: none;
+    box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.5);
+    position: relative;
+    height: 460px;
+}
+
+.pp-stat-item {
+    padding: 48px 40px;
+    border-right: 1px solid #f1f5f9;
+    text-align: center;
+}
+
+.pp-feature-card {
+    background: #ffffff;
+    border: 1px solid #f1f5f9;
+    border-radius: 16px;
+    padding: 32px;
+    transition: border-color 0.3s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Navigation Pill Menu (Make it horizontally scrollable on mobile) */
+.pp-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scroll on iOS */
+}
+
+.pp-nav::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar for a cleaner look */
+}
+
+/* ── Responsive Rules (MOBILE FIXES) ─────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .pp-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .pp-hero-image-wrap {
+        height: 380px;
+    }
+
+    .pp-features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .pp-nav {
+        justify-content: flex-start;
+        padding: 12px 16px;
+    }
+
+    .pp-hero-image-wrap {
+        height: 280px;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .pp-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stack stats vertically with bottom borders instead of right borders */
+    .pp-stat-item {
+        padding: 32px 20px;
+        border-right: none;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .pp-stat-item:last-child {
+        border-bottom: none;
+    }
+
+    .pp-features-grid,
+    .pp-cap-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    /* Adjust section paddings */
+    .pp-section-features,
+    .pp-section-capabilities,
+    .pp-section-cta {
+        padding: 80px 0 !important;
+    }
+
+    /* Center the capability lists on mobile */
+    .pp-cap-container {
+        padding: 0 20px !important;
+    }
+}

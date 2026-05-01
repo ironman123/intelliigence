@@ -2,9 +2,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { heroContainer, heroItem } from "../animations/hero";
 import SchedulingModal from "./SchedulingModal";
 import "../styles/hero.css";
+
+const fadeUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i = 1) => ({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }
+    })
+};
 
 export default function Hero()
 {
@@ -13,62 +21,63 @@ export default function Hero()
 
     return (
         <>
-            <motion.section
-                className="hero"
-                variants={heroContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.4 }}
-            >
-                {/* Background video */}
-                <video
-                    className="hero-bg-video"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                >
-                    <source src="/videos/Pagevideo2.mp4" type="video/mp4" />
-                </video>
+            <section className="hero-section">
+                <div className="video-container">
+                    <video
+                        className="hero-bg-video"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                    >
+                        <source src="/videos/Pagevideo2.mp4" type="video/mp4" />
+                    </video>
+                    <div className="hero-overlay"></div>
+                </div>
 
-                {/* Content layer */}
                 <div className="hero-content">
                     <div className="hero-left">
-                        <motion.h1 variants={heroItem}>
-                            Practical AI Solutions <br />
-                            Built for Real-World Control
+
+                        <motion.div
+                            className="hero-badge"
+                            custom={0} initial="hidden" animate="visible" variants={fadeUp}
+                        >
+                            <span className="badge-dot"></span>
+                            INTELLIIGENCE
+                        </motion.div>
+
+                        <motion.h1
+                            className="hero-headline"
+                            custom={1} initial="hidden" animate="visible" variants={fadeUp}
+                        >
+                            Practical solutions.<br />
+                            <span className="hero-highlight">Built for real-world control.</span>
                         </motion.h1>
 
-                        <motion.p variants={heroItem}>
-                            We design and deploy intelligent AI systems that help Organizations reduce manual effort,
-                            make better decisions and grow efficiently.
+                        <motion.p
+                            className="hero-subtext"
+                            custom={2} initial="hidden" animate="visible" variants={fadeUp}
+                        >
+                            We engineer intelligent infrastructure that helps organizations reduce manual effort,
+                            execute decisive actions, and scale efficiently. No black boxes—just robust software
+                            designed for the physical world.
                         </motion.p>
 
-                        <motion.div className="hero-actions" variants={heroItem}>
-                            {/* ACTION 1: Open Strategy Call Modal */}
-                            <motion.button
+                        <motion.div
+                            className="hero-actions"
+                            custom={3} initial="hidden" animate="visible" variants={fadeUp}
+                        >
+                            <button
                                 className="btn-primary"
-                                whileHover={{ scale: 1.04 }}
                                 onClick={() => setIsModalOpen(true)}
                             >
-                                Talk to Us
-                            </motion.button>
-
-                            {/* ACTION 2: Navigate to Solutions (using react-router-dom) */}
-                            {/* <motion.button
-                                className="btn-secondary"
-                                onClick={() => navigate("/solutions")}
-                                animate={{ opacity: [1, 0.65, 1] }}
-                                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-                            >
-                                View Solutions
-                            </motion.button> */}
+                                Talk to Our Engineers
+                            </button>
                         </motion.div>
                     </div>
                 </div>
-            </motion.section>
+            </section>
 
-            {/* Modal Logic */}
             <SchedulingModal
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}

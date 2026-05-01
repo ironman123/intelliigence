@@ -1,18 +1,38 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import
-{
-    ArrowRight, CheckCircle2, Play, Star, Quote,
-    Calculator, ShieldCheck, Receipt, TrendingUp, CreditCard, LineChart,
-    Target, BrainCircuit, MessageCircle, Users, Zap, Mail,
-    BookOpen, Coins, Calendar, GraduationCap, Bell, BarChart,
-    Radar, BarChart3, Building2, Truck, ScanLine,
-    FileText, CalendarDays, Microscope, Smartphone, Pill,
-    MonitorPlay, Network, Timer, PackageMinus, Activity, TerminalSquare, ClipboardList,
-    CalendarCheck
-} from "lucide-react";
+    {
+        ArrowRight, CheckCircle2, Play, Star, Quote,
+        Calculator, ShieldCheck, Receipt, TrendingUp, CreditCard, LineChart,
+        Target, BrainCircuit, MessageCircle, Users, Zap, Mail,
+        BookOpen, Coins, Calendar, GraduationCap, Bell, BarChart,
+        Radar, BarChart3, Building2, Truck, ScanLine,
+        FileText, CalendarDays, Microscope, Smartphone, Pill,
+        MonitorPlay, Network, Timer, PackageMinus, Activity, TerminalSquare, ClipboardList,
+        CalendarCheck
+    } from "lucide-react";
 import ProjectModal from "./ProjectModal";
+
+// ─── RESPONSIVE HOOK ─────────────────────────────────────────────────────────
+function useBreakpoint()
+{
+    const [width, setWidth] = useState(
+        typeof window !== "undefined" ? window.innerWidth : 1280
+    );
+    useEffect(() =>
+    {
+        const handler = () => setWidth(window.innerWidth);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, []);
+    return {
+        isMobile: width < 640,
+        isTablet: width >= 640 && width < 1024,
+        isDesktop: width >= 1024,
+        width,
+    };
+}
 
 // ─── PRODUCT DATA ────────────────────────────────────────────────────────────
 const PRODUCT_DATA = {
@@ -74,21 +94,12 @@ const PRODUCT_DATA = {
         testimonial: { quote: "CRM Portal's AI lead scoring helped us prioritize high-value prospects. Our conversion rate tripled and our sales team is closing deals faster than ever before.", name: "Vikram Patel", role: "Head of Sales, TechVentures India" },
     },
 
-    // Full detail objects (for product pages)
-
     schoolmanager: {
         badge: "EDUCATION MANAGEMENT",
         title: "School Manager",
         tagline: "Run your school. Not just your spreadsheets.",
         description: "From the moment a student applies to the day they graduate — admissions, attendance, fees, exams, and parent engagement all managed from one unified platform built for modern schools.",
-        theme: {
-            primary: "#6366f1",
-            light: "#eef2ff",
-            border: "#c7d2fe",
-            accent: "#4f46e5",
-            soft: "rgba(99,102,241,0.08)",
-            glow: "rgba(99,102,241,0.15)"
-        },
+        theme: { primary: "#6366f1", light: "#eef2ff", border: "#c7d2fe", accent: "#4f46e5", soft: "rgba(99,102,241,0.08)", glow: "rgba(99,102,241,0.15)" },
         heroImage: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1200&q=80",
         stats: [
             { value: "70%", label: "Reduction in manual admin work", prior: "automated workflows" },
@@ -104,67 +115,20 @@ const PRODUCT_DATA = {
             { icon: Bell, title: "Parent Communication", desc: "Push notifications, SMS alerts, event announcements, and two-way messaging — parents stay informed without a single phone call to the front desk." },
         ],
         capabilities: [
-            {
-                title: "Student Lifecycle",
-                items: [
-                    "Online admissions with document verification",
-                    "Biometric-ready attendance tracking",
-                    "Health records and emergency contact management",
-                    "Disciplinary log and behavior tracking",
-                    "Alumni records and engagement tools"
-                ]
-            },
-            {
-                title: "Academic Operations",
-                items: [
-                    "Curriculum and lesson plan management",
-                    "Homework and assignment tracking",
-                    "Internal grading and mark entry",
-                    "Customizable report card templates",
-                    "Certificate and bonafide letter generation"
-                ]
-            },
-            {
-                title: "Finance & Fees",
-                items: [
-                    "Flexible, multi-tier fee structures",
-                    "Online payment gateway integration",
-                    "Scholarship and concession management",
-                    "Automated late fee calculation",
-                    "Real-time financial reports for management"
-                ]
-            },
-            {
-                title: "Communication & Engagement",
-                items: [
-                    "Parent and student mobile app",
-                    "Push, SMS, and email notification channels",
-                    "Event calendar and school announcements",
-                    "Parent-teacher meeting scheduler",
-                    "Emergency broadcast messaging"
-                ]
-            },
+            { title: "Student Lifecycle", items: ["Online admissions with document verification", "Biometric-ready attendance tracking", "Health records and emergency contact management", "Disciplinary log and behavior tracking", "Alumni records and engagement tools"] },
+            { title: "Academic Operations", items: ["Curriculum and lesson plan management", "Homework and assignment tracking", "Internal grading and mark entry", "Customizable report card templates", "Certificate and bonafide letter generation"] },
+            { title: "Finance & Fees", items: ["Flexible, multi-tier fee structures", "Online payment gateway integration", "Scholarship and concession management", "Automated late fee calculation", "Real-time financial reports for management"] },
+            { title: "Communication & Engagement", items: ["Parent and student mobile app", "Push, SMS, and email notification channels", "Event calendar and school announcements", "Parent-teacher meeting scheduler", "Emergency broadcast messaging"] },
         ],
-        testimonial: {
-            quote: "We replaced three different tools with School Manager. Our admin team saves hours every day, fee collection went from chaotic to seamless, and parents actually know what's happening — that alone was worth it.",
-            name: "Rekha Nair",
-            role: "Principal, Greenfield International School"
-        },
+        testimonial: { quote: "We replaced three different tools with School Manager. Our admin team saves hours every day, fee collection went from chaotic to seamless, and parents actually know what's happening — that alone was worth it.", name: "Rekha Nair", role: "Principal, Greenfield International School" },
     },
 
     clinicmanager: {
         badge: "HEALTHCARE MANAGEMENT",
         title: "Clinic Manager",
         tagline: "Less paperwork. More patient care.",
-        description: "A complete clinic operations platform — appointments, patient records, prescriptions, billing, and follow-ups — built for solo practitioners and growing multi-branch clinics that want to run efficiently without sacrificing care quality.",
-        theme: {
-            primary: "#f43f5e",
-            light: "#fff1f2",
-            border: "#fecdd3",
-            accent: "#e11d48",
-            soft: "rgba(244,63,94,0.08)",
-            glow: "rgba(244,63,94,0.15)"
-        },
+        description: "A complete clinic operations platform — appointments, patient records, prescriptions, billing, and follow-ups — built for solo practitioners and growing multi-branch clinics.",
+        theme: { primary: "#f43f5e", light: "#fff1f2", border: "#fecdd3", accent: "#e11d48", soft: "rgba(244,63,94,0.08)", glow: "rgba(244,63,94,0.15)" },
         heroImage: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1200&q=80",
         stats: [
             { value: "60%", label: "Drop in scheduling conflicts", prior: "smart appointment engine" },
@@ -180,52 +144,12 @@ const PRODUCT_DATA = {
             { icon: BarChart, title: "Clinic Analytics", desc: "Track patient footfall, revenue trends, doctor performance, and appointment no-show rates with dashboards built for clinic owners and administrators." },
         ],
         capabilities: [
-            {
-                title: "Patient Management",
-                items: [
-                    "Complete patient registration and profiles",
-                    "Visit history and clinical notes",
-                    "Lab and diagnostic report uploads",
-                    "Allergy and chronic condition flags",
-                    "Family and dependent record linking"
-                ]
-            },
-            {
-                title: "Clinical Workflow",
-                items: [
-                    "Doctor-wise appointment queues",
-                    "Digital prescription with drug database",
-                    "Referral letter and certificate generation",
-                    "Procedure and treatment tracking",
-                    "Vitals and nursing notes capture"
-                ]
-            },
-            {
-                title: "Billing & Compliance",
-                items: [
-                    "Itemized invoice and receipt generation",
-                    "Insurance and TPA claim management",
-                    "GST-compliant billing",
-                    "Payment tracking and outstanding reports",
-                    "Audit trail for every transaction"
-                ]
-            },
-            {
-                title: "Operations & Growth",
-                items: [
-                    "Multi-branch management from one dashboard",
-                    "Staff scheduling and shift management",
-                    "Inventory tracking for consumables and medicines",
-                    "Patient satisfaction surveys",
-                    "Revenue and growth analytics"
-                ]
-            },
+            { title: "Patient Management", items: ["Complete patient registration and profiles", "Visit history and clinical notes", "Lab and diagnostic report uploads", "Allergy and chronic condition flags", "Family and dependent record linking"] },
+            { title: "Clinical Workflow", items: ["Doctor-wise appointment queues", "Digital prescription with drug database", "Referral letter and certificate generation", "Procedure and treatment tracking", "Vitals and nursing notes capture"] },
+            { title: "Billing & Compliance", items: ["Itemized invoice and receipt generation", "Insurance and TPA claim management", "GST-compliant billing", "Payment tracking and outstanding reports", "Audit trail for every transaction"] },
+            { title: "Operations & Growth", items: ["Multi-branch management from one dashboard", "Staff scheduling and shift management", "Inventory tracking for consumables and medicines", "Patient satisfaction surveys", "Revenue and growth analytics"] },
         ],
-        testimonial: {
-            quote: "Before Clinic Manager, we were managing appointments on paper and billing on a separate system. Now everything is in one place, our staff is less stressed, and patients actually get their follow-up reminders. It changed how we run the clinic.",
-            name: "Dr. Arjun Mehta",
-            role: "Founder, Mehta Family Clinic (3 branches)"
-        },
+        testimonial: { quote: "Before Clinic Manager, we were managing appointments on paper and billing on a separate system. Now everything is in one place, our staff is less stressed, and patients actually get their follow-up reminders. It changed how we run the clinic.", name: "Dr. Arjun Mehta", role: "Founder, Mehta Family Clinic (3 branches)" },
     },
 
     inventorymanager: {
@@ -254,7 +178,7 @@ const PRODUCT_DATA = {
             { title: "Warehouse Operations", items: ["Bin location management", "Pick, pack, and ship workflows", "Inter-warehouse transfers", "Goods receipt and quality check", "Mobile app for warehouse staff"] },
             { title: "AI & Forecasting", items: ["Demand forecasting with machine learning", "Automatic reorder point calculation", "Seasonal trend analysis", "Dead stock and slow-moving item alerts", "Optimal stock level recommendations"] },
         ],
-        testimonial: { quote: "Inventory Managers's demand forecasting reduced our excess stock by 35% while eliminating stockouts. We finally have the right products at the right time.", name: "Rajesh Kumar", role: "Supply Chain Director, Bharat Retail Group" },
+        testimonial: { quote: "Inventory Manager's demand forecasting reduced our excess stock by 35% while eliminating stockouts. We finally have the right products at the right time.", name: "Rajesh Kumar", role: "Supply Chain Director, Bharat Retail Group" },
     },
 
     kitchendisplaysystem: {
@@ -307,7 +231,7 @@ const FeatureCard = ({ icon: Icon, title, desc, theme }) => (
             background: "#ffffff",
             border: "1px solid #f1f5f9",
             borderRadius: 16,
-            padding: "32px",
+            padding: "28px 24px",
             transition: "border-color 0.3s ease",
             cursor: "default",
             position: "relative",
@@ -317,17 +241,17 @@ const FeatureCard = ({ icon: Icon, title, desc, theme }) => (
         onMouseLeave={(e) => e.currentTarget.style.borderColor = "#f1f5f9"}
     >
         <div style={{
-            width: 56, height: 56, borderRadius: 14,
+            width: 52, height: 52, borderRadius: 14,
             background: theme.light, color: theme.primary,
             display: "flex", alignItems: "center", justifyContent: "center",
-            marginBottom: 20, border: `1px solid ${theme.soft}`
+            marginBottom: 18, border: `1px solid ${theme.soft}`
         }}>
-            <Icon size={26} strokeWidth={1.5} />
+            <Icon size={24} strokeWidth={1.5} />
         </div>
-        <h3 style={{ fontSize: 18, fontWeight: 700, color: "#0f172a", marginBottom: 12, letterSpacing: "-0.01em" }}>
+        <h3 style={{ fontSize: 17, fontWeight: 700, color: "#0f172a", marginBottom: 10, letterSpacing: "-0.01em" }}>
             {title}
         </h3>
-        <p style={{ fontSize: 15, color: "#64748b", lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: 14, color: "#64748b", lineHeight: 1.6, margin: 0 }}>
             {desc}
         </p>
     </motion.div>
@@ -335,14 +259,14 @@ const FeatureCard = ({ icon: Icon, title, desc, theme }) => (
 
 const CapabilityGroup = ({ title, items, theme }) => (
     <motion.div variants={fadeUp}>
-        <h4 style={{ fontSize: 17, fontWeight: 700, color: "#0f172a", marginBottom: 20, display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 8, height: 8, borderRadius: "50%", background: theme.primary }} />
+        <h4 style={{ fontSize: 16, fontWeight: 700, color: "#0f172a", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ width: 8, height: 8, borderRadius: "50%", background: theme.primary, flexShrink: 0 }} />
             {title}
         </h4>
-        <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 14 }}>
+        <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
             {items.map((item, i) => (
-                <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, fontSize: 15, color: "#475569", lineHeight: 1.5 }}>
-                    <CheckCircle2 size={18} style={{ color: theme.primary, marginTop: 2, flexShrink: 0, opacity: 0.8 }} strokeWidth={2} />
+                <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 14, color: "#475569", lineHeight: 1.5 }}>
+                    <CheckCircle2 size={16} style={{ color: theme.primary, marginTop: 2, flexShrink: 0, opacity: 0.8 }} strokeWidth={2} />
                     {item}
                 </li>
             ))}
@@ -354,11 +278,18 @@ const CapabilityGroup = ({ title, items, theme }) => (
 export function ProductPage({ productId })
 {
     const data = PRODUCT_DATA[productId];
-
     const [isProjectOpen, setIsProjectOpen] = useState(false);
+    const { isMobile, isTablet, isDesktop } = useBreakpoint();
 
     if (!data) return <div style={{ padding: 80, textAlign: "center" }}>Product not found.</div>;
     const { theme } = data;
+
+    // Derived layout helpers
+    const px = isMobile ? "20px" : isTablet ? "32px" : "40px";
+    const sectionPy = isMobile ? "72px 0" : "120px 0";
+    const featuresColumns = isMobile ? "1fr" : isTablet ? "repeat(2, 1fr)" : "repeat(3, 1fr)";
+    const capabilitiesColumns = isMobile ? "1fr" : "repeat(2, 1fr)";
+    const statsColumns = isMobile ? "1fr" : "repeat(3, 1fr)";
 
     return (
         <AnimatePresence mode="wait">
@@ -370,86 +301,136 @@ export function ProductPage({ productId })
                 transition={{ duration: 0.4 }}
                 style={{ fontFamily: "'Inter', -apple-system, sans-serif", background: "#f8fafc" }}
             >
-                {/* ── HERO ───────────────────────────────────────────────────────── */}
-                <section style={{ background: "#020617", paddingTop: 180, position: "relative", overflow: "hidden" }}>
-                    {/* Architectural Ambient Glow */}
+                {/* ── HERO ───────────────────────────────────────────────────── */}
+                <section style={{
+                    background: "#020617",
+                    paddingTop: isMobile ? 100 : 140,
+                    position: "relative",
+                    overflow: "hidden"
+                }}>
+                    {/* Ambient Glows */}
                     <div style={{ position: "absolute", right: "-10%", top: "-10%", width: "70%", height: "100%", background: `radial-gradient(ellipse at center, ${theme.glow} 0%, transparent 60%)`, pointerEvents: "none", opacity: 0.6 }} />
                     <div style={{ position: "absolute", left: "-5%", bottom: 0, width: "40%", height: "50%", background: `radial-gradient(circle at bottom, ${theme.soft} 0%, transparent 70%)`, pointerEvents: "none", opacity: 0.4 }} />
 
-                    <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }}>
-                        <div style={{ display: "grid", gridTemplateColumns: "1.1fr 0.9fr", gap: 80, alignItems: "center" }}>
-
+                    <div style={{ maxWidth: 1280, margin: "0 auto", padding: `0 ${px}` }}>
+                        <div style={{
+                            display: "grid",
+                            gridTemplateColumns: isDesktop ? "1.1fr 0.9fr" : "1fr",
+                            gap: isDesktop ? 80 : 48,
+                            alignItems: "center"
+                        }}>
                             {/* Left Content */}
-                            <motion.div initial="hidden" animate="visible" variants={staggerContainer} style={{ paddingBottom: 100, position: "relative", zIndex: 10 }}>
+                            <motion.div
+                                initial="hidden" animate="visible" variants={staggerContainer}
+                                style={{ paddingBottom: isMobile ? 40 : 80, position: "relative", zIndex: 10 }}
+                            >
                                 <motion.div variants={fadeUp} style={{
                                     display: "inline-flex", alignItems: "center", gap: 8,
                                     background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.1)",
-                                    color: theme.border, fontSize: 12, fontWeight: 600, letterSpacing: "0.1em",
-                                    padding: "6px 16px", borderRadius: 100, marginBottom: 32
+                                    color: theme.border, fontSize: 11, fontWeight: 600, letterSpacing: "0.1em",
+                                    padding: "6px 14px", borderRadius: 100, marginBottom: 24
                                 }}>
                                     <div style={{ width: 6, height: 6, borderRadius: "50%", background: theme.primary, boxShadow: `0 0 10px ${theme.primary}` }} />
                                     {data.badge}
                                 </motion.div>
 
-                                <motion.h1 variants={fadeUp} style={{ fontSize: 64, fontWeight: 800, color: "#ffffff", lineHeight: 1.05, margin: "0 0 24px", letterSpacing: "-0.03em" }}>
+                                <motion.h1 variants={fadeUp} style={{
+                                    fontSize: isMobile ? 38 : isTablet ? 52 : 64,
+                                    fontWeight: 800, color: "#ffffff",
+                                    lineHeight: 1.05, margin: "0 0 20px", letterSpacing: "-0.03em"
+                                }}>
                                     {data.title}
                                 </motion.h1>
 
-                                <motion.p variants={fadeUp} style={{ fontSize: 24, color: "#e2e8f0", fontWeight: 400, marginBottom: 24, lineHeight: 1.4, letterSpacing: "-0.01em" }}>
+                                <motion.p variants={fadeUp} style={{
+                                    fontSize: isMobile ? 18 : 22,
+                                    color: "#e2e8f0", fontWeight: 400,
+                                    marginBottom: 16, lineHeight: 1.4, letterSpacing: "-0.01em"
+                                }}>
                                     {data.tagline}
                                 </motion.p>
 
-                                <motion.p variants={fadeUp} style={{ fontSize: 17, color: "#94a3b8", lineHeight: 1.7, marginBottom: 48, maxWidth: 520 }}>
+                                <motion.p variants={fadeUp} style={{
+                                    fontSize: isMobile ? 15 : 17,
+                                    color: "#94a3b8", lineHeight: 1.7,
+                                    marginBottom: 36, maxWidth: 520
+                                }}>
                                     {data.description}
                                 </motion.p>
 
-                                <motion.div variants={fadeUp} style={{ display: "flex", gap: 16 }}>
-                                    <button style={{
-                                        display: "flex", alignItems: "center", gap: 8,
-                                        background: theme.primary, color: "#fff", border: "none",
-                                        borderRadius: 10, padding: "16px 32px", fontSize: 15, fontWeight: 600,
-                                        cursor: "pointer", transition: "all 0.2s", boxShadow: `0 8px 24px -8px ${theme.primary}`
-                                    }}
+                                <motion.div variants={fadeUp} style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                                    <button
+                                        style={{
+                                            display: "flex", alignItems: "center", gap: 8,
+                                            background: theme.primary, color: "#fff", border: "none",
+                                            borderRadius: 10, padding: isMobile ? "14px 24px" : "16px 32px",
+                                            fontSize: isMobile ? 14 : 15, fontWeight: 600,
+                                            cursor: "pointer", transition: "all 0.2s",
+                                            boxShadow: `0 8px 24px -8px ${theme.primary}`,
+                                            width: isMobile ? "100%" : "auto",
+                                            justifyContent: isMobile ? "center" : "flex-start"
+                                        }}
                                         onClick={e => { e.stopPropagation(); setIsProjectOpen(true); }}
                                         onMouseEnter={(e) => { e.currentTarget.style.background = theme.accent; e.currentTarget.style.transform = "translateY(-2px)"; }}
                                         onMouseLeave={(e) => { e.currentTarget.style.background = theme.primary; e.currentTarget.style.transform = "translateY(0)"; }}
                                     >
-                                        Book a Demo <ArrowRight size={18} />
+                                        Book a Demo <ArrowRight size={17} />
                                     </button>
-                                    {/* <button style={{
-                                        display: "flex", alignItems: "center", gap: 8,
-                                        background: "rgba(255,255,255,0.05)", color: "#f8fafc",
-                                        border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10,
-                                        padding: "16px 32px", fontSize: 15, fontWeight: 500,
-                                        cursor: "pointer", transition: "all 0.2s", backdropFilter: "blur(10px)"
-                                    }}
-                                        onMouseEnter={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
-                                        onMouseLeave={(e) => e.currentTarget.style.background = "rgba(255,255,255,0.05)"}
-                                    >
-                                        <Play size={16} /> Watch Demo
-                                    </button> */}
                                 </motion.div>
                             </motion.div>
 
-                            {/* Right Hero Image */}
-                            <motion.div initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, delay: 0.2 }} style={{ position: "relative", zIndex: 10 }}>
-                                <div style={{
-                                    borderRadius: "24px 24px 0 0", overflow: "hidden",
-                                    border: `1px solid rgba(255,255,255,0.1)`, borderBottom: "none",
-                                    boxShadow: "0 -20px 60px rgba(0,0,0,0.5)", position: "relative", height: 460
-                                }}>
-                                    <img src={data.heroImage} alt={data.title} style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.8) contrast(1.1)" }} />
-                                    <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 160, background: "linear-gradient(to top, #020617, transparent)" }} />
-                                </div>
-                            </motion.div>
+                            {/* Right Hero Image — hidden on mobile to avoid cramping */}
+                            {!isMobile && (
+                                <motion.div
+                                    initial={{ opacity: 0, x: 40 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.2 }}
+                                    style={{ position: "relative", zIndex: 10 }}
+                                >
+                                    <div style={{
+                                        borderRadius: "24px 24px 0 0", overflow: "hidden",
+                                        border: "1px solid rgba(255,255,255,0.1)", borderBottom: "none",
+                                        boxShadow: "0 -20px 60px rgba(0,0,0,0.5)", position: "relative",
+                                        height: isTablet ? 320 : 420
+                                    }}>
+                                        <img
+                                            src={data.heroImage} alt={data.title}
+                                            style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.8) contrast(1.1)" }}
+                                        />
+                                        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 160, background: "linear-gradient(to top, #020617, transparent)" }} />
+                                    </div>
+                                </motion.div>
+                            )}
+
+                            {/* Mobile hero image — full-width strip at bottom of hero */}
+                            {isMobile && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.3 }}
+                                    style={{ position: "relative", zIndex: 10, marginLeft: -20, marginRight: -20 }}
+                                >
+                                    <div style={{ height: 220, overflow: "hidden", position: "relative" }}>
+                                        <img
+                                            src={data.heroImage} alt={data.title}
+                                            style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.7) contrast(1.1)" }}
+                                        />
+                                        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 80, background: "linear-gradient(to bottom, #020617, transparent)" }} />
+                                        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 80, background: "linear-gradient(to top, #f8fafc, transparent)" }} />
+                                    </div>
+                                </motion.div>
+                            )}
                         </div>
                     </div>
                 </section>
 
-                {/* ── STATS BAR ─────────────────────────────────────────────────── */}
+                {/* ── STATS BAR ─────────────────────────────────────────────── */}
                 <section style={{ background: "#ffffff", borderBottom: "1px solid #f1f5f9", position: "relative", zIndex: 20 }}>
-                    <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }}>
-                        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
+                    <div style={{ maxWidth: 1280, margin: "0 auto", padding: `0 ${px}` }}>
+                        <div style={{
+                            display: "grid",
+                            gridTemplateColumns: statsColumns,
+                        }}>
                             {data.stats.map((stat, i) => (
                                 <motion.div
                                     key={i}
@@ -458,18 +439,19 @@ export function ProductPage({ productId })
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.1 }}
                                     style={{
-                                        padding: "48px 40px",
-                                        borderRight: i < 2 ? "1px solid #f1f5f9" : "none",
-                                        textAlign: "center" // ← Added this property to center the content
+                                        padding: isMobile ? "28px 20px" : "44px 40px",
+                                        borderRight: !isMobile && i < 2 ? "1px solid #f1f5f9" : "none",
+                                        borderBottom: isMobile && i < 2 ? "1px solid #f1f5f9" : "none",
+                                        textAlign: "center"
                                     }}
                                 >
-                                    <div style={{ fontSize: 13, color: "#94a3b8", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 12 }}>
+                                    <div style={{ fontSize: 11, color: "#94a3b8", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 8 }}>
                                         {stat.prior}
                                     </div>
-                                    <div style={{ fontSize: 48, fontWeight: 800, color: theme.primary, letterSpacing: "-0.03em", marginBottom: 8, lineHeight: 1 }}>
+                                    <div style={{ fontSize: isMobile ? 36 : 46, fontWeight: 800, color: theme.primary, letterSpacing: "-0.03em", marginBottom: 6, lineHeight: 1 }}>
                                         {stat.value}
                                     </div>
-                                    <div style={{ fontSize: 16, color: "#475569", fontWeight: 500 }}>
+                                    <div style={{ fontSize: 14, color: "#475569", fontWeight: 500 }}>
                                         {stat.label}
                                     </div>
                                 </motion.div>
@@ -478,95 +460,125 @@ export function ProductPage({ productId })
                     </div>
                 </section>
 
-                {/* ── FEATURES GRID ────────────────────────────────────────────── */}
-                <section style={{ padding: "120px 0" }}>
-                    <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }}>
-                        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={staggerContainer} style={{ textAlign: "center", marginBottom: 80 }}>
-                            <motion.h2 variants={fadeUp} style={{ fontSize: 42, fontWeight: 800, color: "#0f172a", letterSpacing: "-0.03em", margin: "0 0 16px" }}>
+                {/* ── FEATURES GRID ─────────────────────────────────────────── */}
+                <section style={{ padding: sectionPy }}>
+                    <div style={{ maxWidth: 1280, margin: "0 auto", padding: `0 ${px}` }}>
+                        <motion.div
+                            initial="hidden" whileInView="visible"
+                            viewport={{ once: true, margin: "-60px" }} variants={staggerContainer}
+                            style={{ textAlign: "center", marginBottom: isMobile ? 48 : 72 }}
+                        >
+                            <motion.h2 variants={fadeUp} style={{
+                                fontSize: isMobile ? 28 : isTablet ? 34 : 42,
+                                fontWeight: 800, color: "#0f172a",
+                                letterSpacing: "-0.03em", margin: "0 0 14px"
+                            }}>
                                 Everything you need to succeed.
                             </motion.h2>
-                            <motion.p variants={fadeUp} style={{ fontSize: 18, color: "#64748b", margin: 0, maxWidth: 600, marginInline: "auto", lineHeight: 1.6 }}>
+                            <motion.p variants={fadeUp} style={{
+                                fontSize: isMobile ? 15 : 17,
+                                color: "#64748b", margin: 0,
+                                maxWidth: 560, marginInline: "auto", lineHeight: 1.6
+                            }}>
                                 Purpose-built features designed to work together seamlessly, giving your team the ultimate operational advantage.
                             </motion.p>
                         </motion.div>
 
-                        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}
-                            style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}
+                        <motion.div
+                            initial="hidden" whileInView="visible"
+                            viewport={{ once: true }} variants={staggerContainer}
+                            style={{ display: "grid", gridTemplateColumns: featuresColumns, gap: isMobile ? 16 : 22 }}
                         >
                             {data.features.map((f, i) => (<FeatureCard key={i} {...f} theme={theme} />))}
                         </motion.div>
                     </div>
                 </section>
 
-                {/* ── CAPABILITIES ─────────────────────────────────────────────── */}
-                <section style={{ background: "#ffffff", padding: "120px 0", borderTop: "1px solid #f1f5f9" }}>
-                    <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px 0 90px" }}>
+                {/* ── CAPABILITIES ──────────────────────────────────────────── */}
+                <section style={{ background: "#ffffff", padding: sectionPy, borderTop: "1px solid #f1f5f9" }}>
+                    <div style={{ maxWidth: 1280, margin: "0 auto", padding: `0 ${px}` }}>
                         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
-                            <motion.div variants={fadeUp} style={{ marginBottom: 64 }}>
-                                <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: "0.08em", color: theme.primary, textTransform: "uppercase" }}>
+                            <motion.div variants={fadeUp} style={{ marginBottom: isMobile ? 40 : 60 }}>
+                                <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: theme.primary, textTransform: "uppercase" }}>
                                     Deep Infrastructure
                                 </span>
-                                <h2 style={{ fontSize: 40, fontWeight: 800, color: "#0f172a", letterSpacing: "-0.03em", margin: "12px 0 0" }}>
+                                <h2 style={{
+                                    fontSize: isMobile ? 26 : isTablet ? 32 : 40,
+                                    fontWeight: 800, color: "#0f172a",
+                                    letterSpacing: "-0.03em", margin: "10px 0 0"
+                                }}>
                                     Built for complex workflows.
                                 </h2>
                             </motion.div>
 
-                            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "64px 100px" }}>
+                            <div style={{
+                                display: "grid",
+                                gridTemplateColumns: capabilitiesColumns,
+                                gap: isMobile ? "40px 0" : "56px 80px"
+                            }}>
                                 {data.capabilities.map((cap, i) => (<CapabilityGroup key={i} {...cap} theme={theme} />))}
                             </div>
                         </motion.div>
                     </div>
                 </section>
 
-                {/* ── TESTIMONIAL ──────────────────────────────────────────────── */}
-                <section style={{ background: theme.primary, padding: "100px 0", position: "relative", overflow: "hidden" }}>
-                    {/* Background Pattern */}
-                    <div style={{ position: "absolute", inset: 0, backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '32px 32px' }} />
+                {/* ── TESTIMONIAL ───────────────────────────────────────────── */}
+                <section style={{ background: theme.primary, padding: isMobile ? "72px 0" : "100px 0", position: "relative", overflow: "hidden" }}>
+                    <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)", backgroundSize: "32px 32px" }} />
 
-                    <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 40px", textAlign: "center", position: "relative", zIndex: 10 }}>
-                        <Quote size={48} color="rgba(255,255,255,0.2)" style={{ margin: "0 auto 32px" }} />
-                        <blockquote style={{ fontSize: 28, fontWeight: 400, color: "#ffffff", lineHeight: 1.5, margin: "0 0 40px", letterSpacing: "-0.01em" }}>
+                    <div style={{ maxWidth: 820, margin: "0 auto", padding: `0 ${px}`, textAlign: "center", position: "relative", zIndex: 10 }}>
+                        <Quote size={isMobile ? 36 : 48} color="rgba(255,255,255,0.2)" style={{ margin: "0 auto 28px" }} />
+                        <blockquote style={{
+                            fontSize: isMobile ? 18 : 24,
+                            fontWeight: 400, color: "#ffffff",
+                            lineHeight: 1.6, margin: "0 0 32px", letterSpacing: "-0.01em"
+                        }}>
                             "{data.testimonial.quote}"
                         </blockquote>
-                        <div style={{ display: "flex", justifyContent: "center", gap: 4, marginBottom: 16 }}>
-                            {[...Array(5)].map((_, i) => (<Star key={i} size={18} fill="#fbbf24" color="#fbbf24" />))}
+                        <div style={{ display: "flex", justifyContent: "center", gap: 4, marginBottom: 14 }}>
+                            {[...Array(5)].map((_, i) => (<Star key={i} size={16} fill="#fbbf24" color="#fbbf24" />))}
                         </div>
-                        <div style={{ fontSize: 16, fontWeight: 700, color: "#fff", marginBottom: 4 }}>{data.testimonial.name}</div>
-                        <div style={{ fontSize: 15, color: "rgba(255,255,255,0.8)" }}>{data.testimonial.role}</div>
+                        <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 4 }}>{data.testimonial.name}</div>
+                        <div style={{ fontSize: 14, color: "rgba(255,255,255,0.8)" }}>{data.testimonial.role}</div>
                     </div>
                 </section>
 
-                {/* ── FINAL CTA ─────────────────────────────────────────────────── */}
-                <section style={{ background: "#020617", padding: "120px 0", textAlign: "center" }}>
-                    <div style={{ maxWidth: 640, margin: "0 auto", padding: "0 40px" }}>
-                        <h2 style={{ fontSize: 44, fontWeight: 800, color: "#ffffff", letterSpacing: "-0.03em", margin: "0 0 20px" }}>
+                {/* ── FINAL CTA ─────────────────────────────────────────────── */}
+                <section style={{ background: "#020617", padding: isMobile ? "72px 0" : "120px 0", textAlign: "center" }}>
+                    <div style={{ maxWidth: 600, margin: "0 auto", padding: `0 ${px}` }}>
+                        <h2 style={{
+                            fontSize: isMobile ? 30 : 42,
+                            fontWeight: 800, color: "#ffffff",
+                            letterSpacing: "-0.03em", margin: "0 0 16px"
+                        }}>
                             Ready to take control?
                         </h2>
-                        <p style={{ fontSize: 18, color: "#94a3b8", marginBottom: 48, lineHeight: 1.6 }}>
+                        <p style={{ fontSize: isMobile ? 15 : 17, color: "#94a3b8", marginBottom: 40, lineHeight: 1.6 }}>
                             Join the industry leaders using {data.title} to transform their daily operations.
                         </p>
-                        <div style={{ display: "flex", gap: 16, justifyContent: "center" }}>
-                            <button style={{
-                                background: theme.primary, color: "#fff", border: "none", borderRadius: 10,
-                                padding: "16px 36px", fontSize: 16, fontWeight: 600, cursor: "pointer",
-                                transition: "all 0.2s", boxShadow: `0 8px 24px -8px ${theme.primary}`
+                        <button
+                            style={{
+                                background: theme.primary, color: "#fff", border: "none",
+                                borderRadius: 10, padding: isMobile ? "14px 28px" : "16px 36px",
+                                fontSize: isMobile ? 15 : 16, fontWeight: 600, cursor: "pointer",
+                                transition: "all 0.2s", boxShadow: `0 8px 24px -8px ${theme.primary}`,
+                                width: isMobile ? "100%" : "auto"
                             }}
-                                onClick={e => { e.stopPropagation(); setIsProjectOpen(true); }}
-                                onMouseEnter={(e) => { e.currentTarget.style.background = theme.accent; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                                onMouseLeave={(e) => { e.currentTarget.style.background = theme.primary; e.currentTarget.style.transform = "translateY(0)"; }}
-                            >
-                                Book a Demo
-                            </button>
-                        </div>
-                        <p style={{ fontSize: 14, color: "#475569", marginTop: 24, fontWeight: 500 }}>
+                            onClick={e => { e.stopPropagation(); setIsProjectOpen(true); }}
+                            onMouseEnter={(e) => { e.currentTarget.style.background = theme.accent; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                            onMouseLeave={(e) => { e.currentTarget.style.background = theme.primary; e.currentTarget.style.transform = "translateY(0)"; }}
+                        >
+                            Book a Demo
+                        </button>
+                        <p style={{ fontSize: 13, color: "#475569", marginTop: 20, fontWeight: 500 }}>
                             No credit card required · Free forever plan available
                         </p>
                     </div>
                 </section>
             </motion.div>
+
             <ProjectModal isOpen={isProjectOpen} onClose={() => setIsProjectOpen(false)} />
         </AnimatePresence>
-
     );
 }
 
@@ -575,7 +587,7 @@ const PRODUCTS = [
     { id: "financemanager", label: "Finance Manager", color: "#2563eb" },
     { id: "crmportal", label: "CRM Portal", color: "#059669" },
     { id: "schoolmanager", label: "School Manager", color: "#7c3aed" },
-    { id: "inventoryai", label: "InventoryAI", color: "#d97706" },
+    { id: "inventorymanager", label: "Inventory Manager", color: "#d97706" },
     { id: "clinicmanager", label: "Clinic Manager", color: "#dc2626" },
     { id: "kitchendisplaysystem", label: "Kitchen Display System", color: "#f59e0b" },
 ];
@@ -583,30 +595,54 @@ const PRODUCTS = [
 export function ProductPageDemo()
 {
     const [active, setActive] = useState("financemanager");
+    const { isMobile } = useBreakpoint();
 
     return (
         <div style={{ fontFamily: "'Inter', sans-serif" }}>
             <nav style={{
-                position: "sticky", top: 0, zIndex: 100, background: "rgba(2, 6, 23, 0.8)",
-                backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(255,255,255,0.05)",
-                display: "flex", justifyContent: "center", gap: 8, padding: "16px", flexWrap: "wrap"
+                position: "sticky", top: 0, zIndex: 100,
+                background: "rgba(2, 6, 23, 0.9)",
+                backdropFilter: "blur(12px)",
+                borderBottom: "1px solid rgba(255,255,255,0.05)",
+                padding: "12px 16px",
+                overflowX: "auto",
+                WebkitOverflowScrolling: "touch",
+                /* hide scrollbar on mobile but keep functionality */
+                scrollbarWidth: "none",
+                msOverflowStyle: "none",
             }}>
-                {PRODUCTS.map((p) => (
-                    <button
-                        key={p.id} onClick={() => setActive(p.id)}
-                        style={{
-                            background: active === p.id ? "rgba(255,255,255,0.1)" : "transparent",
-                            color: active === p.id ? "#fff" : "#94a3b8",
-                            border: `1px solid ${active === p.id ? "rgba(255,255,255,0.15)" : "transparent"}`,
-                            borderRadius: 100, padding: "8px 20px", fontSize: 14, fontWeight: 600,
-                            cursor: "pointer", transition: "all 0.2s"
-                        }}
-                        onMouseEnter={(e) => { if (active !== p.id) e.currentTarget.style.color = "#fff"; }}
-                        onMouseLeave={(e) => { if (active !== p.id) e.currentTarget.style.color = "#94a3b8"; }}
-                    >
-                        {p.label}
-                    </button>
-                ))}
+                <div style={{
+                    display: "flex",
+                    gap: 8,
+                    flexWrap: isMobile ? "nowrap" : "wrap",
+                    justifyContent: isMobile ? "flex-start" : "center",
+                    minWidth: "max-content",
+                    margin: isMobile ? "0" : "0 auto",
+                }}>
+                    {PRODUCTS.map((p) => (
+                        <button
+                            key={p.id}
+                            onClick={() => setActive(p.id)}
+                            style={{
+                                background: active === p.id ? "rgba(255,255,255,0.1)" : "transparent",
+                                color: active === p.id ? "#fff" : "#94a3b8",
+                                border: `1px solid ${active === p.id ? "rgba(255,255,255,0.15)" : "transparent"}`,
+                                borderRadius: 100,
+                                padding: isMobile ? "7px 14px" : "8px 20px",
+                                fontSize: isMobile ? 13 : 14,
+                                fontWeight: 600,
+                                cursor: "pointer",
+                                transition: "all 0.2s",
+                                whiteSpace: "nowrap",
+                                flexShrink: 0,
+                            }}
+                            onMouseEnter={(e) => { if (active !== p.id) e.currentTarget.style.color = "#fff"; }}
+                            onMouseLeave={(e) => { if (active !== p.id) e.currentTarget.style.color = "#94a3b8"; }}
+                        >
+                            {p.label}
+                        </button>
+                    ))}
+                </div>
             </nav>
             <ProductPage productId={active} />
         </div>
