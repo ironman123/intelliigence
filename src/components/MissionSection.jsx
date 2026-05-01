@@ -1,33 +1,21 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Cpu, ShieldCheck, Maximize } from "lucide-react";
 
-const fadeUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: (i = 0) => ({
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }
-    })
+// ─── Minimalist Palette ──────────────────────────────────────────
+const P = {
+    bg: "#f9f9f7",        // Paper-white background
+    ink: "#0f0f0f",       // Near-black
+    inkMuted: "#666666",  // Grey for subtext
+    accent: "#2563eb",    // Primary blue (used sparingly)
 };
 
-const PILLARS = [
-    {
-        icon: <Cpu size={22} color="#3b82f6" />,
-        label: "Adaptive Infrastructure",
-        text: "Systems that don't just execute, but evolve. We build resilient pipelines that adapt instantly to your growing intelligence needs."
-    },
-    {
-        icon: <ShieldCheck size={22} color="#8b5cf6" />,
-        label: "Absolute Sovereignty",
-        text: "No black-box dependencies. You retain complete ownership of the entire stack—from the database architecture to the final interface."
-    },
-    {
-        icon: <Maximize size={22} color="#10b981" />,
-        label: "Frictionless Scale",
-        text: "Turn complexity into a straight line. Our architecture is engineered to handle massive throughput without accumulating technical debt."
-    }
-];
+const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: (i = 0) => ({
+        opacity: 1, y: 0,
+        transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: i * 0.15 }
+    }),
+};
 
 export default function MissionSection()
 {
@@ -35,200 +23,111 @@ export default function MissionSection()
     const inView = useInView(ref, { once: true, margin: "-100px" });
 
     return (
-        <section style={styles.section} ref={ref}>
-            <div style={styles.container}>
+        <>
+            <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap');
+        
+        @keyframes adGhostOrbit {
+          from { transform: translate(-50%, -50%) rotate(0deg); }
+          to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+      `}</style>
 
-                {/* --- LEFT COLUMN: Editorial & Vision --- */}
-                <div style={styles.leftColumn}>
-                    <motion.div
-                        style={styles.badge}
-                        variants={fadeUp} initial="hidden"
-                        animate={inView ? "visible" : "hidden"} custom={0}
-                    >
-                        <span style={styles.badgeDot} />
-                        <span style={styles.badgeText}>OUR VISION</span>
-                    </motion.div>
+            <section ref={ref} style={{
+                background: P.bg,
+                padding: "180px 24px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                textAlign: "center",
+                fontFamily: "'Inter', sans-serif",
+                position: "relative",
+                overflow: "hidden",
+                minHeight: "80vh"
+            }}>
 
-                    {/* NEW: Split the headline into two distinct hierarchical elements */}
+                {/* ── Blurred Background "Ghost" Object ── */}
+                <div style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    width: "600px",
+                    height: "600px",
+                    border: "1px solid rgba(0,0,0,0.03)",
+                    borderRadius: "40% 60% 70% 30% / 40% 50% 60% 50%",
+                    filter: "blur(80px)",
+                    animation: "adGhostOrbit 25s linear infinite",
+                    background: "radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.05), transparent)",
+                    pointerEvents: "none",
+                    zIndex: 0
+                }} />
+
+                <div style={{ position: "relative", zIndex: 1, maxWidth: "800px" }}>
+
+                    {/* ── Main Headline ── */}
                     <motion.h2
-                        style={styles.headline}
-                        variants={fadeUp} initial="hidden"
-                        animate={inView ? "visible" : "hidden"} custom={1}
+                        variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} custom={0}
+                        style={{
+                            fontSize: "clamp(48px, 8vw, 92px)",
+                            fontWeight: 800,
+                            color: P.ink,
+                            lineHeight: 0.95,
+                            letterSpacing: "-0.04em",
+                            margin: "0 0 32px"
+                        }}
                     >
-                        We build systems that <br />
-                        <span style={styles.highlight}>think ahead.</span>
+                        S<span style={{ color: P.accent }}>aa</span>S: System <br />
+                        as a Service
                     </motion.h2>
 
-                    <motion.h3
-                        style={styles.subHeadline}
-                        variants={fadeUp} initial="hidden"
-                        animate={inView ? "visible" : "hidden"} custom={1.5}
-                    >
-                        So your business never has to catch up.
-                    </motion.h3>
-
+                    {/* ── Subtext ── */}
                     <motion.p
-                        style={styles.sub}
-                        variants={fadeUp} initial="hidden"
-                        animate={inView ? "visible" : "hidden"} custom={2}
+                        variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} custom={1}
+                        style={{
+                            fontFamily: "'Newsreader', serif",
+                            fontSize: "clamp(18px, 2.5vw, 26px)",
+                            fontStyle: "italic",
+                            color: P.ink,
+                            lineHeight: 1.5,
+                            maxWidth: "640px",
+                            margin: "0 auto 64px"
+                        }}
                     >
-                        More than just software, we engineer evolving ecosystems.
-                        Crafted for modern teams operating at the cutting edge, our platform
-                        turns operational drag into compounding momentum—bridging the gap
-                        between raw ideas and scalable impact.
+                        We build systems that think ahead—so your business never has to catch up. More than just software, we create an evolving ecosystem that grows with your ambitions.
                     </motion.p>
+
+                    {/* ── Pillars (Simple Text) ── */}
+                    <div style={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "center",
+                        gap: "40px",
+                        borderTop: "1px solid rgba(0,0,0,0.06)",
+                        paddingTop: "40px"
+                    }}>
+                        {[
+                            { label: "Adaptive Infrastructure", value: "Evolving pipelines" },
+                            { label: "Absolute Sovereignty", value: "Zero black-box" },
+                            { label: "Frictionless Scale", value: "Massive throughput" }
+                        ].map((p, i) => (
+                            <motion.div
+                                key={i}
+                                variants={fadeUp} initial="hidden" animate={inView ? "visible" : "hidden"} custom={2 + i * 0.1}
+                                style={{ textAlign: "left" }}
+                            >
+                                <div style={{ fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: P.accent, marginBottom: "4px" }}>
+                                    {p.label}
+                                </div>
+                                <div style={{ fontSize: "16px", color: P.inkMuted }}>
+                                    {p.value}
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+
                 </div>
-
-                {/* --- RIGHT COLUMN: The Pillars --- */}
-                <motion.div
-                    style={styles.rightColumn}
-                    variants={fadeUp} initial="hidden"
-                    animate={inView ? "visible" : "hidden"} custom={3}
-                >
-                    {PILLARS.map((p, index) => (
-                        <motion.div
-                            key={p.label}
-                            style={styles.pillarCard}
-                            whileHover={{
-                                y: -4,
-                                boxShadow: "0 20px 40px -10px rgba(0,0,0,0.08)",
-                                borderColor: "#e2e8f0"
-                            }}
-                            transition={{ duration: 0.2 }}
-                        >
-                            <div style={styles.iconWrapper}>
-                                {p.icon}
-                            </div>
-                            <div style={styles.pillarContent}>
-                                <h3 style={styles.pillarLabel}>{p.label}</h3>
-                                <p style={styles.pillarText}>{p.text}</p>
-                            </div>
-                        </motion.div>
-                    ))}
-                </motion.div>
-
-            </div>
-        </section>
+            </section>
+        </>
     );
 }
-
-const styles = {
-    section: {
-        background: "#fafafa", // Slightly off-white for premium feel
-        padding: "120px 24px",
-        fontFamily: "'Inter', system-ui, sans-serif",
-        borderBottom: "1px solid #f1f5f9",
-        display: "flex",
-        justifyContent: "center",
-    },
-    container: {
-        width: "100%",
-        maxWidth: 1200,
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "64px",
-        alignItems: "center",
-    },
-    leftColumn: {
-        flex: "1 1 450px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        textAlign: "left",
-    },
-    rightColumn: {
-        flex: "1 1 500px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "20px",
-    },
-    badge: {
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 8,
-        background: "#ffffff",
-        border: "1px solid #e2e8f0",
-        borderRadius: 999,
-        padding: "6px 16px",
-        marginBottom: 32,
-        boxShadow: "0 2px 10px rgba(0,0,0,0.02)",
-    },
-    badgeDot: {
-        width: 6,
-        height: 6,
-        borderRadius: "50%",
-        background: "#0f172a", // Darked dot for a sleeker look
-        display: "block",
-    },
-    badgeText: {
-        fontSize: 11,
-        fontWeight: 700,
-        letterSpacing: "0.15em",
-        color: "#64748b",
-    },
-    headline: {
-        fontSize: "clamp(2.5rem, 4.5vw, 3.5rem)", // Slightly larger for impact
-        fontWeight: 800,
-        lineHeight: 1.1,
-        color: "#0f172a",
-        letterSpacing: "-0.04em",
-        margin: "0 0 12px", // Tightened bottom margin to connect to subHeadline
-    },
-    highlight: {
-        color: "#3b82f6",
-    },
-    subHeadline: {
-        fontSize: "clamp(1.4rem, 2.5vw, 1.8rem)", // Smaller than main hook, larger than paragraph
-        fontWeight: 600,
-        color: "#64748b", // Muted slate color to create contrast
-        lineHeight: 1.3,
-        letterSpacing: "-0.02em",
-        margin: "0 0 32px", // Space before the paragraph begins
-    },
-    sub: {
-        fontSize: 17,
-        lineHeight: 1.7,
-        color: "#64748b",
-        maxWidth: 520,
-        margin: "0",
-    },
-    pillarCard: {
-        background: "#ffffff",
-        padding: "32px",
-        borderRadius: 16,
-        border: "1px solid #f1f5f9",
-        display: "flex",
-        gap: "20px",
-        alignItems: "flex-start",
-        boxShadow: "0 4px 20px -10px rgba(0,0,0,0.03)",
-        cursor: "default",
-    },
-    iconWrapper: {
-        background: "#f8fafc",
-        padding: "12px",
-        borderRadius: 12,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        border: "1px solid #f1f5f9",
-        flexShrink: 0,
-    },
-    pillarContent: {
-        display: "flex",
-        flexDirection: "column",
-        gap: "8px",
-    },
-    pillarLabel: {
-        fontSize: 16,
-        fontWeight: 700,
-        color: "#0f172a",
-        margin: 0,
-        letterSpacing: "-0.01em",
-    },
-    pillarText: {
-        fontSize: 14,
-        lineHeight: 1.6,
-        color: "#64748b",
-        margin: 0,
-    },
-};

@@ -8,6 +8,7 @@ import
     Package
 } from "lucide-react";
 import ProjectModal from "./ProjectModal";
+import { useScroll, useTransform } from "framer-motion";
 import { navVariants, drawerVariants, notchVariants } from "../animations/navbarAnimations";
 import "../styles/navbar.css";
 
@@ -260,6 +261,12 @@ export default function NotchedNavbar()
         megaTimeoutRef.current = setTimeout(() => setMegaOpen(false), 120);
     };
 
+    const { scrollY } = useScroll(); // Add this import from "framer-motion"
+
+    // Determine when to start and end the collapse (e.g., between 0 and 100px scroll)
+    const logoOpacity = useTransform(scrollY, [0, 80], [1, 0]);
+    const logoWidth = useTransform(scrollY, [0, 80], ["auto", "0px"]);
+
     return (
         <>
             <motion.nav
@@ -273,7 +280,7 @@ export default function NotchedNavbar()
                     {/* Logo */}
                     <Link to="/" className="nb-logo">
                         <img src="/images/logo.png" alt="Logo" className="nb-logo-img" />
-                        <span className="nb-logo-text">INTELLIGENCE</span>
+                        <span className="nb-logo-text">ENTROPIC SYSTEM</span>
                     </Link>
 
                     {/* Desktop Links */}

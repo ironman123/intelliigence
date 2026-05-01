@@ -95,8 +95,8 @@ export default function App()
     link.href = '/images/favicon.png';
 
     // 2. Manage Document Title
-    // OPTIMIZED: Includes "Solutions", "Systems", and "Pipelines" + "Intelligence"
-    document.title = "Intelligence Solutions | AI Systems & Data Pipelines";
+    // OPTIMIZED: Includes "Solutions", "Systems", and "Pipelines" + "Entropic"
+    document.title = "Entropic Solutions | AI Systems & Data Pipelines";
 
     // 3. Manage Meta Description
     let metaDescription = document.querySelector("meta[name='description']");
@@ -108,7 +108,7 @@ export default function App()
     }
 
     // OPTIMIZED: Includes all 4 keywords naturally within 155 characters
-    metaDescription.content = "Transform raw data into action with our advanced intelligence systems. We build robust data pipelines and custom AI solutions that reason, adapt, and evolve.";
+    metaDescription.content = "Transform raw data into action with our advanced Entropic systems. We build robust data pipelines and custom AI solutions that reason, adapt, and evolve.";
 
   }, []);
 

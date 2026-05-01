@@ -111,7 +111,7 @@ export default function SaaSSection()
     return (
         <section className="saas-section">
             <div className="saas-header">
-                <span className="saas-eyebrow">INTELLIIGENCE BUSINESS ECOSYSTEM</span>
+                <span className="saas-eyebrow">ENTROPIC BUSINESS ECOSYSTEM</span>
                 <h2 className="saas-title">Equip every team with purpose-built software</h2>
                 <p className="saas-subtitle">
                     Equip every team with the tools to adapt, scale, and deliver real results.

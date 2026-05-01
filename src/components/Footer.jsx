@@ -149,7 +149,7 @@ export default function Footer()
                                     +91 70608 16597
                                 </a>
                                 <a
-                                    href="mailto:ai.intelliigence@gmail.com"
+                                    href="mailto:entropicsys@gmail.com"
                                     style={styles.contactChip}
                                     onMouseEnter={e =>
                                     {
@@ -163,7 +163,7 @@ export default function Footer()
                                     }}
                                 >
                                     <Mail size={14} style={{ color: "#3b82f6", flexShrink: 0 }} />
-                                    ai.intelliigence@gmail.com
+                                    entropicsys@gmail.com
                                 </a>
                             </div>
                         </div>
@@ -394,7 +394,7 @@ export default function Footer()
 
                         <div style={styles.legal}>
                             <span style={styles.legalText}>
-                                © {currentYear} AI Intelligence Inc. All rights reserved.
+                                © {currentYear} Entropic System Inc. All rights reserved.
                             </span>
                             <div style={styles.legalLinks}>
                                 {[

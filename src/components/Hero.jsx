@@ -43,7 +43,7 @@ export default function Hero()
                             custom={0} initial="hidden" animate="visible" variants={fadeUp}
                         >
                             <span className="badge-dot"></span>
-                            INTELLIIGENCE
+                            ENTROPIC SYSTEM
                         </motion.div>
 
                         <motion.h1
