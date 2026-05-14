@@ -1,7 +1,6 @@
 // App.jsx
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Hero from "./components/Hero";
 import NotchedNavbar from "./components/NotchedNavbar";
@@ -21,10 +20,16 @@ import SaaSSection from "./components/SaaSSection";
 import ToolsSection from "./components/ToolsSection";
 import ChatWidget from "./components/ChatWidget";
 import { ProductPage, ProductPageDemo } from "./components/ProductPage";
+import SEO from "./components/SEO";
 
 //Create a wrapper for the Home page to keep App.js clean
 const Home = () => (
   <>
+    <SEO
+      title="Entropic Solutions | Smart Software Systems & Data Pipelines"
+      description="Transform raw data into action with our advanced Entropic systems. We build robust data pipelines and custom Smart Software solutions that reason, adapt, and evolve."
+      type="website"
+    />
     <Hero />
     <MissionSection />
     <Ticker />
@@ -37,8 +42,7 @@ const Home = () => (
     <Tools />
   </>
 );
-function AnimatedRoutes()
-{
+function AnimatedRoutes() {
   const location = useLocation();
 
   return (
@@ -80,38 +84,7 @@ function AnimatedRoutes()
   );
 }
 
-export default function App()
-{
-  useEffect(() =>
-  {
-    // 1. Manage Favicon
-    let link = document.querySelector("link[rel~='icon']");
-    if (!link)
-    {
-      link = document.createElement('link');
-      link.rel = 'icon';
-      document.head.appendChild(link);
-    }
-    link.href = '/images/favicon.png';
-
-    // 2. Manage Document Title
-    // OPTIMIZED: Includes "Solutions", "Systems", and "Pipelines" + "Entropic"
-    document.title = "Entropic Solutions | AI Systems & Data Pipelines";
-
-    // 3. Manage Meta Description
-    let metaDescription = document.querySelector("meta[name='description']");
-    if (!metaDescription)
-    {
-      metaDescription = document.createElement('meta');
-      metaDescription.name = "description";
-      document.head.appendChild(metaDescription);
-    }
-
-    // OPTIMIZED: Includes all 4 keywords naturally within 155 characters
-    metaDescription.content = "Transform raw data into action with our advanced Entropic systems. We build robust data pipelines and custom AI solutions that reason, adapt, and evolve.";
-
-  }, []);
-
+export default function App() {
   return (
     <Router>
       <NotchedNavbar /> {/* Navbar stays on all pages */}

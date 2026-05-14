@@ -42,10 +42,13 @@ const pageVariants = {
     },
 };
 
-export default function SolutionsPage({ layer })
-{
+import SEO from "../SEO";
+
+export default function SolutionsPage({ layer }) {
     const data = MAP[layer];
     if (!data) return null;
+
+    const layerTitle = layer.charAt(0).toUpperCase() + layer.slice(1);
 
     return (
         <motion.main
@@ -55,6 +58,11 @@ export default function SolutionsPage({ layer })
             animate="animate"
             exit="exit"
         >
+            <SEO
+                title={`${layerTitle} Entropic System | Advance Software Solutions`}
+                description={`Learn more about our ${layer} solutions, built to address complex challenges.`}
+                type="website"
+            />
             <SolutionsLayerToggle />
             <LayerHero layer={layer}{...data.hero} />
 

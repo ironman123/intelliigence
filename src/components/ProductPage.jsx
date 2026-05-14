@@ -274,6 +274,8 @@ const CapabilityGroup = ({ title, items, theme }) => (
     </motion.div>
 );
 
+import SEO from "./SEO";
+
 // ─── MAIN PRODUCT PAGE COMPONENT ─────────────────────────────────────────────
 export function ProductPage({ productId })
 {
@@ -293,6 +295,11 @@ export function ProductPage({ productId })
 
     return (
         <AnimatePresence mode="wait">
+            <SEO 
+                title={`${data.title} | Entropic System`}
+                description={data.description}
+                type="product"
+            />
             <motion.div
                 key={productId}
                 initial={{ opacity: 0, filter: "blur(4px)" }}

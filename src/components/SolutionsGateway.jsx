@@ -28,12 +28,18 @@ const SOLUTION_LAYERS = [
     },
 ];
 
-export default function SolutionsGateway()
-{
+import SEO from "./SEO";
+
+export default function SolutionsGateway() {
     const navigate = useNavigate();
 
     return (
         <section className="solutions-gateway">
+            <SEO
+                title="Entropic System | Advance Software Solutions"
+                description="Explore our core, emerging, and vision solutions for operational intelligence, agentic systems, and governance."
+                type="website"
+            />
             {SOLUTION_LAYERS.map((layer, index) => (
                 <SolutionPanel
                     key={layer.key}

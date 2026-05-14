@@ -6,8 +6,12 @@ import "./styles/variables.css";
 import "./styles/base.css";
 import "./styles/layout.css";
 
+import { HelmetProvider } from 'react-helmet-async';
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
   </React.StrictMode>
 );
