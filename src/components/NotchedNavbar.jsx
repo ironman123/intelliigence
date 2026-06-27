@@ -1,14 +1,14 @@
-import { useEffect, useState, useRef } from "react";
+﻿import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router";
 import
 {
     LineChart, Users, GraduationCap, Activity, ChefHat,
-    Satellite, ChevronDown, ArrowUpRight, X,
+    ChevronDown, ArrowUpRight, X,
     Package
 } from "lucide-react";
 import ProjectModal from "./ProjectModal";
-import { useScroll, useTransform } from "framer-motion";
+import { useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { navVariants, drawerVariants, notchVariants } from "../animations/navbarAnimations";
 import "../styles/navbar.css";
 
@@ -215,12 +215,41 @@ export default function NotchedNavbar()
     const isSolutionsPage = location.pathname.includes("solutions");
     const isProductsPage = location.pathname.includes("products");
 
-    useEffect(() =>
-    {
-        const onScroll = () => setCollapsed(window.scrollY > 80);
-        window.addEventListener("scroll", onScroll, { passive: true });
-        return () => window.removeEventListener("scroll", onScroll);
-    }, []);
+    const { scrollY } = useScroll();
+    const scrollDeltaRef = useRef(0);
+    const scrollDirectionRef = useRef(0);
+
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        // Disable scroll collapse completely on mobile devices (width <= 900px)
+        if (window.innerWidth <= 900) {
+            if (collapsed) setCollapsed(false);
+            return;
+        }
+
+        const previous = scrollY.getPrevious();
+        const delta = latest - previous;
+        if (delta === 0) return;
+
+        // Hysteresis: only act once accumulated movement in one direction
+        // crosses a threshold, so trackpad/inertial jitter can't flip the
+        // bar back and forth on every micro-reversal.
+        const direction = delta > 0 ? 1 : -1;
+        if (direction !== scrollDirectionRef.current) {
+            scrollDirectionRef.current = direction;
+            scrollDeltaRef.current = 0;
+        }
+        scrollDeltaRef.current += Math.abs(delta);
+
+        const SCROLL_THRESHOLD = 12;
+        if (scrollDeltaRef.current < SCROLL_THRESHOLD) return;
+        scrollDeltaRef.current = 0;
+
+        if (direction > 0 && latest > 150) {
+            setCollapsed(true);
+        } else if (direction < 0) {
+            setCollapsed(false);
+        }
+    });
 
     // Close mega on route change
     useEffect(() =>
@@ -261,8 +290,6 @@ export default function NotchedNavbar()
         megaTimeoutRef.current = setTimeout(() => setMegaOpen(false), 120);
     };
 
-    const { scrollY } = useScroll(); // Add this import from "framer-motion"
-
     // Determine when to start and end the collapse (e.g., between 0 and 100px scroll)
     const logoOpacity = useTransform(scrollY, [0, 80], [1, 0]);
     const logoWidth = useTransform(scrollY, [0, 80], ["auto", "0px"]);
@@ -279,7 +306,7 @@ export default function NotchedNavbar()
                 <div className="nb-inner">
                     {/* Logo */}
                     <Link to="/" className="nb-logo">
-                        <img src="/images/logo.png" alt="Logo" className="nb-logo-img" />
+                        <img src="/images/logo.png" alt="Entropic System" className="nb-logo-img" />
                         <span className="nb-logo-text">ENTROPIC SYSTEM</span>
                     </Link>
 
@@ -323,6 +350,18 @@ export default function NotchedNavbar()
                                 className={`nb-link ${isSolutionsPage ? "nb-link--active" : ""}`}
                             >
                                 Solutions
+                            </Link>
+                        </li>
+
+                        <li>
+                            <Link to="/about" className={`nb-link ${location.pathname === "/about" ? "nb-link--active" : ""}`}>
+                                About
+                            </Link>
+                        </li>
+
+                        <li>
+                            <Link to="/contact" className={`nb-link ${location.pathname === "/contact" ? "nb-link--active" : ""}`}>
+                                Contact
                             </Link>
                         </li>
 
@@ -451,6 +490,20 @@ export default function NotchedNavbar()
                                 >
                                     Solutions
                                 </Link>
+                                <Link
+                                    to="/about"
+                                    className="nb-drawer-link"
+                                    onClick={() => setDrawerOpen(false)}
+                                >
+                                    About
+                                </Link>
+                                <Link
+                                    to="/contact"
+                                    className="nb-drawer-link"
+                                    onClick={() => setDrawerOpen(false)}
+                                >
+                                    Contact
+                                </Link>
                                 <a
                                     href="/#discovery"
                                     className="nb-drawer-link"
@@ -467,3 +520,4 @@ export default function NotchedNavbar()
         </>
     );
 }
+

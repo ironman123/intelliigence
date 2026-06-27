@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import React from "react";
 import
 {
@@ -6,6 +6,7 @@ import
     Database, Cloud, Code, Cpu, BrainCircuit, Server, Globe, Zap, Layers, Network
 } from "lucide-react";
 import { motion } from "framer-motion";
+import SteamButton from "./SteamButton";
 import "../styles/features.css";
 
 const TECH_ICONS = [
@@ -66,10 +67,12 @@ const FeatureRow = ({
                     {description}
                 </motion.p>
                 <motion.div variants={itemVariants}>
-                    <a href="/solutions" className="feature-btn">
-                        Explore Solutions
-                        <ArrowRight size={18} style={{ marginLeft: "8px" }} />
-                    </a>
+                    <SteamButton>
+                        <a href="/solutions" className="feature-btn">
+                            Explore Solutions
+                            <ArrowRight size={18} style={{ marginLeft: "8px" }} />
+                        </a>
+                    </SteamButton>
                 </motion.div>
             </motion.div>
 
@@ -82,7 +85,7 @@ const FeatureRow = ({
                 viewport={{ once: true }}
             >
                 {imageSrc ? (
-                    <img src={imageSrc} alt={title} className="feature-real-img" />
+                    <img src={imageSrc} alt={title} loading="lazy" className="feature-real-img" />
                 ) : (
                     <div className="feature-img-placeholder">
                         <ImageIcon size={64} strokeWidth={1} />
@@ -127,3 +130,4 @@ const FloatingParticle = ({ index }) =>
 };
 
 export default FeatureRow;
+

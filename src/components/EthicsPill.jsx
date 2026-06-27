@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { ethicsPill } from "../animations/ethicsPillAnimations";
 import "../styles/ethics-pill.css";
 
@@ -36,3 +36,5 @@ export default function EthicsPill({ icon, title, description, index })
         </motion.div>
     );
 }
+
+

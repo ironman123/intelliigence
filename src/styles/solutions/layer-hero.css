@@ -1,120 +1,227 @@
-/* src/styles/solutions/layer-hero.css */
+/* ── Layer Hero ─────────────────────────────────────────────── */
 
 .layer-hero {
     width: 100%;
-    padding: 12vh 8vw 8vh;
-    /* Added top padding for navbar clearance */
-    background: #09090b;
-    /* Default Dark Base */
+    min-height: 78vh;
+    padding: 14vh 8vw 10vh;
+    background: #06080f;
     color: white;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
 }
 
-/* --- THEMES --- */
+/* ── Per-theme base atmospheres ── */
 
-/* 1. CORE: Cyan/Blue (Infrastructure) */
 .layer-hero--core {
-    --hero-accent: #06b6d4;
-    /* Cyan-500 */
-    background: radial-gradient(circle at 80% 20%, rgba(6, 182, 212, 0.15), transparent 40%), #09090b;
+    --hero-accent:     #06b6d4;
+    --hero-accent-rgb: 6, 182, 212;
+    background:
+        radial-gradient(ellipse 70% 55% at 90% 10%, rgba(6, 182, 212, 0.16) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 35% at 5%  85%, rgba(6, 182, 212, 0.07) 0%, transparent 60%),
+        #06080f;
 }
 
-/* 2. EMERGING: Orange (Deployment/Action) */
 .layer-hero--emerging {
-    --hero-accent: #f97316;
-    /* Orange-500 */
-    background: radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.15), transparent 40%), #09090b;
+    --hero-accent:     #f97316;
+    --hero-accent-rgb: 249, 115, 22;
+    background:
+        radial-gradient(ellipse 65% 55% at 88% 12%, rgba(249, 115, 22, 0.17) 0%, transparent 65%),
+        radial-gradient(ellipse 38% 32% at 8%  80%, rgba(251, 191, 36, 0.08) 0%, transparent 60%),
+        #06080f;
 }
 
-/* 3. VISION: Purple (Future/R&D) */
 .layer-hero--vision {
-    --hero-accent: #8b5cf6;
-    /* Violet-500 */
-    background: radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.15), transparent 40%), #09090b;
+    --hero-accent:     #8b5cf6;
+    --hero-accent-rgb: 139, 92, 246;
+    background:
+        radial-gradient(ellipse 70% 58% at 88%  8%, rgba(139, 92, 246, 0.20) 0%, transparent 65%),
+        radial-gradient(ellipse 42% 38% at 5%  88%, rgba(99,  102, 241, 0.10) 0%, transparent 60%),
+        #06080f;
 }
 
-/* --- CONTENT --- */
+/* ── Theme-specific right-side pattern overlays ──
+   Core    → circuit grid lines (data / precision)
+   Emerging → radial dot field  (organic / energy)
+   Vision  → fine star field    (deep space / speculative) */
+
+.lh-pattern {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.layer-hero--core .lh-pattern {
+    background-image:
+        linear-gradient(rgba(6, 182, 212, 0.13) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.13) 1px, transparent 1px);
+    background-size: 52px 52px;
+    mask-image: radial-gradient(ellipse 75% 70% at 90% 25%, black 15%, transparent 68%);
+    -webkit-mask-image: radial-gradient(ellipse 75% 70% at 90% 25%, black 15%, transparent 68%);
+}
+
+.layer-hero--emerging .lh-pattern {
+    background-image: radial-gradient(circle, rgba(249, 115, 22, 0.32) 1.2px, transparent 1.2px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 60% 80% at 88% 22%, black 5%, transparent 62%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 80% at 88% 22%, black 5%, transparent 62%);
+}
+
+.layer-hero--vision .lh-pattern {
+    background-image: radial-gradient(circle, rgba(167, 139, 250, 0.38) 0.6px, transparent 0.6px);
+    background-size: 20px 20px;
+    mask-image: radial-gradient(ellipse 85% 75% at 86% 20%, black 10%, transparent 65%);
+    -webkit-mask-image: radial-gradient(ellipse 85% 75% at 86% 20%, black 10%, transparent 65%);
+}
+
+/* ── Atmospheric blurred orbs ── */
+
+.lh-orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(90px);
+}
+
+.lh-orb-1 {
+    width: clamp(480px, 55vw, 900px);
+    height: clamp(480px, 55vw, 900px);
+    top: -25%;
+    right: -18%;
+    z-index: 0;
+}
+.lh-orb-2 {
+    width: clamp(200px, 28vw, 440px);
+    height: clamp(200px, 28vw, 440px);
+    bottom: -12%;
+    left: 2%;
+    z-index: 0;
+    opacity: 0.45;
+}
+
+.layer-hero--core    .lh-orb-1 { background: radial-gradient(circle, rgba(6,   182, 212, 0.16) 0%, transparent 70%); }
+.layer-hero--core    .lh-orb-2 { background: radial-gradient(circle, rgba(6,   182, 212, 0.10) 0%, transparent 70%); }
+.layer-hero--emerging .lh-orb-1 { background: radial-gradient(circle, rgba(249, 115, 22,  0.17) 0%, transparent 70%); }
+.layer-hero--emerging .lh-orb-2 { background: radial-gradient(circle, rgba(251, 191, 36,  0.10) 0%, transparent 70%); }
+.layer-hero--vision  .lh-orb-1 { background: radial-gradient(circle, rgba(139, 92,  246, 0.19) 0%, transparent 70%); }
+.layer-hero--vision  .lh-orb-2 { background: radial-gradient(circle, rgba(99,  102, 241, 0.11) 0%, transparent 70%); }
+
+/* Fades hero into next section */
+.layer-hero::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, #06080f);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* ── Content ── */
 
 .layer-hero-inner {
-    max-width: 1100px;
+    max-width: 780px;
     position: relative;
     z-index: 10;
 }
 
-.layer-hero h1 {
-    font-size: clamp(2.8rem, 5vw, 4.5rem);
+.lh-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.67rem;
     font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 1.5rem;
-    color: white;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--hero-accent);
+    margin-bottom: 1.6rem;
 }
 
-/* Apply gradient to the text based on the theme */
+.lh-eyebrow-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--hero-accent);
+    box-shadow: 0 0 8px var(--hero-accent);
+    animation: lh-pulse 2.2s ease-in-out infinite;
+    flex-shrink: 0;
+}
+
+@keyframes lh-pulse {
+    0%, 100% { opacity: 1;   transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.65); }
+}
+
+.layer-hero h1 {
+    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    font-weight: 800;
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    color: #f8fafc;
+}
+
 .text-gradient {
-    background: linear-gradient(to right, white, var(--hero-accent));
+    background: linear-gradient(110deg, #fff 25%, var(--hero-accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .layer-hero-description {
-    max-width: 680px;
-    font-size: 1.2rem;
-    line-height: 1.7;
-    color: #a1a1aa;
-    /* Zinc-400 */
+    max-width: 620px;
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: #52525b;
     margin-bottom: 3rem;
 }
 
+/* ── Buttons ── */
+
 .layer-hero-actions {
     display: flex;
-    gap: 1.2rem;
+    gap: 1rem;
     flex-wrap: wrap;
+    align-items: center;
 }
-
-/* --- BUTTONS --- */
 
 .layer-hero-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem 2rem;
+    padding: 0.9rem 2rem;
     border-radius: 999px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: filter 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    letter-spacing: -0.01em;
 }
 
-/* Primary: Uses the Theme Accent Color */
 .layer-hero-btn.primary {
     background: var(--hero-accent);
-    color: white;
-    /* OR black if accents are very bright */
+    color: #06080f;
     border: 1px solid var(--hero-accent);
 }
-
 .layer-hero-btn.primary:hover {
-    filter: brightness(1.1);
-    box-shadow: 0 0 20px -5px var(--hero-accent);
+    filter: brightness(1.12);
+    box-shadow: 0 0 24px -4px var(--hero-accent);
 }
 
-/* Secondary: Transparent with Border */
 .layer-hero-btn.secondary {
-    background: transparent;
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(8px);
 }
-
 .layer-hero-btn.secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: white;
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.28);
+    color: #fff;
 }
 
-/* Mobile */
 @media (max-width: 768px) {
-    .layer-hero {
-        padding: 15vh 6vw 6vh;
-    }
+    .layer-hero { padding: 16vh 6vw 8vh; min-height: 65vh; }
 }

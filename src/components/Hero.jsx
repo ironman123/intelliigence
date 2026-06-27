@@ -1,8 +1,9 @@
-"use client";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+﻿"use client";
+import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import SchedulingModal from "./SchedulingModal";
+import SteamButton from "./SteamButton";
 import "../styles/hero.css";
 
 const fadeUp = {
@@ -67,12 +68,19 @@ export default function Hero()
                             className="hero-actions"
                             custom={3} initial="hidden" animate="visible" variants={fadeUp}
                         >
-                            <button
-                                className="btn-primary"
-                                onClick={() => setIsModalOpen(true)}
-                            >
-                                Talk to Our Engineers
-                            </button>
+                            <SteamButton>
+                                <button
+                                    className="btn-primary"
+                                    onClick={() => setIsModalOpen(true)}
+                                    onMouseMove={e => {
+                                        const r = e.currentTarget.getBoundingClientRect();
+                                        e.currentTarget.style.setProperty("--gx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%");
+                                        e.currentTarget.style.setProperty("--gy", ((e.clientY - r.top)  / r.height * 100).toFixed(1) + "%");
+                                    }}
+                                >
+                                    <span className="btn-text">Talk to Our Engineers</span>
+                                </button>
+                            </SteamButton>
                         </motion.div>
                     </div>
                 </div>
@@ -85,3 +93,4 @@ export default function Hero()
         </>
     );
 }
+

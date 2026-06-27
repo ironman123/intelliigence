@@ -1,4 +1,4 @@
-export const CORE_SOLUTIONS = {
+﻿export const CORE_SOLUTIONS = {
     hero: {
         headline: "Enterprise-Grade AI Solutions That Scale With Your Business",
         description:
@@ -84,3 +84,4 @@ export const CORE_SOLUTIONS = {
         },
     ],
 };
+

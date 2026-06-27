@@ -1,6 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+﻿import React, { useRef } from "react";
+import { Link } from "react-router";
 import { motion } from "framer-motion";
+import EntropicCanvas from "./EntropicCanvas";
 import
 {
     Activity,
@@ -108,18 +109,22 @@ const cardVariants = {
 
 export default function SaaSSection()
 {
+    const sectionRef = useRef(null);
+
     return (
-        <section className="saas-section">
-            <div className="saas-header">
+        <section ref={sectionRef} className="saas-section">
+            <EntropicCanvas containerRef={sectionRef} scheme="light" />
+            <div className="saas-header" style={{ position: "relative", zIndex: 1 }}>
                 <span className="saas-eyebrow">ENTROPIC BUSINESS ECOSYSTEM</span>
                 <h2 className="saas-title">Equip every team with purpose-built software</h2>
                 <p className="saas-subtitle">
-                    Equip every team with the tools to adapt, scale, and deliver real results.
+                    Six intelligent products — finance, sales, education, operations, healthcare, and hospitality — each built for the teams that use them daily.
                 </p>
             </div>
 
             <motion.div
                 className="saas-grid"
+                style={{ position: "relative", zIndex: 1 }}
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -156,3 +161,4 @@ export default function SaaSSection()
         </section>
     );
 }
+

@@ -1,18 +1,32 @@
-"use client";
-
-import { X, CheckCircle, ArrowRight, Loader2, ChevronDown } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+﻿import { X, CheckCircle, ArrowRight, Loader2, ChevronDown } from "lucide-react";
+import { useEffect, useId, useRef, useState } from "react";
 import { send } from "@emailjs/browser";
 import { createClient } from "@supabase/supabase-js";
 
 // ─── ENV ──────────────────────────────────────────────────────────────────────
+// NOTE: VITE_-prefixed vars are shipped to the browser. VITE_SUPABASE_KEY MUST be
+// the anon/publishable key (never service_role), and the `leads` table MUST have
+// Row-Level Security enabled with an insert-only policy. See SECURITY.md for the SQL.
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
 const emailServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const emailTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const emailPublicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-const supabase = createClient(supabaseUrl, supabaseKey);
+// Lazy, guarded client: not constructed during the static build (SSG prerender),
+// and returns null instead of throwing if env is missing.
+let _supabase = null;
+function getSupabase()
+{
+    if (_supabase) return _supabase;
+    if (!supabaseUrl || !supabaseKey) return null;
+    _supabase = createClient(supabaseUrl, supabaseKey);
+    return _supabase;
+}
+
+// ─── VALIDATION HELPERS ───────────────────────────────────────────────────────
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const LIMITS = { name: 120, email: 254, details: 4000 };
 
 // ─── OPTION DATA ──────────────────────────────────────────────────────────────
 const PROJECT_TYPES = [
@@ -54,18 +68,15 @@ const PROJECT_TYPES = [
 const S = {
     dialog: {
         border: "none",
-        borderRadius: "16px 16px 16px 16px",
+        borderRadius: 16,
         padding: 0,
         background: "transparent",
         maxWidth: 560,
         width: "calc(100vw - 32px)",
-        // height: "100vh",
-        maxHeight: "90vh",
+        maxHeight: "calc(100vh - 40px)",
         overflowY: "auto",
         boxShadow: "-10px 0 80px rgba(0,0,0,0.6)",
-        margin: 0,
-        marginLeft: "30rem",
-        marginTop: "3rem"
+        margin: "auto",
     },
     card: {
         background: "#0c0c10",
@@ -285,7 +296,9 @@ const S = {
 // ─── COMPONENT ────────────────────────────────────────────────────────────────
 export default function ProjectModal({ isOpen, onClose })
 {
+    const formId = useId();
     const dialogRef = useRef(null);
+    const openedAtRef = useRef(0);
     const [step, setStep] = useState(1);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [focusedField, setFocusedField] = useState(null);
@@ -295,6 +308,7 @@ export default function ProjectModal({ isOpen, onClose })
         email: "",
         type: "Finance Manager — FinanceIQ",
         details: "",
+        company: "", // honeypot — must stay empty; real users never see it
     });
 
     const handleChange = (e) =>
@@ -304,9 +318,40 @@ export default function ProjectModal({ isOpen, onClose })
     {
         e.preventDefault();
 
-        if (!formData.name || !formData.email || !formData.details)
+        // ── Spam gate 1: honeypot. Bots fill every field, including the hidden one.
+        // Silently "succeed" so we don't tell the bot it was caught.
+        if (formData.company.trim() !== "")
+        {
+            setStep(2);
+            return;
+        }
+
+        // ── Spam gate 2: timing. A submit < 2s after the form opened is almost
+        // certainly automated (a human can't read + fill that fast).
+        if (Date.now() - openedAtRef.current < 2000)
+        {
+            setStep(2);
+            return;
+        }
+
+        // ── Validation
+        const name = formData.name.trim();
+        const email = formData.email.trim();
+        const details = formData.details.trim();
+
+        if (!name || !email || !details)
         {
             alert("Please fill in all fields.");
+            return;
+        }
+        if (!EMAIL_RE.test(email))
+        {
+            alert("Please enter a valid email address.");
+            return;
+        }
+        if (name.length > LIMITS.name || email.length > LIMITS.email || details.length > LIMITS.details)
+        {
+            alert("One of the fields is too long. Please shorten it and try again.");
             return;
         }
 
@@ -319,39 +364,41 @@ export default function ProjectModal({ isOpen, onClose })
             return;
         }
 
+        const supabase = getSupabase();
+        if (!supabase)
+        {
+            alert("System Error: Database configuration missing.");
+            setIsSubmitting(false);
+            return;
+        }
+
         try
         {
-            // A. Save to Supabase
-            // Table schema (run in Supabase SQL editor):
-            // create table leads (
-            //   id uuid default gen_random_uuid() primary key,
-            //   created_at timestamptz default now(),
-            //   name text not null,
-            //   email text not null,
-            //   project_type text,
-            //   details text,
-            //   source text default 'project_modal'
-            // );
+            // A. Save to Supabase. Requires RLS + insert-only policy on `leads`
+            //    (see SECURITY.md). Table schema:
+            //    create table leads (
+            //      id uuid default gen_random_uuid() primary key,
+            //      created_at timestamptz default now(),
+            //      name text not null, email text not null,
+            //      project_type text, details text,
+            //      source text default 'project_modal'
+            //    );
             const { error: dbError } = await supabase.from("leads").insert([{
-                name: formData.name,
-                email: formData.email,
+                name,
+                email,
                 project_type: formData.type,
-                details: formData.details,
+                details,
                 source: "project_modal",
             }]);
 
             if (dbError) throw new Error("Database error: " + dbError.message);
 
-            // B. Send email via EmailJS
+            // B. Send email via EmailJS (public key is safe client-side; lock the
+            //    allowed domain + rate limit in the EmailJS dashboard — SECURITY.md)
             await send(
                 emailServiceId,
                 emailTemplateId,
-                {
-                    name: formData.name,
-                    email: formData.email,
-                    type: formData.type,
-                    details: formData.details,
-                },
+                { name, email, type: formData.type, details },
                 emailPublicKey
             );
 
@@ -371,9 +418,10 @@ export default function ProjectModal({ isOpen, onClose })
     {
         if (isOpen)
         {
+            openedAtRef.current = Date.now();
             setStep(1);
             setIsSubmitting(false);
-            setFormData({ name: "", email: "", type: "Finance Manager — FinanceIQ", details: "" });
+            setFormData({ name: "", email: "", type: "Finance Manager — FinanceIQ", details: "", company: "" });
         }
     }, [isOpen]);
 
@@ -412,14 +460,22 @@ export default function ProjectModal({ isOpen, onClose })
                 ) onClose();
             }}
         >
+            <style>{`
+                @media (max-width: 480px) {
+                    .pm-row { grid-template-columns: 1fr !important; }
+                    .pm-body { padding: 20px 16px 16px !important; }
+                    .pm-header { padding: 14px 16px !important; }
+                    .pm-header-sub { display: none; }
+                }
+            `}</style>
             <div style={S.card}>
 
                 {/* ── HEADER ── */}
-                <div style={S.header}>
+                <div style={S.header} className="pm-header">
                     <div style={S.headerLeft}>
                         <div style={S.headerDot} />
                         <span style={S.headerTitle}>Start a Project</span>
-                        <span style={S.headerSub}>· typically respond in 24h</span>
+                        <span style={S.headerSub} className="pm-header-sub">· typically respond in 24h</span>
                     </div>
                     <button
                         style={S.closeBtn}
@@ -440,19 +496,36 @@ export default function ProjectModal({ isOpen, onClose })
                 </div>
 
                 {/* ── BODY ── */}
-                <div style={S.body}>
+                <div style={S.body} className="pm-body">
                     {step === 1 ? (
                         <form onSubmit={handleSubmit}>
+
+                            {/* Honeypot: hidden from humans, bots fill it → submission silently dropped.
+                                Not display:none (some bots skip those); pushed off-screen + aria-hidden. */}
+                            <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", top: 0, width: 1, height: 1, overflow: "hidden" }}>
+                                <label>
+                                    Company (leave this empty)
+                                    <input
+                                        type="text"
+                                        name="company"
+                                        tabIndex={-1}
+                                        autoComplete="off"
+                                        value={formData.company}
+                                        onChange={handleChange}
+                                    />
+                                </label>
+                            </div>
                             <p style={S.description}>
                                 Tell us what you're looking to build — whether it's one of our SaaS products
                                 or a custom AI solution. We'll get back to you within 24 hours.
                             </p>
 
                             {/* Name + Email */}
-                            <div style={S.row}>
+                            <div style={S.row} className="pm-row">
                                 <div style={S.group}>
-                                    <label style={S.label}>Name</label>
+                                    <label style={S.label} htmlFor={`${formId}-name`}>Name</label>
                                     <input
+                                        id={`${formId}-name`}
                                         name="name"
                                         value={formData.name}
                                         onChange={handleChange}
@@ -464,8 +537,9 @@ export default function ProjectModal({ isOpen, onClose })
                                     />
                                 </div>
                                 <div style={S.group}>
-                                    <label style={S.label}>Email</label>
+                                    <label style={S.label} htmlFor={`${formId}-email`}>Email</label>
                                     <input
+                                        id={`${formId}-email`}
                                         name="email"
                                         value={formData.email}
                                         onChange={handleChange}
@@ -480,9 +554,10 @@ export default function ProjectModal({ isOpen, onClose })
 
                             {/* Product / Service type */}
                             <div style={S.group}>
-                                <label style={S.label}>I'm interested in</label>
+                                <label style={S.label} htmlFor={`${formId}-type`}>I'm interested in</label>
                                 <div style={S.selectWrap}>
                                     <select
+                                        id={`${formId}-type`}
                                         name="type"
                                         value={formData.type}
                                         onChange={handleChange}
@@ -516,8 +591,9 @@ export default function ProjectModal({ isOpen, onClose })
 
                             {/* Details */}
                             <div style={S.group}>
-                                <label style={S.label}>Tell us more</label>
+                                <label style={S.label} htmlFor={`${formId}-details`}>Tell us more</label>
                                 <textarea
+                                    id={`${formId}-details`}
                                     name="details"
                                     value={formData.details}
                                     onChange={handleChange}
@@ -583,3 +659,4 @@ export default function ProjectModal({ isOpen, onClose })
         </dialog>
     );
 }
+

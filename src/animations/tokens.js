@@ -1,4 +1,4 @@
-export const motion = {
+﻿export const motion = {
     duration: {
         fast: 0.25,
         medium: 0.5,
@@ -34,3 +34,5 @@ export const motion = {
         speed: 40, // seconds
     },
 };
+
+

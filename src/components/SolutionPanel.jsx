@@ -1,6 +1,9 @@
-import { motion, useMotionValue, useTransform } from "framer-motion";
+﻿import { motion, useMotionValue, useTransform } from "framer-motion";
+import { Link } from "react-router";
 
-export default function SolutionPanel({ layer, index, onClick })
+const MotionLink = motion.create ? motion.create(Link) : motion(Link);
+
+export default function SolutionPanel({ layer, index })
 {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
@@ -30,12 +33,12 @@ export default function SolutionPanel({ layer, index, onClick })
     }
 
     return (
-        <motion.div
+        <MotionLink
             className="solution-panel"
-            style={{ backgroundImage: `url(${layer.image})` }}
+            to={layer.route}
+            style={{ backgroundImage: `url(${layer.image})`, textDecoration: 'none' }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            onClick={onClick}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1, duration: 0.6 }}
@@ -62,6 +65,8 @@ export default function SolutionPanel({ layer, index, onClick })
                 <h1>{layer.label}</h1>
                 <p>{layer.tagline}</p>
             </div>
-        </motion.div>
+        </MotionLink>
     );
 }
+
+

@@ -1,4 +1,4 @@
-export const VISION_SOLUTIONS = {
+﻿export const VISION_SOLUTIONS = {
     hero: {
         headline: "Beyond Generative: The Era of Embodied & Autonomous Intelligence",
         description:
@@ -87,3 +87,4 @@ export const VISION_SOLUTIONS = {
         },
     ],
 };
+

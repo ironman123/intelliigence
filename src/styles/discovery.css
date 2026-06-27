@@ -1,22 +1,19 @@
 /* --- VARIABLES --- */
 :root {
-    --core-color: #3b82f6;
-    /* Blue */
+    --core-color:     #3b82f6;
     --emerging-color: #10b981;
-    /* Emerald */
-    --vision-color: #8b5cf6;
-    /* Violet */
-
+    --vision-color:   #8b5cf6;
     --slate-900: #0f172a;
-    --slate-50: #f8fafc;
+    --slate-50:  #f8fafc;
     --slate-200: #e2e8f0;
 }
 
-/* --- SECTION LAYOUT --- */
+/* --- SECTION --- */
 .discovery-section {
-    padding: 2rem 1.5rem;
-    background-color: var(--slate-50);
+    padding: 5rem 2rem 4rem;
+    background: #020617;
     overflow: hidden;
+    position: relative;
     font-family: system-ui, -apple-system, sans-serif;
 }
 
@@ -48,138 +45,106 @@
 .discovery-title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--slate-900);
+    color: #f8fafc;
     line-height: 1.1;
     margin: 0;
     padding-bottom: 1.5rem;
+    letter-spacing: -0.025em;
 }
 
 .tab-container {
     display: inline-flex;
-    background-color: #fff;
-    /* Reduced container padding (was 0.3rem) */
+    background: rgba(255, 255, 255, 0.04);
     padding: 0.2rem;
     border-radius: 100px;
-    border: 1px solid var(--slate-200);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-
-    /* Ensure it doesn't overflow on small screens */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
     max-width: 100%;
     overflow-x: auto;
 }
 
 .tab-btn {
-    /* Significantly reduced padding (was 0.75rem 2rem) */
     padding: 0.5rem 1.25rem;
     border-radius: 100px;
     border: none;
     background: transparent;
-
-    /* Smaller font (was 0.9rem) */
     font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
-    color: #64748b;
+    color: #52525b;
     transition: all 0.3s ease;
     text-transform: capitalize;
     white-space: nowrap;
-    /* Prevent text wrapping */
 }
 
-/* Active Tab States */
 .tab-btn.active[data-theme="core"] {
     background-color: var(--core-color);
     color: #fff;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
 }
 
 .tab-btn.active[data-theme="emerging"] {
     background-color: var(--emerging-color);
     color: #fff;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
 }
 
 .tab-btn.active[data-theme="vision"] {
     background-color: var(--vision-color);
     color: #fff;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.35);
 }
 
-/* --- MOBILE SPECIFIC SHRINK --- */
 @media (max-width: 640px) {
     .tab-container {
         width: 100%;
-        /* Use full width */
         justify-content: space-between;
-        /* Spread buttons out */
         padding: 0.15rem;
-        /* Minimal container padding */
     }
-
     .tab-btn {
         padding: 0.4rem 0;
-        /* minimal horizontal padding */
         flex: 1;
-        /* Force equal width */
         font-size: 0.75rem;
-        /* Tiny text for mobile */
         text-align: center;
     }
 }
 
-/* Base container for buttons */
-.nav-arrows {
-    gap: 1rem;
-}
+/* --- NAV ARROWS --- */
+.nav-arrows { gap: 1rem; }
 
-/* Button styling (Unchanged) */
 .arrow-btn {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
-    border: 1px solid var(--slate-200);
-    background: #fff;
-    color: #0f172a;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.04);
+    color: #71717a;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: 0.2s;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    backdrop-filter: blur(8px);
 }
 
 .arrow-btn:hover {
-    background: var(--slate-900);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.18);
     color: #fff;
-    border-color: var(--slate-900);
 }
 
-/* --- RESPONSIVE DISPLAY LOGIC --- */
-
-/* 1. Mobile State (Default) */
-.desktop-only {
-    display: none;
-    /* Hide top buttons on mobile */
-}
-
+.desktop-only { display: none; }
 .mobile-only {
     display: flex;
-    /* Show bottom buttons */
     justify-content: center;
-    /* Center them */
     width: 100%;
     margin-top: 0.5rem;
-    /* Add space between slider and buttons */
     padding-bottom: 1rem;
 }
 
-/* 2. Desktop State (Tablets and up) */
 @media (min-width: 768px) {
-    .desktop-only {
-        display: flex;
-        /* Show top buttons */
-    }
-
-    .mobile-only {
-        display: none;
-        /* Hide bottom buttons */
-    }
+    .desktop-only { display: flex; }
+    .mobile-only  { display: none; }
 }
 
 /* --- SLIDER TRACK --- */
@@ -189,63 +154,71 @@
     overflow-x: auto;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
-    padding-bottom: 1rem;
-    /* Space for shadow */
+    padding-bottom: 1.5rem;
     scrollbar-width: none;
 }
+.slider-track::-webkit-scrollbar { display: none; }
 
-.slider-track::-webkit-scrollbar {
-    display: none;
-}
+/* ─────────────────────────────────────────────
+   DISCOVERY CARD
+───────────────────────────────────────────── */
 
-/* --- IMMERSIVE CARD STYLES --- */
 .discovery-card {
-    /* Mobile: 85% width */
+    /* Sizing */
     width: 85vw;
-    max-width: 350px;
+    max-width: 340px;
     height: 500px;
-
     flex: 0 0 auto;
     scroll-snap-align: center;
+
+    /* Structure */
     position: relative;
     border-radius: 20px;
     overflow: hidden;
     cursor: pointer;
-    background-color: #0f172a;
-    border: 2px solid transparent;
-    transition: box-shadow 0.3s ease, border-color 0.3s ease;
-    /* Transform handled by Framer */
+
+    /* Visual */
+    background: #060c1f;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition:
+        box-shadow   0.45s ease,
+        border-color 0.45s ease;
+
+    will-change: transform;
 }
 
-/* Desktop: Fixed 600px width */
 @media (min-width: 768px) {
     .discovery-card {
-        width: 600px;
-        /* Double width */
+        width: 560px;
         max-width: none;
         scroll-snap-align: start;
     }
 }
 
-/* Hover Shadow (Transform handled by Framer Motion) */
-.discovery-card:hover {
-    box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5);
-}
-
-/* Theme Borders */
+/* Theme hover borders & outer glow */
 .discovery-card[data-theme="core"]:hover {
-    border-color: var(--core-color);
+    border-color: rgba(59, 130, 246, 0.32);
+    box-shadow:
+        0 0 0 1px rgba(59, 130, 246, 0.10),
+        0 0 55px rgba(59, 130, 246, 0.07),
+        0 28px 72px rgba(0, 0, 0, 0.72);
 }
-
 .discovery-card[data-theme="emerging"]:hover {
-    border-color: var(--emerging-color);
+    border-color: rgba(16, 185, 129, 0.32);
+    box-shadow:
+        0 0 0 1px rgba(16, 185, 129, 0.10),
+        0 0 55px rgba(16, 185, 129, 0.07),
+        0 28px 72px rgba(0, 0, 0, 0.72);
 }
-
 .discovery-card[data-theme="vision"]:hover {
-    border-color: var(--vision-color);
+    border-color: rgba(139, 92, 246, 0.32);
+    box-shadow:
+        0 0 0 1px rgba(139, 92, 246, 0.10),
+        0 0 55px rgba(139, 92, 246, 0.07),
+        0 28px 72px rgba(0, 0, 0, 0.72);
 }
 
-/* Background Image */
+/* ── Background image ── */
 .card-bg-img {
     position: absolute;
     inset: 0;
@@ -253,109 +226,289 @@
     height: 100%;
     object-fit: cover;
     z-index: 1;
-    /* Transform handled by Framer Motion */
+    opacity: 0.72;
+    filter: brightness(0.78) saturate(0.82);
+    transition: opacity 0.5s ease, filter 0.5s ease;
+}
+.discovery-card:hover .card-bg-img {
+    opacity: 0.85;
+    filter: brightness(0.92) saturate(1.05);
 }
 
-/* Strong Gradient Overlay */
+/* ── Animated dot-particle field ──
+   A grid of tiny dots drifts diagonally — visible only on hover.
+   Always animating so there's no position jump when opacity transitions in.
+   Uses transform (GPU compositor) instead of background-position (CPU paint). */
+.card-field {
+    position: absolute;
+    inset: -22px;
+    z-index: 2;
+    pointer-events: none;
+    background-size: 22px 22px;
+    opacity: 0.28;
+    transition: opacity 0.65s ease;
+    will-change: transform;
+    animation: card-field-drift 22s linear infinite;
+}
+.discovery-card:hover .card-field { opacity: 1; }
+
+.discovery-card[data-theme="core"] .card-field {
+    background-image: radial-gradient(circle, rgba(96, 165, 250, 0.55) 0.7px, transparent 0.7px);
+}
+.discovery-card[data-theme="emerging"] .card-field {
+    background-image: radial-gradient(circle, rgba(52, 211, 153, 0.55) 0.7px, transparent 0.7px);
+}
+.discovery-card[data-theme="vision"] .card-field {
+    background-image: radial-gradient(circle, rgba(167, 139, 250, 0.55) 0.7px, transparent 0.7px);
+}
+
+@keyframes card-field-drift {
+    from { transform: translate(0, 0); }
+    to   { transform: translate(22px, 22px); }
+}
+
+/* ── Dark gradient overlay ── */
 .card-gradient {
     position: absolute;
     inset: 0;
-    z-index: 2;
-    background: linear-gradient(to bottom,
-            rgba(0, 0, 0, 0) 0%,
-            rgba(0, 0, 0, 0) 30%,
-            rgba(0, 0, 0, 0.6) 60%,
-            rgba(0, 0, 0, 0.95) 100%);
+    z-index: 3;
+    background: linear-gradient(
+        to bottom,
+        rgba(4, 8, 28, 0.0)  0%,
+        rgba(4, 8, 28, 0.08) 25%,
+        rgba(4, 8, 28, 0.68) 55%,
+        rgba(4, 8, 28, 0.97) 100%
+    );
 }
 
-/* Content Layer */
+/* ── Theme bloom (colored radial glow from bottom) ── */
+.card-theme-glow {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 52%;
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0.55;
+    transition: opacity 0.5s ease;
+}
+.discovery-card:hover .card-theme-glow { opacity: 1; }
+
+.discovery-card[data-theme="core"] .card-theme-glow {
+    background: radial-gradient(ellipse at bottom, rgba(59, 130, 246, 0.28) 0%, transparent 70%);
+}
+.discovery-card[data-theme="emerging"] .card-theme-glow {
+    background: radial-gradient(ellipse at bottom, rgba(16, 185, 129, 0.28) 0%, transparent 70%);
+}
+.discovery-card[data-theme="vision"] .card-theme-glow {
+    background: radial-gradient(ellipse at bottom, rgba(139, 92, 246, 0.28) 0%, transparent 70%);
+}
+
+/* ── Left glowing accent bar ── */
+.card-accent-bar {
+    position: absolute;
+    left: 0;
+    top: 18%;
+    bottom: 18%;
+    width: 2px;
+    z-index: 5;
+    border-radius: 2px;
+    opacity: 0.45;
+    transition: opacity 0.45s ease;
+}
+.discovery-card:hover .card-accent-bar { opacity: 1; }
+
+.discovery-card[data-theme="core"] .card-accent-bar {
+    background: linear-gradient(to bottom, transparent, #3b82f6, transparent);
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.8), 0 0 22px rgba(59, 130, 246, 0.3);
+}
+.discovery-card[data-theme="emerging"] .card-accent-bar {
+    background: linear-gradient(to bottom, transparent, #10b981, transparent);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.8), 0 0 22px rgba(16, 185, 129, 0.3);
+}
+.discovery-card[data-theme="vision"] .card-accent-bar {
+    background: linear-gradient(to bottom, transparent, #8b5cf6, transparent);
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.8), 0 0 22px rgba(139, 92, 246, 0.3);
+}
+
+/* ── Large faded number watermark (top-right) ── */
+.card-num {
+    position: absolute;
+    top: 1.4rem;
+    right: 1.75rem;
+    font-size: clamp(4.5rem, 9vw, 7rem);
+    font-weight: 900;
+    line-height: 0.82;
+    letter-spacing: -0.07em;
+    z-index: 5;
+    pointer-events: none;
+    user-select: none;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.3s ease;
+}
+
+.discovery-card[data-theme="core"]     .card-num { color: rgba(59, 130, 246, 0.16); }
+.discovery-card[data-theme="emerging"] .card-num { color: rgba(16, 185, 129, 0.16); }
+.discovery-card[data-theme="vision"]   .card-num { color: rgba(139, 92, 246, 0.16); }
+
+.discovery-card[data-theme="core"]:hover     .card-num { color: rgba(59, 130, 246, 0.30); }
+.discovery-card[data-theme="emerging"]:hover .card-num { color: rgba(16, 185, 129, 0.30); }
+.discovery-card[data-theme="vision"]:hover   .card-num { color: rgba(139, 92, 246, 0.30); }
+
+/* ── Content ── */
 .card-content {
     position: relative;
-    z-index: 3;
+    z-index: 6;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 2.5rem;
+    padding: 2rem 2.25rem 2rem;
     color: #fff;
 }
 
-/* Text Styles */
+/* ── Category pill ── */
 .card-tagline {
-    font-size: 0.85rem;
+    font-size: 0.66rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 1rem;
-    display: inline-block;
-    padding: 6px 12px;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px);
-    border-radius: 6px;
+    letter-spacing: 0.13em;
+    margin-bottom: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    border-radius: 100px;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    width: fit-content;
 }
 
-/* Tagline Colors */
 .discovery-card[data-theme="core"] .card-tagline {
-    color: #60a5fa;
-    border: 1px solid rgba(59, 130, 246, 0.5);
+    color: #93c5fd;
+    border: 1px solid rgba(59, 130, 246, 0.28);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
 }
-
 .discovery-card[data-theme="emerging"] .card-tagline {
-    color: #34d399;
-    border: 1px solid rgba(16, 185, 129, 0.5);
+    color: #6ee7b7;
+    border: 1px solid rgba(16, 185, 129, 0.28);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
 }
-
 .discovery-card[data-theme="vision"] .card-tagline {
-    color: #a78bfa;
-    border: 1px solid rgba(139, 92, 246, 0.5);
+    color: #c4b5fd;
+    border: 1px solid rgba(139, 92, 246, 0.28);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
 }
 
+/* Pulse dot inside pill */
+.card-tagline-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: tag-pulse 2.4s ease-in-out infinite;
+}
+.discovery-card[data-theme="core"] .card-tagline-dot {
+    background: #60a5fa;
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.7);
+}
+.discovery-card[data-theme="emerging"] .card-tagline-dot {
+    background: #34d399;
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.7);
+}
+.discovery-card[data-theme="vision"] .card-tagline-dot {
+    background: #a78bfa;
+    box-shadow: 0 0 6px rgba(139, 92, 246, 0.7);
+}
+
+@keyframes tag-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.7); }
+}
+
+/* ── Title ── */
 .card-title {
-    font-size: 2rem;
+    font-size: clamp(1.45rem, 2.4vw, 1.9rem);
     font-weight: 800;
-    margin: 0 0 1rem 0;
-    line-height: 1.1;
-    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    margin: 0 0 0.7rem;
+    line-height: 1.13;
+    letter-spacing: -0.025em;
+    color: #f1f5f9;
+    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
 }
 
+/* ── Description ── */
 .card-desc {
-    font-size: 1.1rem;
-    color: #f1f5f9;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    opacity: 0.95;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+    font-size: 0.88rem;
+    color: rgba(203, 213, 225, 0.7);
+    line-height: 1.68;
+    margin: 0 0 1.25rem;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-.card-link {
+/* ── Explore link ── */
+.card-explore-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 6px;
+    font-size: 0.7rem;
     font-weight: 700;
-    font-size: 1rem;
-    color: #fff;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     text-decoration: none;
-    opacity: 1;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 0.25s ease, gap 0.25s ease;
+    width: fit-content;
 }
+.discovery-card[data-theme="core"]     .card-explore-link { color: rgba(147, 197, 253, 0.65); }
+.discovery-card[data-theme="emerging"] .card-explore-link { color: rgba(110, 231, 183, 0.65); }
+.discovery-card[data-theme="vision"]   .card-explore-link { color: rgba(196, 181, 253, 0.65); }
 
-/* --- PARTICLES --- */
+.discovery-card[data-theme="core"]:hover     .card-explore-link { color: #93c5fd; gap: 10px; }
+.discovery-card[data-theme="emerging"]:hover .card-explore-link { color: #6ee7b7; gap: 10px; }
+.discovery-card[data-theme="vision"]:hover   .card-explore-link { color: #c4b5fd; gap: 10px; }
+
+/* ── Ambient section particles (FloatingParticles) ── */
 .particle-field {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     pointer-events: none;
     z-index: 1;
 }
-
 .particle {
     position: absolute;
     border-radius: 50%;
     filter: blur(1px);
+}
+
+/* ─────────────────────────────────────────────
+   TOUCH / MOBILE — no hover available.
+   Force all effects fully on so cards look
+   complete without requiring interaction.
+───────────────────────────────────────────── */
+@media (hover: none) {
+    .card-field                { opacity: 1; }
+    .card-theme-glow           { opacity: 1; }
+    .card-accent-bar           { opacity: 1; }
+
+    .discovery-card[data-theme="core"]     .card-num { color: rgba(59, 130, 246, 0.28); }
+    .discovery-card[data-theme="emerging"] .card-num { color: rgba(16, 185, 129, 0.28); }
+    .discovery-card[data-theme="vision"]   .card-num { color: rgba(139, 92, 246, 0.28); }
+
+    .discovery-card[data-theme="core"]     .card-explore-link { color: #93c5fd; }
+    .discovery-card[data-theme="emerging"] .card-explore-link { color: #6ee7b7; }
+    .discovery-card[data-theme="vision"]   .card-explore-link { color: #c4b5fd; }
+
+    .discovery-card[data-theme="core"]:hover,
+    .discovery-card[data-theme="emerging"]:hover,
+    .discovery-card[data-theme="vision"]:hover {
+        /* Suppress the box-shadow jump on accidental tap-hold on mobile */
+        box-shadow: none;
+    }
 }

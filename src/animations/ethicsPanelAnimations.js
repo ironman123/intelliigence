@@ -1,4 +1,4 @@
-export const panelVariants = {
+﻿export const panelVariants = {
     enter: {
         x: 0,
         opacity: 1,
@@ -24,3 +24,5 @@ export const panelVariants = {
         },
     },
 };
+
+

@@ -1,12 +1,163 @@
 .solutions-page {
-    --bg-main: #ffffff;
-    --bg-soft: #f6f6f6;
-    --glass-bg: rgba(255, 255, 255, 0.65);
-    --glass-border: rgba(0, 0, 0, 0.08);
-    --text-main: #111;
-    --text-muted: #444;
-    --accent: #ff5a1f;
+    --bg-main:     #06080f;
+    --bg-soft:     #080b16;
+    --text-main:   #f1f5f9;
+    --text-muted:  #94a3b8;
+    --accent:      #06b6d4;
+    --accent-rgb:  6, 182, 212;
+    --accent-dim:  rgba(6, 182, 212, 0.12);
 
     background: var(--bg-main);
     color: var(--text-main);
+}
+
+/* ── Theme vars ───────────────────────────────────────────────────────────── */
+
+.solutions-page.theme-core {
+    --accent:     #06b6d4;
+    --accent-rgb: 6, 182, 212;
+    --accent-dim: rgba(6, 182, 212, 0.10);
+}
+
+.solutions-page.theme-emerging {
+    --accent:     #f97316;
+    --accent-rgb: 249, 115, 22;
+    --accent-dim: rgba(249, 115, 22, 0.10);
+}
+
+.solutions-page.theme-vision {
+    --accent:     #8b5cf6;
+    --accent-rgb: 139, 92, 246;
+    --accent-dim: rgba(139, 92, 246, 0.10);
+}
+
+/* ── Per-theme sub-section personality patterns ───────────────────────────
+   Core     → circuit grid lines (precision / data infrastructure)
+   Emerging → radial dot field   (organic / real-world energy)
+   Vision   → fine star field    (deep space / speculative research)
+   Each pattern mirrors the hero's .lh-pattern and carries it into body sections.
+────────────────────────────────────────────────────────────────────────── */
+
+/* ── CORE: circuit grid ── */
+
+.solutions-page.theme-core .layer-intro {
+    background-image:
+        linear-gradient(rgba(6, 182, 212, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.045) 1px, transparent 1px),
+        radial-gradient(ellipse 55% 70% at -5% 50%, rgba(6, 182, 212, 0.09) 0%, transparent 65%);
+    background-size: 44px 44px, 44px 44px, 100% 100%;
+    background-color: #06080f;
+}
+
+.solutions-page.theme-core .solution-row {
+    background-image:
+        linear-gradient(to right, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+        linear-gradient(rgba(6, 182, 212, 0.025) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 44px;
+    background-color: #06080f;
+}
+
+.solutions-page.theme-core .solution-row.reverse {
+    background-image:
+        linear-gradient(to left, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+        linear-gradient(rgba(6, 182, 212, 0.025) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 44px;
+    background-color: #06080f;
+}
+
+/* ── EMERGING: dot field ── */
+
+.solutions-page.theme-emerging .layer-intro {
+    background-image:
+        radial-gradient(circle, rgba(249, 115, 22, 0.12) 1px, transparent 1px),
+        radial-gradient(ellipse 55% 70% at -5% 50%, rgba(249, 115, 22, 0.09) 0%, transparent 65%);
+    background-size: 28px 28px, 100% 100%;
+    background-color: #06080f;
+}
+
+.solutions-page.theme-emerging .solution-row {
+    background-image:
+        linear-gradient(to right, rgba(249, 115, 22, 0.07) 0%, transparent 50%),
+        radial-gradient(circle, rgba(249, 115, 22, 0.065) 1px, transparent 1px);
+    background-size: 100% 100%, 28px 28px;
+    background-color: #06080f;
+}
+
+.solutions-page.theme-emerging .solution-row.reverse {
+    background-image:
+        linear-gradient(to left, rgba(249, 115, 22, 0.07) 0%, transparent 50%),
+        radial-gradient(circle, rgba(249, 115, 22, 0.065) 1px, transparent 1px);
+    background-size: 100% 100%, 28px 28px;
+    background-color: #06080f;
+}
+
+/* ── VISION: star field ── */
+
+.solutions-page.theme-vision .layer-intro {
+    background-image:
+        radial-gradient(circle, rgba(139, 92, 246, 0.22) 0.5px, transparent 0.5px),
+        radial-gradient(ellipse 55% 70% at -5% 50%, rgba(139, 92, 246, 0.10) 0%, transparent 65%);
+    background-size: 20px 20px, 100% 100%;
+    background-color: #06080f;
+}
+
+.solutions-page.theme-vision .solution-row {
+    background-image:
+        linear-gradient(to right, rgba(139, 92, 246, 0.07) 0%, transparent 50%),
+        radial-gradient(circle, rgba(139, 92, 246, 0.17) 0.5px, transparent 0.5px);
+    background-size: 100% 100%, 20px 20px;
+    background-color: #06080f;
+}
+
+.solutions-page.theme-vision .solution-row.reverse {
+    background-image:
+        linear-gradient(to left, rgba(139, 92, 246, 0.07) 0%, transparent 50%),
+        radial-gradient(circle, rgba(139, 92, 246, 0.17) 0.5px, transparent 0.5px);
+    background-size: 100% 100%, 20px 20px;
+    background-color: #06080f;
+}
+
+/* ── Per-theme comparison section personality ── */
+
+.solutions-page.theme-core .comparison-section {
+    background-image:
+        linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+    background-size: 44px 44px;
+    background-color: #06080f;
+}
+
+.solutions-page.theme-emerging .comparison-section {
+    background-image:
+        radial-gradient(circle, rgba(249, 115, 22, 0.07) 1px, transparent 1px);
+    background-size: 28px 28px;
+    background-color: #06080f;
+}
+
+.solutions-page.theme-vision .comparison-section {
+    background-image:
+        radial-gradient(circle, rgba(139, 92, 246, 0.14) 0.5px, transparent 0.5px);
+    background-size: 20px 20px;
+    background-color: #06080f;
+}
+
+/* ── Per-theme CTA personality ── */
+
+.solutions-page.theme-core .solutions-cta {
+    background-image:
+        linear-gradient(rgba(6, 182, 212, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.035) 1px, transparent 1px);
+    background-size: 44px 44px;
+}
+
+.solutions-page.theme-emerging .solutions-cta {
+    background-image:
+        radial-gradient(circle, rgba(249, 115, 22, 0.08) 1px, transparent 1px);
+    background-size: 28px 28px;
+}
+
+.solutions-page.theme-vision .solutions-cta {
+    background-image:
+        radial-gradient(circle, rgba(139, 92, 246, 0.16) 0.5px, transparent 0.5px);
+    background-size: 20px 20px;
 }

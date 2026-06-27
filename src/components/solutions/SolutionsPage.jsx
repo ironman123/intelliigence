@@ -1,4 +1,4 @@
-import { CORE_SOLUTIONS } from "../../data/solutionsCore";
+﻿import { CORE_SOLUTIONS } from "../../data/solutionsCore";
 import { EMERGING_SOLUTIONS } from "../../data/solutionsEmerging";
 import { VISION_SOLUTIONS } from "../../data/solutionsVision";
 
@@ -42,13 +42,10 @@ const pageVariants = {
     },
 };
 
-import SEO from "../SEO";
-
-export default function SolutionsPage({ layer }) {
+export default function SolutionsPage({ layer })
+{
     const data = MAP[layer];
     if (!data) return null;
-
-    const layerTitle = layer.charAt(0).toUpperCase() + layer.slice(1);
 
     return (
         <motion.main
@@ -58,11 +55,6 @@ export default function SolutionsPage({ layer }) {
             animate="animate"
             exit="exit"
         >
-            <SEO
-                title={`${layerTitle} Entropic System | Advance Software Solutions`}
-                description={`Learn more about our ${layer} solutions, built to address complex challenges.`}
-                type="website"
-            />
             <SolutionsLayerToggle />
             <LayerHero layer={layer}{...data.hero} />
 
@@ -73,6 +65,7 @@ export default function SolutionsPage({ layer }) {
                     key={s.headline}
                     solution={s}
                     reverse={i % 2 === 1}
+                    index={i}
                 />
             ))}
             <ComparisonSection />
@@ -81,3 +74,5 @@ export default function SolutionsPage({ layer }) {
         </motion.main>
     );
 }
+
+

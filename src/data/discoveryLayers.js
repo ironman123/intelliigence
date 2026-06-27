@@ -1,4 +1,4 @@
-export const DISCOVERY_LAYERS = {
+﻿export const DISCOVERY_LAYERS = {
     core: {
         label: "Core",
         intro: "Solutions we actively deliver",
@@ -89,3 +89,5 @@ export const DISCOVERY_LAYERS = {
         ],
     },
 };
+
+

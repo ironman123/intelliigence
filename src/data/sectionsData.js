@@ -1,4 +1,4 @@
-export const SECTIONS_DATA = [
+﻿export const SECTIONS_DATA = [
     {
         id: 1,
         step: null, // First section has no number in your design
@@ -50,3 +50,4 @@ export const SECTIONS_DATA = [
         image: "/images/interface.jpg"
     }
 ];
+

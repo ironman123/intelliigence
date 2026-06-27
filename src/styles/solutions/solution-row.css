@@ -1,79 +1,237 @@
+/* ── Solution Row ─────────────────────────────────────────────── */
+
 .solution-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4.5rem;
+    gap: 5rem;
     align-items: center;
-
-    padding: 7vh 8vw;
-    background: #ffffff;
+    padding: 9vh 8vw;
+    background:
+        linear-gradient(to right, rgba(var(--accent-rgb, 6,182,212), 0.06) 0%, transparent 48%),
+        #06080f;
+    position: relative;
+    overflow: hidden;
 }
+
+.solution-row.reverse {
+    background:
+        linear-gradient(to left, rgba(var(--accent-rgb, 6,182,212), 0.06) 0%, transparent 48%),
+        #06080f;
+}
+
+/* Per-row ambient glow on the image side — uses theme accent */
+.solution-row::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        ellipse 55% 70% at 18% 50%,
+        rgba(var(--accent-rgb, 6,182,212), 0.10) 0%,
+        transparent 70%
+    );
+    pointer-events: none;
+}
+
+.solution-row.reverse::before {
+    background: radial-gradient(
+        ellipse 55% 70% at 82% 50%,
+        rgba(var(--accent-rgb, 6,182,212), 0.10) 0%,
+        transparent 70%
+    );
+}
+
+/* Row separator */
+.solution-row + .solution-row {
+    border-top: 1px solid rgba(255,255,255,0.042);
+}
+
+/* Even rows handled by .reverse directional gradient above */
 
 /* Alternate layout */
-.solution-row.reverse .solution-image {
-    order: 2;
+.solution-row.reverse .solution-image { order: 2; }
+.solution-row.reverse .solution-text  { order: 1; }
+
+/* ── Solution number ── */
+.solution-row::after {
+    content: attr(data-num);
+    position: absolute;
+    top: -0.08em;
+    right: 6.5vw;
+    font-size: clamp(6rem, 11vw, 10rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    color: rgba(var(--accent-rgb, 6,182,212), 0.09);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
 }
 
-.solution-row.reverse .solution-text {
-    order: 1;
+.solution-row.reverse::after {
+    right: auto;
+    left: 6.5vw;
 }
 
-/* IMAGE */
+/* ── Image ── */
 
+.solution-image {
+    position: relative;
+    z-index: 1;
+}
+
+/* Gradient border via wrapper */
 .solution-image-frame {
+    position: relative;
     width: 100%;
-    border-radius: 20px;
+    border-radius: 18px;
     overflow: hidden;
-    background: #f2f2f2;
+    background: #0d1117;
+}
+
+/* Gradient border ring */
+.solution-image-frame::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: 19px;
+    background: linear-gradient(
+        135deg,
+        rgba(var(--accent-rgb, 6,182,212), 0.50) 0%,
+        rgba(var(--accent-rgb, 6,182,212), 0.08) 40%,
+        transparent 70%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Bottom + right edge fade */
+.solution-image-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to top,  rgba(6,8,15,0.55) 0%, transparent 30%),
+        linear-gradient(to right, transparent 60%, rgba(6,8,15,0.22) 100%);
+    z-index: 2;
+    pointer-events: none;
 }
 
 .solution-image-frame img {
     width: 100%;
     height: auto;
     display: block;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.7s ease;
 }
 
-/* TEXT */
+.solution-image-frame:hover img {
+    transform: scale(1.025);
+}
+
+/* Scan-line shimmer that plays once on entry */
+.solution-image-shimmer {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(var(--accent-rgb, 6,182,212), 0.07) 48%,
+        rgba(255,255,255,0.06) 50%,
+        rgba(var(--accent-rgb, 6,182,212), 0.07) 52%,
+        transparent 100%
+    );
+    background-size: 100% 300%;
+    background-position: 0 -100%;
+    animation: img-scan 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.6s 1 forwards;
+}
+
+@keyframes img-scan {
+    from { background-position: 0 -100%; opacity: 1; }
+    to   { background-position: 0  200%; opacity: 0; }
+}
+
+/* ── Solution tag ── */
+
+.solution-tag {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent, #06b6d4);
+    border: 1px solid rgba(var(--accent-rgb, 6,182,212), 0.28);
+    border-radius: 100px;
+    padding: 3px 10px;
+    margin-bottom: 1rem;
+}
+
+/* ── Text ── */
+
+.solution-text {
+    position: relative;
+    z-index: 1;
+}
 
 .solution-text h3 {
-    font-size: clamp(1.6rem, 2.5vw, 2.1rem);
-    font-weight: 500;
+    font-size: clamp(1.5rem, 2.3vw, 2rem);
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -0.025em;
     margin-bottom: 1rem;
-    color: #111;
+    color: #f1f5f9;
+}
+
+.solution-text h3 em {
+    font-style: normal;
+    color: var(--accent, #06b6d4);
 }
 
 .solution-text p {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: #444;
-    max-width: 520px;
-    margin-bottom: 1.4rem;
+    font-size: 0.97rem;
+    line-height: 1.80;
+    color: #94a3b8;
+    max-width: 500px;
+    margin-bottom: 1.75rem;
 }
 
 .solution-text ul {
     list-style: none;
     padding: 0;
     margin: 0;
-
     display: grid;
-    gap: 0.6rem;
+    gap: 0.7rem;
 }
 
 .solution-text li {
     position: relative;
-    padding-left: 1.2rem;
-    font-size: 0.95rem;
-    color: #333;
+    padding-left: 1.55rem;
+    font-size: 0.90rem;
+    line-height: 1.65;
+    color: #71717a;
+    transition: color 0.2s;
 }
 
 .solution-text li::before {
-    content: "—";
+    content: "→";
     position: absolute;
     left: 0;
     top: 0;
-    color: #ff5a1f;
+    color: var(--accent, #06b6d4);
+    font-size: 0.80rem;
+    font-weight: 700;
+    line-height: 1.65;
+    opacity: 0.7;
 }
 
-/* Mobile */
+.solution-text li:hover {
+    color: #94a3b8;
+}
+
+/* ── Mobile ── */
 
 @media (max-width: 900px) {
     .solution-row {
@@ -85,5 +243,15 @@
     .solution-row.reverse .solution-image,
     .solution-row.reverse .solution-text {
         order: initial;
+    }
+
+    .solution-row::after {
+        font-size: clamp(4rem, 18vw, 7rem);
+        right: 3vw;
+    }
+
+    .solution-row.reverse::after {
+        right: auto;
+        left: 3vw;
     }
 }

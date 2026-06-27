@@ -1,11 +1,11 @@
-import
+﻿import
 {
     motion,
     useScroll,
     useTransform,
     useSpring,
 } from "framer-motion";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router";
 import "../../styles/solutions/solutions-toggle.css";
 
 const LAYERS = [
@@ -16,7 +16,6 @@ const LAYERS = [
 
 export default function SolutionsLayerToggle()
 {
-    const navigate = useNavigate();
     const location = useLocation();
     const active = location.pathname.split("/").pop();
 
@@ -26,7 +25,7 @@ export default function SolutionsLayerToggle()
 
     const { scrollY } = useScroll();
 
-    // 1️⃣ Detect scroll direction (NOT velocity)
+    // 1ï¸âƒ£ Detect scroll direction (NOT velocity)
     const direction = useTransform(scrollY, (latest, prev) =>
     {
         if (latest > prev) return 1;   // scrolling down
@@ -34,17 +33,17 @@ export default function SolutionsLayerToggle()
         return 0;
     });
 
-    // 2️⃣ Direction → target X offset
+    // 2ï¸âƒ£ Direction → target X offset
     const rawX = useTransform(direction, [-1, 0, 1], [0, 0, 64]);
 
-    // 3️⃣ Smooth it (prevents jitter)
+    // 3ï¸âƒ£ Smooth it (prevents jitter)
     const x = useSpring(rawX, {
         stiffness: 180,
         damping: 26,
         mass: 0.9,
     });
 
-    // 4️⃣ Follow navbar collapse vertically
+    // 4ï¸âƒ£ Follow navbar collapse vertically
     const rawY = useTransform(scrollY, [0, 140], [0, -60]);
     const y = useSpring(rawY, {
         stiffness: 160,
@@ -75,16 +74,19 @@ export default function SolutionsLayerToggle()
                 />
 
                 {LAYERS.map((layer) => (
-                    <button
+                    <Link
                         key={layer.key}
                         className={`solutions-toggle-pill ${active === layer.key ? "active" : ""
                             }`}
-                        onClick={() => navigate(`/solutions/${layer.key}`)}
+                        to={`/solutions/${layer.key}`}
+                        style={{ textDecoration: 'none' }}
                     >
                         {layer.label}
-                    </button>
+                    </Link>
                 ))}
             </div>
         </motion.div>
     );
 }
+
+

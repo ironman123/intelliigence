@@ -1,6 +1,6 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { ArrowRight, Layers, Cpu, Zap } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router";
 import "../../styles/solutions/solutions-cta.css";
 
 const ECOSYSTEM_MAP = {
@@ -39,7 +39,6 @@ const container = {
 export default function SolutionsCTA({ layer })
 {
     const data = ECOSYSTEM_MAP[layer];
-    const navigate = useNavigate();
 
     if (!data) return null;
 
@@ -54,7 +53,7 @@ export default function SolutionsCTA({ layer })
             <div className="solutions-cta-inner">
                 {/* 1. New "Badge" Look */}
                 <div className="cta-icon-badge">
-                    {data.icon}
+                    <div>{data.icon}</div>
                     <span>{data.label}</span>
                 </div>
 
@@ -63,14 +62,16 @@ export default function SolutionsCTA({ layer })
                 <p>{data.text}</p>
 
                 {/* 3. The "Bridge" Link (Subtle Navigation) */}
-                <div
+                <Link
                     className="cta-bridge-link"
-                    onClick={() => navigate(data.next.path)}
+                    to={data.next.path}
+                    style={{ textDecoration: 'none' }}
                 >
                     <span>{data.next.label}</span>
                     <ArrowRight size={18} />
-                </div>
+                </Link>
             </div>
         </motion.section>
     );
 }
+

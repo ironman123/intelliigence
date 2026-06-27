@@ -1,6 +1,5 @@
-// src/components/SolutionsGateway.jsx
+﻿// src/components/SolutionsGateway.jsx
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import SolutionPanel from "./SolutionPanel";
 import "../styles/solutions-gateway.css";
 
@@ -28,26 +27,19 @@ const SOLUTION_LAYERS = [
     },
 ];
 
-import SEO from "./SEO";
-
-export default function SolutionsGateway() {
-    const navigate = useNavigate();
-
+export default function SolutionsGateway()
+{
     return (
         <section className="solutions-gateway">
-            <SEO
-                title="Entropic System | Advance Software Solutions"
-                description="Explore our core, emerging, and vision solutions for operational intelligence, agentic systems, and governance."
-                type="website"
-            />
             {SOLUTION_LAYERS.map((layer, index) => (
                 <SolutionPanel
                     key={layer.key}
                     layer={layer}
                     index={index}
-                    onClick={() => navigate(layer.route)}
                 />
             ))}
         </section>
     );
 }
+
+

@@ -1,5 +1,6 @@
-import React, { useRef } from "react";
+﻿import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import EntropicCanvas from "./EntropicCanvas";
 
 // ─── Minimalist Palette ──────────────────────────────────────────
 const P = {
@@ -22,18 +23,19 @@ export default function MissionSection()
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: "-100px" });
 
+    const sectionRef = useRef(null);
+    const combinedRef = el => { ref.current = el; sectionRef.current = el; };
+
     return (
         <>
             <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap');
-        
         @keyframes adGhostOrbit {
           from { transform: translate(-50%, -50%) rotate(0deg); }
           to { transform: translate(-50%, -50%) rotate(360deg); }
         }
       `}</style>
 
-            <section ref={ref} style={{
+            <section ref={combinedRef} style={{
                 background: P.bg,
                 padding: "180px 24px",
                 display: "flex",
@@ -46,6 +48,9 @@ export default function MissionSection()
                 overflow: "hidden",
                 minHeight: "80vh"
             }}>
+
+                {/* ── ORDER → CHAOS → CONNECTIONS particle field ── */}
+                <EntropicCanvas containerRef={sectionRef} scheme="light" />
 
                 {/* ── Blurred Background "Ghost" Object ── */}
                 <div style={{
@@ -131,3 +136,4 @@ export default function MissionSection()
         </>
     );
 }
+

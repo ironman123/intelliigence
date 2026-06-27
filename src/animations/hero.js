@@ -1,4 +1,4 @@
-export const heroContainer = {
+﻿export const heroContainer = {
     hidden: {},
     visible: {
         transition: {
@@ -95,3 +95,5 @@ export const heroImageSettle = {
         },
     },
 };
+
+

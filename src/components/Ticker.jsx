@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import { tickerReveal, tickerRoll } from "../animations/ticker";
 import "../styles/ticker.css";
 
@@ -27,3 +27,5 @@ export default function Ticker()
         </motion.section>
     );
 }
+
+

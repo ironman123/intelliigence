@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -173,3 +173,4 @@ export default function SchedulingModal({ isOpen, onClose })
         </dialog>
     );
 }
+

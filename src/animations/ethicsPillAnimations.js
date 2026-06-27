@@ -1,4 +1,4 @@
-export const ethicsPill = {
+﻿export const ethicsPill = {
     hiddenLeft: {
         opacity: 0,
         x: -48,
@@ -16,3 +16,5 @@ export const ethicsPill = {
         },
     },
 };
+
+

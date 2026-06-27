@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import FeatureRow from "./FeatureRow";
 import { SECTIONS_DATA } from "../data/sectionsData"; // Make sure to save the data array from step 1
 import "../styles/features.css";
@@ -21,3 +21,4 @@ export default function FeaturesLayout()
         </section>
     );
 }
+

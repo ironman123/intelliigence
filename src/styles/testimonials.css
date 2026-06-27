@@ -1,0 +1,317 @@
+/* ── Testimonials Section ──────────────────────────────────────────────────── */
+
+.tst-section {
+    background: #020617;
+    padding: 7rem 8vw 6rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Ambient smoke that follows the pointer */
+.tst-smoke {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    background: radial-gradient(
+        ellipse 700px 560px at var(--sx, 50%) var(--sy, 50%),
+        rgba(96, 165, 250, 0.055)  0%,
+        rgba(147, 197, 253, 0.025) 55%,
+        transparent                80%
+    );
+}
+
+.tst-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────── */
+
+.tst-header {
+    max-width: 640px;
+    margin: 0 0 4.5rem;
+}
+
+.tst-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #60a5fa;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.tst-headline {
+    font-size: clamp(2rem, 3.5vw, 2.9rem);
+    font-weight: 700;
+    line-height: 1.16;
+    color: #f8fafc;
+    margin: 0;
+    letter-spacing: -0.025em;
+}
+
+.tst-headline em {
+    font-style: normal;
+    color: #60a5fa;
+}
+
+/* ── Grid ─────────────────────────────────────────────────────────────────── */
+
+.tst-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    max-width: 1200px;
+}
+
+/* ── Card ─────────────────────────────────────────────────────────────────── */
+
+.tst-card {
+    --mx: 50%;
+    --my: 50%;
+    --go: 0;
+    --accent: #3b82f6;
+    --accent-rgb: 59,130,246;
+
+    position: relative;
+    border-radius: 22px;
+    padding: 2.25rem 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow: hidden;
+    cursor: default;
+
+    /*
+     * Deep navy glass — two gradient layers baked into the background:
+     * Layer 1: top-left specular sheen (replaces the old ::before sheen)
+     * Layer 2: deep dark base with a slight blue-navy tint
+     */
+    background:
+        linear-gradient(
+            140deg,
+            rgba(255, 255, 255, 0.095) 0%,
+            rgba(255, 255, 255, 0.028) 32%,
+            transparent 58%
+        ),
+        linear-gradient(
+            150deg,
+            rgba(12, 22, 48, 0.93) 0%,
+            rgba(2, 6, 18, 0.97) 100%
+        );
+
+    backdrop-filter: blur(28px) saturate(1.5);
+    -webkit-backdrop-filter: blur(28px) saturate(1.5);
+
+    /* Refined border system */
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow:
+        inset 0 2px 0 rgba(255, 255, 255, 0.18),    /* bright top rim */
+        inset 0 -1px 0 rgba(0, 0, 0, 0.5),           /* bottom depth */
+        0 8px 40px rgba(0, 0, 0, 0.65),
+        0 1px 6px rgba(0, 0, 0, 0.45);
+
+    transition:
+        border-color 0.4s ease,
+        box-shadow   0.4s ease,
+        transform    0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/*
+ * Decorative typographic quote mark — sits in the background, low opacity,
+ * colored by the card's accent. Editorial and sophisticated.
+ */
+.tst-card::before {
+    content: "\201C";
+    position: absolute;
+    top: -1.5rem;
+    left: 1.75rem;
+    font-size: 11rem;
+    line-height: 1;
+    font-family: Georgia, "Times New Roman", serif;
+    color: rgba(var(--accent-rgb), 0.08);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+}
+
+/* Mouse-tracking spotlight — accent-tinted per card */
+.tst-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(
+        circle 280px at var(--mx) var(--my),
+        rgba(var(--accent-rgb), 0.13) 0%,
+        rgba(var(--accent-rgb), 0.05) 55%,
+        transparent 80%
+    );
+    opacity: var(--go, 0);
+    transition: opacity 0.4s ease;
+}
+
+/* All direct children float above the pseudo-elements */
+.tst-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.tst-card:hover {
+    border-color: rgba(var(--accent-rgb), 0.22);
+    box-shadow:
+        inset 0 2px 0 rgba(var(--accent-rgb), 0.28),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.5),
+        0 24px 64px rgba(0, 0, 0, 0.72),
+        0 0 0 1px rgba(var(--accent-rgb), 0.08);
+    transform: translateY(-5px);
+}
+
+/* ── Top row: product pill + stars ───────────────────────────────────────── */
+
+.tst-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.tst-product-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(var(--accent-rgb), 1);
+    background: rgba(var(--accent-rgb), 0.08);
+    border: 1px solid rgba(var(--accent-rgb), 0.18);
+    border-radius: 100px;
+    padding: 4px 11px;
+    white-space: nowrap;
+    /* Subtle inner top highlight */
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.tst-product-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(var(--accent-rgb), 1);
+    flex-shrink: 0;
+    box-shadow: 0 0 6px rgba(var(--accent-rgb), 0.6);
+}
+
+/* ── Stars ────────────────────────────────────────────────────────────────── */
+
+.tst-stars {
+    display: flex;
+    gap: 1px;
+}
+
+.tst-star {
+    font-size: 11px;
+    color: #fbbf24;
+    line-height: 1;
+    filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.55));
+}
+
+/* ── Quote ────────────────────────────────────────────────────────────────── */
+
+.tst-quote {
+    font-size: 1rem;
+    line-height: 1.82;
+    color: rgba(203, 213, 225, 0.88);
+    font-style: italic;
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    /* Subtle left indent to clear the giant background quote mark */
+    padding-left: 0.125rem;
+}
+
+/* ── Author row ───────────────────────────────────────────────────────────── */
+
+.tst-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    margin-top: auto;
+}
+
+.tst-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    flex-shrink: 0;
+
+    /* Accent-tinted glass avatar */
+    background: rgba(var(--accent-rgb), 0.1);
+    border: 1.5px solid rgba(var(--accent-rgb), 0.32);
+    box-shadow:
+        0 0 0 3px rgba(var(--accent-rgb), 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: rgba(var(--accent-rgb), 1);
+    font-style: normal;
+}
+
+.tst-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.tst-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #f1f5f9;
+    letter-spacing: 0.01em;
+    font-style: normal;
+}
+
+.tst-role {
+    font-size: 0.75rem;
+    color: #475569;
+    font-style: normal;
+    line-height: 1.4;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+    .tst-grid {
+        grid-template-columns: 1fr;
+        max-width: 640px;
+    }
+    .tst-section {
+        padding: 5rem 6vw 4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tst-section {
+        padding: 4rem 5vw 3.5rem;
+    }
+    .tst-card {
+        padding: 1.75rem 1.75rem 1.5rem;
+    }
+    .tst-card::before {
+        font-size: 8rem;
+    }
+}

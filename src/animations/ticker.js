@@ -1,4 +1,4 @@
-import { motion as t } from "./tokens";
+﻿import { motion as t } from "./tokens";
 
 export const tickerReveal = {
     hidden: {
@@ -15,7 +15,7 @@ export const tickerReveal = {
         opacity: 1,
         y: "15%", // moves DOWN relative to itself
         transition: {
-            // 1️⃣ ribbon unfolds
+            // 1ï¸âƒ£ ribbon unfolds
             scaleX: {
                 duration: 0.3,
                 ease: "easeOut",
@@ -27,7 +27,7 @@ export const tickerReveal = {
                 ease: "easeOut",
             },
 
-            // 2️⃣ ticker rolls down AFTER it exists
+            // 2ï¸âƒ£ ticker rolls down AFTER it exists
             y: {
                 delay: 0.3,
                 duration: 1.5,
@@ -67,3 +67,5 @@ export const tickerRoll = {
         },
     },
 }
+
+

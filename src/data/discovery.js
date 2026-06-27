@@ -1,4 +1,4 @@
-export const DISCOVERY_CARDS = {
+﻿export const DISCOVERY_CARDS = {
     core: [
         {
             title: "Generative AI & RAG Agents",
@@ -120,3 +120,4 @@ export const DISCOVERY_CARDS = {
         }
     ]
 };
+

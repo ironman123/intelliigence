@@ -1,22 +1,23 @@
 "use client";
 import React, { useState, useRef } from "react";
-import { ChevronLeft, ChevronRight, Image as ImageIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight, Image as ImageIcon, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DISCOVERY_CARDS } from "../data/discovery";
+import EntropicCanvas from "./EntropicCanvas";
 import "../styles/discovery.css";
 
 export default function DiscoverySlider()
 {
     const [activeTab, setActiveTab] = useState("core");
     const scrollContainerRef = useRef(null);
+    const sectionRef = useRef(null);
 
     const scroll = (direction) =>
     {
         if (scrollContainerRef.current)
         {
-            const scrollAmount = 600;
             scrollContainerRef.current.scrollBy({
-                left: direction === "left" ? -scrollAmount : scrollAmount,
+                left: direction === "left" ? -580 : 580,
                 behavior: "smooth",
             });
         }
@@ -25,8 +26,8 @@ export default function DiscoverySlider()
     const currentData = DISCOVERY_CARDS[activeTab];
 
     return (
-        <section className="discovery-section">
-            <FloatingParticles theme={activeTab} />
+        <section ref={sectionRef} className="discovery-section">
+            <EntropicCanvas containerRef={sectionRef} scheme="dark" />
 
             <div className="discovery-container">
                 {/* HEADER */}
@@ -51,10 +52,9 @@ export default function DiscoverySlider()
                         </div>
                     </div>
 
-                    {/* DESKTOP NAV: Top Right (Hidden on Mobile) */}
                     <div className="nav-arrows desktop-only">
-                        <button onClick={() => scroll('left')} className="arrow-btn"><ChevronLeft /></button>
-                        <button onClick={() => scroll('right')} className="arrow-btn"><ChevronRight /></button>
+                        <button onClick={() => scroll('left')} className="arrow-btn"><ChevronLeft size={18} /></button>
+                        <button onClick={() => scroll('right')} className="arrow-btn"><ChevronRight size={18} /></button>
                     </div>
                 </div>
 
@@ -66,34 +66,59 @@ export default function DiscoverySlider()
                                 key={`${activeTab}-${index}`}
                                 className="discovery-card"
                                 data-theme={activeTab}
-                                initial={{ opacity: 0, x: 50 }}
+                                initial={{ opacity: 0, x: 40 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -50 }}
-                                transition={{ duration: 0.4, delay: index * 0.05 }}
+                                exit={{ opacity: 0, x: -40 }}
+                                transition={{ duration: 0.38, delay: index * 0.055 }}
                                 whileHover="hover"
                             >
+                                {/* Background image */}
                                 {card.image ? (
                                     <motion.img
                                         src={card.image}
                                         alt={card.title}
                                         className="card-bg-img"
-                                        variants={{ hover: { scale: 1.1 } }}
-                                        transition={{ duration: 0.6, ease: "easeOut" }}
+                                        variants={{ hover: { scale: 1.07 } }}
+                                        transition={{ duration: 0.7, ease: "easeOut" }}
                                     />
                                 ) : (
-                                    <div className="card-bg-img" style={{ background: '#1e293b', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                        <ImageIcon color="#475569" size={64} />
+                                    <div className="card-bg-img" style={{ background: '#080d1e', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <ImageIcon color="#1e293b" size={64} />
                                     </div>
                                 )}
+
+                                {/* Animated particle-dot field — drifts diagonally on hover */}
+                                <div className="card-field" aria-hidden="true" />
+
+                                {/* Dark gradient fade from bottom */}
                                 <div className="card-gradient" />
+
+                                {/* Theme-colored radial bloom from bottom */}
+                                <div className="card-theme-glow" aria-hidden="true" />
+
+                                {/* Left glowing accent bar */}
+                                <div className="card-accent-bar" aria-hidden="true" />
+
+                                {/* Large faded card number — top-right watermark */}
+                                <span className="card-num" aria-hidden="true">
+                                    {String(index + 1).padStart(2, '0')}
+                                </span>
+
+                                {/* Content */}
                                 <div className="card-content">
                                     <motion.div
-                                        variants={{ hover: { y: -8 } }}
-                                        transition={{ duration: 0.3 }}
+                                        variants={{ hover: { y: -7 } }}
+                                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                                     >
-                                        <span className="card-tagline">{card.tagline}</span>
+                                        <span className="card-tagline">
+                                            <span className="card-tagline-dot" aria-hidden="true" />
+                                            {card.tagline}
+                                        </span>
                                         <h3 className="card-title">{card.title}</h3>
                                         <p className="card-desc">{card.description}</p>
+                                        <a href={card.link} className="card-explore-link">
+                                            Explore <ArrowRight size={12} strokeWidth={2.5} />
+                                        </a>
                                     </motion.div>
                                 </div>
                             </motion.div>
@@ -101,53 +126,12 @@ export default function DiscoverySlider()
                     </AnimatePresence>
                 </div>
 
-                {/* MOBILE NAV: Bottom Center (Hidden on Desktop) */}
+                {/* MOBILE NAV */}
                 <div className="nav-arrows mobile-only">
-                    <button onClick={() => scroll('left')} className="arrow-btn"><ChevronLeft /></button>
-                    <button onClick={() => scroll('right')} className="arrow-btn"><ChevronRight /></button>
+                    <button onClick={() => scroll('left')} className="arrow-btn"><ChevronLeft size={18} /></button>
+                    <button onClick={() => scroll('right')} className="arrow-btn"><ChevronRight size={18} /></button>
                 </div>
             </div>
         </section>
     );
 }
-
-
-// --- Background Particles Sub-Component ---
-const FloatingParticles = ({ theme }) =>
-{
-    const colors = {
-        core: "#60a5fa",
-        emerging: "#34d399",
-        vision: "#a78bfa"
-    };
-    const currentColor = colors[theme];
-
-    return (
-        <div className="particle-field">
-            {[...Array(12)].map((_, i) => (
-                <Particle key={i} color={currentColor} />
-            ))}
-        </div>
-    );
-};
-
-const Particle = ({ color }) =>
-{
-    const size = Math.random() * 60 + 20;
-    const top = Math.random() * 100;
-    const left = Math.random() * 100;
-    const duration = Math.random() * 20 + 10;
-
-    return (
-        <motion.div
-            className="particle"
-            style={{ width: size, height: size, top: `${top}%`, left: `${left}%`, backgroundColor: color }}
-            animate={{
-                y: [0, Math.random() * 100 - 50, 0],
-                x: [0, Math.random() * 100 - 50, 0],
-                opacity: [0.05, 0.15, 0.05],
-            }}
-            transition={{ duration: duration, repeat: Infinity, ease: "linear" }}
-        />
-    );
-};

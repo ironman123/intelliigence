@@ -1,4 +1,4 @@
-export const navVariants = {
+﻿export const navVariants = {
     expanded: {
         y: 0,
         transition: {
@@ -16,9 +16,9 @@ export const navVariants = {
 };
 
 export const drawerVariants = {
-    hidden: { y: "-100%" },
+    hidden: { x: "100%" },
     visible: {
-        y: 0,
+        x: 0,
         transition: {
             duration: 0.45,
             ease: [0.22, 1, 0.36, 1],
@@ -66,3 +66,4 @@ export const notchVariants = {
         },
     },
 };
+

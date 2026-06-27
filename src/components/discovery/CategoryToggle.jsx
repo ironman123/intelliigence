@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+﻿import { motion } from "framer-motion";
 import "../../styles/category-toggle.css";
 
 export default function CategoryToggle({
@@ -37,3 +37,4 @@ export default function CategoryToggle({
         </div>
     );
 }
+

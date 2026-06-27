@@ -1,4 +1,4 @@
-export const EMERGING_SOLUTIONS = {
+﻿export const EMERGING_SOLUTIONS = {
     hero: {
         headline: "AI for the Physical World: Healthcare, Agriculture & Infrastructure",
         description:
@@ -100,3 +100,4 @@ export const EMERGING_SOLUTIONS = {
         },
     ],
 };
+

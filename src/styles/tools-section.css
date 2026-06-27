@@ -17,14 +17,17 @@
 
 /* ── section shell ──────────────────────────────────────────────────────── */
 .ts-section {
-    padding: 100px 24px 140px;
+    padding: 100px 0 140px;
     background: var(--ts-bg);
     font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+    position: relative;
+    overflow: clip; /* clip ≠ hidden: clips visually without creating a scroll container, preserving position:sticky on .ts-sticky */
 }
 
 .ts-container {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 24px;
     display: flex;
     gap: 80px;
     align-items: stretch;

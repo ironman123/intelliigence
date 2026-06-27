@@ -1,4 +1,4 @@
-import
+﻿import
     {
         Database, Cloud, Code, Server, Cpu, Globe,
         Shield, Zap, Layers, Box, Terminal, Wifi
@@ -18,3 +18,4 @@ export const TOOLS_DATA = [
     { name: "Node.js", icon: Server },
     { name: "GraphQL", icon: Wifi },
 ];
+

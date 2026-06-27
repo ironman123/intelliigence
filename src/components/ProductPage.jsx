@@ -1,37 +1,31 @@
-"use client";
-import React, { useState, useEffect, useCallback } from "react";
+﻿import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 import
     {
-        ArrowRight, CheckCircle2, Play, Star, Quote,
+        ArrowRight, CheckCircle2, Star, Quote,
         Calculator, ShieldCheck, Receipt, TrendingUp, CreditCard, LineChart,
         Target, BrainCircuit, MessageCircle, Users, Zap, Mail,
-        BookOpen, Coins, Calendar, GraduationCap, Bell, BarChart,
+        Coins, Calendar, GraduationCap, Bell, BarChart,
         Radar, BarChart3, Building2, Truck, ScanLine,
-        FileText, CalendarDays, Microscope, Smartphone, Pill,
+        FileText, Pill,
         MonitorPlay, Network, Timer, PackageMinus, Activity, TerminalSquare, ClipboardList,
         CalendarCheck
     } from "lucide-react";
 import ProjectModal from "./ProjectModal";
+import ProductParticles from "./ProductParticles";
+import SteamButton from "./SteamButton";
 
 // ─── RESPONSIVE HOOK ─────────────────────────────────────────────────────────
+// SSR-safe: each flag comes from matchMedia via useSyncExternalStore, so the
+// server and the first client (hydration) render return the SAME values
+// (desktop defaults), then update after mount. No hydration mismatch, no snap.
 function useBreakpoint()
 {
-    const [width, setWidth] = useState(
-        typeof window !== "undefined" ? window.innerWidth : 1280
-    );
-    useEffect(() =>
-    {
-        const handler = () => setWidth(window.innerWidth);
-        window.addEventListener("resize", handler);
-        return () => window.removeEventListener("resize", handler);
-    }, []);
-    return {
-        isMobile: width < 640,
-        isTablet: width >= 640 && width < 1024,
-        isDesktop: width >= 1024,
-        width,
-    };
+    const isMobile = useMediaQuery("(max-width: 639px)");
+    const isTablet = useMediaQuery("(min-width: 640px) and (max-width: 1023px)");
+    const isDesktop = useMediaQuery("(min-width: 1024px)", true);
+    return { isMobile, isTablet, isDesktop };
 }
 
 // ─── PRODUCT DATA ────────────────────────────────────────────────────────────
@@ -41,7 +35,7 @@ const PRODUCT_DATA = {
         title: "Finance Manager",
         tagline: "Financial management that thinks ahead.",
         description: "Complete accounting, invoicing, tax compliance and cash flow forecasting — all in one intelligent platform designed for modern businesses.",
-        theme: { primary: "#2563eb", light: "#eff6ff", border: "#bfdbfe", accent: "#1d4ed8", soft: "rgba(37,99,235,0.08)", glow: "rgba(37,99,235,0.15)" },
+        theme: { primary: "#2563eb", primaryRgb: "37,99,235", light: "#eff6ff", border: "#bfdbfe", accent: "#1d4ed8", soft: "rgba(37,99,235,0.08)", glow: "rgba(37,99,235,0.15)" },
         heroImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1200&q=80",
         stats: [
             { value: "6 Hours", label: "Month-end close time", prior: "from 5 days" },
@@ -70,7 +64,7 @@ const PRODUCT_DATA = {
         title: "CRM Portal",
         tagline: "Relationships powered by intelligence.",
         description: "Track every deal, automate follow-ups, and personalise every customer touchpoint with AI-driven insights that close more sales.",
-        theme: { primary: "#059669", light: "#ecfdf5", border: "#a7f3d0", accent: "#047857", soft: "rgba(5,150,105,0.08)", glow: "rgba(5,150,105,0.15)" },
+        theme: { primary: "#059669", primaryRgb: "5,150,105", light: "#ecfdf5", border: "#a7f3d0", accent: "#047857", soft: "rgba(5,150,105,0.08)", glow: "rgba(5,150,105,0.15)" },
         heroImage: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80",
         stats: [
             { value: "3x", label: "Increase in lead conversion", prior: "qualified pipeline" },
@@ -99,7 +93,7 @@ const PRODUCT_DATA = {
         title: "School Manager",
         tagline: "Run your school. Not just your spreadsheets.",
         description: "From the moment a student applies to the day they graduate — admissions, attendance, fees, exams, and parent engagement all managed from one unified platform built for modern schools.",
-        theme: { primary: "#6366f1", light: "#eef2ff", border: "#c7d2fe", accent: "#4f46e5", soft: "rgba(99,102,241,0.08)", glow: "rgba(99,102,241,0.15)" },
+        theme: { primary: "#6366f1", primaryRgb: "99,102,241", light: "#eef2ff", border: "#c7d2fe", accent: "#4f46e5", soft: "rgba(99,102,241,0.08)", glow: "rgba(99,102,241,0.15)" },
         heroImage: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1200&q=80",
         stats: [
             { value: "70%", label: "Reduction in manual admin work", prior: "automated workflows" },
@@ -128,7 +122,7 @@ const PRODUCT_DATA = {
         title: "Clinic Manager",
         tagline: "Less paperwork. More patient care.",
         description: "A complete clinic operations platform — appointments, patient records, prescriptions, billing, and follow-ups — built for solo practitioners and growing multi-branch clinics.",
-        theme: { primary: "#f43f5e", light: "#fff1f2", border: "#fecdd3", accent: "#e11d48", soft: "rgba(244,63,94,0.08)", glow: "rgba(244,63,94,0.15)" },
+        theme: { primary: "#f43f5e", primaryRgb: "244,63,94", light: "#fff1f2", border: "#fecdd3", accent: "#e11d48", soft: "rgba(244,63,94,0.08)", glow: "rgba(244,63,94,0.15)" },
         heroImage: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1200&q=80",
         stats: [
             { value: "60%", label: "Drop in scheduling conflicts", prior: "smart appointment engine" },
@@ -157,7 +151,7 @@ const PRODUCT_DATA = {
         title: "Inventory Manager",
         tagline: "Intelligence that anticipates demand.",
         description: "Real-time stock tracking with AI demand forecasting across multiple warehouses, eliminating stockouts and reducing excess inventory.",
-        theme: { primary: "#d97706", light: "#fffbeb", border: "#fde68a", accent: "#b45309", soft: "rgba(217,119,6,0.08)", glow: "rgba(217,119,6,0.15)" },
+        theme: { primary: "#d97706", primaryRgb: "217,119,6", light: "#fffbeb", border: "#fde68a", accent: "#b45309", soft: "rgba(217,119,6,0.08)", glow: "rgba(217,119,6,0.15)" },
         heroImage: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=1200&q=80",
         stats: [
             { value: "35%", label: "Reduction in excess stock", prior: "optimized capital" },
@@ -186,7 +180,7 @@ const PRODUCT_DATA = {
         title: "Kitchen Display System",
         tagline: "Kitchen system that never misses an order.",
         description: "Production-ready Kitchen Display System engineered for multi-branch synchronization and real-time order routing across every station.",
-        theme: { primary: "#f59e0b", light: "#fffbeb", border: "#fde68a", accent: "#d97706", soft: "rgba(245,158,11,0.08)", glow: "rgba(245,158,11,0.15)" },
+        theme: { primary: "#f59e0b", primaryRgb: "245,158,11", light: "#fffbeb", border: "#fde68a", accent: "#d97706", soft: "rgba(245,158,11,0.08)", glow: "rgba(245,158,11,0.15)" },
         heroImage: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80",
         stats: [
             { value: "40%", label: "Faster ticket resolution", prior: "optimized routing" },
@@ -211,6 +205,27 @@ const PRODUCT_DATA = {
     },
 };
 
+// ─── PER-PRODUCT SECTION PATTERNS ───────────────────────────────────────────
+// Subtle, product-appropriate micro-patterns carried into the feature/capability sections
+// so that each product's page feels visually distinct beyond just accent color.
+const SECTION_PATTERNS = {
+    financemanager:       (rgb) => `linear-gradient(rgba(${rgb},0.03) 1px, transparent 1px)`,           // ledger lines
+    crmportal:            (rgb) => `radial-gradient(circle, rgba(${rgb},0.055) 1px, transparent 1px)`,  // network nodes
+    schoolmanager:        (rgb) => `linear-gradient(rgba(${rgb},0.03) 1px, transparent 1px)`,            // notebook ruled
+    clinicmanager:        (rgb) => `linear-gradient(rgba(${rgb},0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(${rgb},0.025) 1px, transparent 1px)`, // medical grid
+    inventorymanager:     (rgb) => `linear-gradient(rgba(${rgb},0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(${rgb},0.03) 1px, transparent 1px)`,  // warehouse grid
+    kitchendisplaysystem: (rgb) => `repeating-linear-gradient(45deg, rgba(${rgb},0.025) 0px, rgba(${rgb},0.025) 1px, transparent 1px, transparent 22px)`,      // diagonal heat
+};
+
+const SECTION_PATTERN_SIZES = {
+    financemanager:       "100% 28px",
+    crmportal:            "26px 26px",
+    schoolmanager:        "100% 30px",
+    clinicmanager:        "100% 32px, 32px 100%",
+    inventorymanager:     "100% 36px, 36px 100%",
+    kitchendisplaysystem: "auto",
+};
+
 // ─── ANIMATION VARIANTS ──────────────────────────────────────────────────────
 const fadeUp = {
     hidden: { opacity: 0, y: 20 },
@@ -223,58 +238,143 @@ const staggerContainer = {
 };
 
 // ─── REUSABLE COMPONENTS ─────────────────────────────────────────────────────
-const FeatureCard = ({ icon: Icon, title, desc, theme }) => (
+const FeatureCard = ({ icon: Icon, title, desc, theme, index }) => (
+    // Outer shell provides the gradient border via padding:1px + gradient background
     <motion.div
         variants={fadeUp}
-        whileHover={{ y: -4, boxShadow: `0 20px 40px -15px ${theme.glow}` }}
         style={{
-            background: "#ffffff",
-            border: "1px solid #f1f5f9",
-            borderRadius: 16,
-            padding: "28px 24px",
-            transition: "border-color 0.3s ease",
-            cursor: "default",
             position: "relative",
-            overflow: "hidden"
+            borderRadius: 22,
+            padding: "1px",
+            background: `linear-gradient(145deg,
+                rgba(255,255,255,0.32) 0%,
+                rgba(${theme.primaryRgb},0.48) 28%,
+                rgba(255,255,255,0.04) 60%,
+                rgba(${theme.primaryRgb},0.22) 100%)`,
+            boxShadow: `0 18px 56px -14px rgba(0,0,0,0.58), 0 4px 18px rgba(${theme.primaryRgb},0.10)`,
+            cursor: "default",
+            transition: "transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease",
         }}
-        onMouseEnter={(e) => e.currentTarget.style.borderColor = theme.border}
-        onMouseLeave={(e) => e.currentTarget.style.borderColor = "#f1f5f9"}
+        onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "scale(1.04) translateY(-5px)";
+            e.currentTarget.style.boxShadow = `0 36px 80px -14px rgba(0,0,0,0.68), 0 8px 28px rgba(${theme.primaryRgb},0.30)`;
+        }}
+        onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "scale(1) translateY(0)";
+            e.currentTarget.style.boxShadow = `0 18px 56px -14px rgba(0,0,0,0.58), 0 4px 18px rgba(${theme.primaryRgb},0.10)`;
+        }}
     >
+        {/* Inner glass surface */}
         <div style={{
-            width: 52, height: 52, borderRadius: 14,
-            background: theme.light, color: theme.primary,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            marginBottom: 18, border: `1px solid ${theme.soft}`
+            borderRadius: 21,
+            overflow: "hidden",
+            backdropFilter: "blur(22px) saturate(180%) brightness(1.06)",
+            WebkitBackdropFilter: "blur(22px) saturate(180%) brightness(1.06)",
+            background: `linear-gradient(165deg,
+                rgba(${theme.primaryRgb},0.14) 0%,
+                rgba(${theme.primaryRgb},0.04) 42%,
+                rgba(6,8,18,0.90) 100%)`,
+            boxShadow: "inset 0 1.5px 0 rgba(255,255,255,0.24), inset 0 -1px 0 rgba(0,0,0,0.22)",
+            position: "relative",
         }}>
-            <Icon size={24} strokeWidth={1.5} />
+            {/* Specular highlight — glass lens reflection at the top edge */}
+            <div style={{
+                position: "absolute",
+                top: 0, left: "10%", right: "10%", height: "2px",
+                background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.70) 35%, rgba(255,255,255,0.70) 65%, transparent)",
+                filter: "blur(0.8px)",
+                zIndex: 10, pointerEvents: "none",
+            }} />
+
+            {/* ── Tinted header band ── */}
+            <div style={{
+                height: 112,
+                background: `linear-gradient(135deg, rgba(${theme.primaryRgb},0.26) 0%, rgba(${theme.primaryRgb},0.07) 100%)`,
+                borderBottom: "1px solid rgba(255,255,255,0.07)",
+                display: "flex", alignItems: "center",
+                padding: "0 24px",
+                position: "relative", overflow: "hidden",
+            }}>
+                {/* Faint index number in the band */}
+                <div style={{
+                    position: "absolute", right: 14, top: "50%",
+                    transform: "translateY(-50%)",
+                    fontSize: "clamp(3.8rem,6vw,5rem)", fontWeight: 800,
+                    color: `rgba(${theme.primaryRgb},0.22)`, lineHeight: 1,
+                    userSelect: "none", pointerEvents: "none",
+                    letterSpacing: "-0.05em", fontVariantNumeric: "tabular-nums"
+                }}>
+                    {String(index + 1).padStart(2, "0")}
+                </div>
+
+                {/* Glass icon box */}
+                <div style={{
+                    width: 52, height: 52, borderRadius: 14,
+                    background: `rgba(${theme.primaryRgb},0.26)`,
+                    backdropFilter: "blur(10px)",
+                    WebkitBackdropFilter: "blur(10px)",
+                    border: "1px solid rgba(255,255,255,0.26)",
+                    boxShadow: `inset 0 1.5px 0 rgba(255,255,255,0.34), 0 6px 20px rgba(${theme.primaryRgb},0.52)`,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    color: "#ffffff", flexShrink: 0,
+                }}>
+                    <Icon size={24} strokeWidth={1.5} />
+                </div>
+            </div>
+
+            {/* ── Content zone ── */}
+            <div style={{ padding: "22px 24px 28px" }}>
+                <h3 style={{
+                    fontSize: 17, fontWeight: 700, color: "#f1f5f9",
+                    marginBottom: 10, letterSpacing: "-0.02em", lineHeight: 1.2
+                }}>
+                    {title}
+                </h3>
+                <p style={{ fontSize: 14, color: "#64748b", lineHeight: 1.72, margin: 0 }}>
+                    {desc}
+                </p>
+            </div>
         </div>
-        <h3 style={{ fontSize: 17, fontWeight: 700, color: "#0f172a", marginBottom: 10, letterSpacing: "-0.01em" }}>
-            {title}
-        </h3>
-        <p style={{ fontSize: 14, color: "#64748b", lineHeight: 1.6, margin: 0 }}>
-            {desc}
-        </p>
     </motion.div>
 );
 
 const CapabilityGroup = ({ title, items, theme }) => (
-    <motion.div variants={fadeUp}>
-        <h4 style={{ fontSize: 16, fontWeight: 700, color: "#0f172a", marginBottom: 16, display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 8, height: 8, borderRadius: "50%", background: theme.primary, flexShrink: 0 }} />
+    <motion.div variants={fadeUp} style={{ position: "relative", paddingLeft: "1.75rem" }}>
+        {/* Animated left accent border */}
+        <div style={{
+            position: "absolute", left: 0, top: 0, bottom: 0, width: 2,
+            background: `linear-gradient(to bottom, ${theme.primary}, rgba(${theme.primaryRgb},0.08) 80%, transparent)`,
+        }} />
+        {/* Glowing dot at top of border */}
+        <div style={{
+            position: "absolute", left: "-4px", top: "3px",
+            width: 10, height: 10, borderRadius: "50%",
+            background: theme.primary,
+            boxShadow: `0 0 14px 4px rgba(${theme.primaryRgb},0.55)`,
+        }} />
+
+        <h4 style={{
+            fontSize: 11, fontWeight: 700, color: theme.primary,
+            marginBottom: 20, textTransform: "uppercase", letterSpacing: "0.12em",
+            margin: "0 0 20px"
+        }}>
             {title}
         </h4>
-        <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+
+        <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 13 }}>
             {items.map((item, i) => (
-                <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 14, color: "#475569", lineHeight: 1.5 }}>
-                    <CheckCircle2 size={16} style={{ color: theme.primary, marginTop: 2, flexShrink: 0, opacity: 0.8 }} strokeWidth={2} />
+                <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 14, color: "#94a3b8", lineHeight: 1.62 }}>
+                    <div style={{
+                        width: 5, height: 5, borderRadius: "50%",
+                        background: theme.primary, flexShrink: 0,
+                        marginTop: 7, opacity: 0.65
+                    }} />
                     {item}
                 </li>
             ))}
         </ul>
     </motion.div>
 );
-
-import SEO from "./SEO";
 
 // ─── MAIN PRODUCT PAGE COMPONENT ─────────────────────────────────────────────
 export function ProductPage({ productId })
@@ -295,18 +395,13 @@ export function ProductPage({ productId })
 
     return (
         <AnimatePresence mode="wait">
-            <SEO 
-                title={`${data.title} | Entropic System`}
-                description={data.description}
-                type="product"
-            />
             <motion.div
                 key={productId}
                 initial={{ opacity: 0, filter: "blur(4px)" }}
                 animate={{ opacity: 1, filter: "blur(0px)" }}
                 exit={{ opacity: 0, filter: "blur(4px)" }}
                 transition={{ duration: 0.4 }}
-                style={{ fontFamily: "'Inter', -apple-system, sans-serif", background: "#f8fafc" }}
+                style={{ fontFamily: "'Inter', -apple-system, sans-serif", background: "#020617" }}
             >
                 {/* ── HERO ───────────────────────────────────────────────────── */}
                 <section style={{
@@ -316,8 +411,10 @@ export function ProductPage({ productId })
                     overflow: "hidden"
                 }}>
                     {/* Ambient Glows */}
-                    <div style={{ position: "absolute", right: "-10%", top: "-10%", width: "70%", height: "100%", background: `radial-gradient(ellipse at center, ${theme.glow} 0%, transparent 60%)`, pointerEvents: "none", opacity: 0.6 }} />
-                    <div style={{ position: "absolute", left: "-5%", bottom: 0, width: "40%", height: "50%", background: `radial-gradient(circle at bottom, ${theme.soft} 0%, transparent 70%)`, pointerEvents: "none", opacity: 0.4 }} />
+                    <div style={{ position: "absolute", right: "-10%", top: "-10%", width: "70%", height: "100%", background: `radial-gradient(ellipse at center, ${theme.glow} 0%, transparent 60%)`, pointerEvents: "none", opacity: 0.8 }} />
+                    <div style={{ position: "absolute", left: "-5%", bottom: 0, width: "40%", height: "50%", background: `radial-gradient(circle at bottom, ${theme.soft} 0%, transparent 70%)`, pointerEvents: "none", opacity: 0.6 }} />
+                    {/* Product-specific particles */}
+                    <ProductParticles productId={productId} primaryColor={theme.primary} />
 
                     <div style={{ maxWidth: 1280, margin: "0 auto", padding: `0 ${px}` }}>
                         <div style={{
@@ -366,6 +463,7 @@ export function ProductPage({ productId })
                                 </motion.p>
 
                                 <motion.div variants={fadeUp} style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+                                    <SteamButton>
                                     <button
                                         style={{
                                             display: "flex", alignItems: "center", gap: 8,
@@ -383,6 +481,7 @@ export function ProductPage({ productId })
                                     >
                                         Book a Demo <ArrowRight size={17} />
                                     </button>
+                                    </SteamButton>
                                 </motion.div>
                             </motion.div>
 
@@ -402,6 +501,7 @@ export function ProductPage({ productId })
                                     }}>
                                         <img
                                             src={data.heroImage} alt={data.title}
+                                            fetchpriority="high"
                                             style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.8) contrast(1.1)" }}
                                         />
                                         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 160, background: "linear-gradient(to top, #020617, transparent)" }} />
@@ -420,10 +520,11 @@ export function ProductPage({ productId })
                                     <div style={{ height: 220, overflow: "hidden", position: "relative" }}>
                                         <img
                                             src={data.heroImage} alt={data.title}
+                                            fetchpriority="high"
                                             style={{ width: "100%", height: "100%", objectFit: "cover", filter: "brightness(0.7) contrast(1.1)" }}
                                         />
                                         <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 80, background: "linear-gradient(to bottom, #020617, transparent)" }} />
-                                        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 80, background: "linear-gradient(to top, #f8fafc, transparent)" }} />
+                                        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: 80, background: "linear-gradient(to top, #020617, transparent)" }} />
                                     </div>
                                 </motion.div>
                             )}
@@ -432,7 +533,7 @@ export function ProductPage({ productId })
                 </section>
 
                 {/* ── STATS BAR ─────────────────────────────────────────────── */}
-                <section style={{ background: "#ffffff", borderBottom: "1px solid #f1f5f9", position: "relative", zIndex: 20 }}>
+                <section style={{ background: `linear-gradient(to bottom, rgba(${theme.primaryRgb},0.10) 0%, rgba(${theme.primaryRgb},0.03) 100%), #06080e`, borderBottom: `1px solid rgba(${theme.primaryRgb},0.18)`, position: "relative", zIndex: 20 }}>
                     <div style={{ maxWidth: 1280, margin: "0 auto", padding: `0 ${px}` }}>
                         <div style={{
                             display: "grid",
@@ -444,21 +545,43 @@ export function ProductPage({ productId })
                                     initial={{ opacity: 0, y: 20 }}
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: i * 0.1 }}
+                                    transition={{ delay: i * 0.12 }}
                                     style={{
-                                        padding: isMobile ? "28px 20px" : "44px 40px",
-                                        borderRight: !isMobile && i < 2 ? "1px solid #f1f5f9" : "none",
-                                        borderBottom: isMobile && i < 2 ? "1px solid #f1f5f9" : "none",
-                                        textAlign: "center"
+                                        padding: isMobile ? "36px 20px" : "56px 40px",
+                                        borderRight: !isMobile && i < 2 ? `1px solid rgba(${theme.primaryRgb},0.12)` : "none",
+                                        borderBottom: isMobile && i < 2 ? `1px solid rgba(${theme.primaryRgb},0.12)` : "none",
+                                        textAlign: "center",
+                                        position: "relative", overflow: "hidden"
                                     }}
                                 >
-                                    <div style={{ fontSize: 11, color: "#94a3b8", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: 8 }}>
+                                    {/* Per-stat bottom glow */}
+                                    <div style={{
+                                        position: "absolute", inset: 0,
+                                        background: `radial-gradient(ellipse 90% 80% at 50% 110%, rgba(${theme.primaryRgb},0.13), transparent)`,
+                                        pointerEvents: "none"
+                                    }} />
+                                    {/* "Prior" pill badge */}
+                                    <div style={{
+                                        display: "inline-flex", alignItems: "center", gap: 5,
+                                        fontSize: 10, fontWeight: 700, color: theme.primary,
+                                        textTransform: "uppercase", letterSpacing: "0.10em",
+                                        padding: "3px 11px", borderRadius: 100,
+                                        border: `1px solid rgba(${theme.primaryRgb},0.32)`,
+                                        background: `rgba(${theme.primaryRgb},0.09)`,
+                                        marginBottom: 14, position: "relative"
+                                    }}>
                                         {stat.prior}
                                     </div>
-                                    <div style={{ fontSize: isMobile ? 36 : 46, fontWeight: 800, color: theme.primary, letterSpacing: "-0.03em", marginBottom: 6, lineHeight: 1 }}>
+                                    {/* Big stat number */}
+                                    <div style={{
+                                        fontSize: isMobile ? 44 : 58, fontWeight: 800,
+                                        color: theme.primary, letterSpacing: "-0.04em",
+                                        lineHeight: 1, marginBottom: 12, position: "relative",
+                                        fontVariantNumeric: "tabular-nums"
+                                    }}>
                                         {stat.value}
                                     </div>
-                                    <div style={{ fontSize: 14, color: "#475569", fontWeight: 500 }}>
+                                    <div style={{ fontSize: 13, color: "#71717a", fontWeight: 500, lineHeight: 1.45, position: "relative" }}>
                                         {stat.label}
                                     </div>
                                 </motion.div>
@@ -468,26 +591,63 @@ export function ProductPage({ productId })
                 </section>
 
                 {/* ── FEATURES GRID ─────────────────────────────────────────── */}
-                <section style={{ padding: sectionPy }}>
+                <section style={{
+                    padding: sectionPy,
+                    backgroundImage: [
+                        SECTION_PATTERNS[productId]?.(theme.primaryRgb),
+                        `radial-gradient(ellipse 80% 50% at 50% 0%, rgba(${theme.primaryRgb},0.08) 0%, transparent 60%)`
+                    ].filter(Boolean).join(", "),
+                    backgroundSize: [
+                        SECTION_PATTERN_SIZES[productId] ?? "auto",
+                        "100% 100%"
+                    ].join(", "),
+                    backgroundColor: "#020617"
+                }}>
                     <div style={{ maxWidth: 1280, margin: "0 auto", padding: `0 ${px}` }}>
                         <motion.div
                             initial="hidden" whileInView="visible"
                             viewport={{ once: true, margin: "-60px" }} variants={staggerContainer}
-                            style={{ textAlign: "center", marginBottom: isMobile ? 48 : 72 }}
+                            style={{ marginBottom: isMobile ? 48 : 72, position: "relative" }}
                         >
+                            {/* Decorative large background text */}
+                            <div style={{
+                                position: "absolute", top: "50%", left: "50%",
+                                transform: "translate(-50%,-50%)",
+                                fontSize: "clamp(4rem,8vw,7rem)", fontWeight: 900,
+                                color: `rgba(${theme.primaryRgb},0.035)`,
+                                letterSpacing: "-0.05em", userSelect: "none", pointerEvents: "none",
+                                whiteSpace: "nowrap", lineHeight: 1
+                            }}>
+                                {data.title.toUpperCase()}
+                            </div>
+
+                            <motion.div variants={fadeUp} style={{
+                                display: "flex", alignItems: "center", gap: 12,
+                                marginBottom: 20, justifyContent: "center"
+                            }}>
+                                <div style={{ height: 1, width: 48, background: `linear-gradient(to right, transparent, rgba(${theme.primaryRgb},0.45))` }} />
+                                <span style={{
+                                    fontSize: 11, fontWeight: 700, color: theme.primary,
+                                    textTransform: "uppercase", letterSpacing: "0.12em"
+                                }}>Core Features</span>
+                                <div style={{ height: 1, width: 48, background: `linear-gradient(to left, transparent, rgba(${theme.primaryRgb},0.45))` }} />
+                            </motion.div>
+
                             <motion.h2 variants={fadeUp} style={{
                                 fontSize: isMobile ? 28 : isTablet ? 34 : 42,
-                                fontWeight: 800, color: "#0f172a",
-                                letterSpacing: "-0.03em", margin: "0 0 14px"
+                                fontWeight: 800, color: "#f1f5f9",
+                                letterSpacing: "-0.03em", margin: "0 0 14px",
+                                textAlign: "center"
                             }}>
-                                Everything you need to succeed.
+                                Built for every edge case.
                             </motion.h2>
                             <motion.p variants={fadeUp} style={{
                                 fontSize: isMobile ? 15 : 17,
                                 color: "#64748b", margin: 0,
-                                maxWidth: 560, marginInline: "auto", lineHeight: 1.6
+                                maxWidth: 520, marginInline: "auto", lineHeight: 1.65,
+                                textAlign: "center"
                             }}>
-                                Purpose-built features designed to work together seamlessly, giving your team the ultimate operational advantage.
+                                Purpose-built features that work together seamlessly — designed around how your team actually operates.
                             </motion.p>
                         </motion.div>
 
@@ -496,26 +656,53 @@ export function ProductPage({ productId })
                             viewport={{ once: true }} variants={staggerContainer}
                             style={{ display: "grid", gridTemplateColumns: featuresColumns, gap: isMobile ? 16 : 22 }}
                         >
-                            {data.features.map((f, i) => (<FeatureCard key={i} {...f} theme={theme} />))}
+                            {data.features.map((f, i) => (<FeatureCard key={i} {...f} theme={theme} index={i} />))}
                         </motion.div>
                     </div>
                 </section>
 
                 {/* ── CAPABILITIES ──────────────────────────────────────────── */}
-                <section style={{ background: "#ffffff", padding: sectionPy, borderTop: "1px solid #f1f5f9" }}>
+                <section style={{
+                    padding: sectionPy,
+                    borderTop: `1px solid rgba(${theme.primaryRgb},0.10)`,
+                    backgroundImage: [
+                        SECTION_PATTERNS[productId]?.(theme.primaryRgb),
+                        `linear-gradient(to right, rgba(${theme.primaryRgb},0.07) 0%, transparent 55%)`
+                    ].filter(Boolean).join(", "),
+                    backgroundSize: [
+                        SECTION_PATTERN_SIZES[productId] ?? "auto",
+                        "100% 100%"
+                    ].join(", "),
+                    backgroundColor: "#06080e"
+                }}>
                     <div style={{ maxWidth: 1280, margin: "0 auto", padding: `0 ${px}` }}>
                         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer}>
-                            <motion.div variants={fadeUp} style={{ marginBottom: isMobile ? 40 : 60 }}>
-                                <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", color: theme.primary, textTransform: "uppercase" }}>
-                                    Deep Infrastructure
-                                </span>
+                            <motion.div variants={fadeUp} style={{ marginBottom: isMobile ? 40 : 64, position: "relative" }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+                                    <div style={{
+                                        width: 32, height: 32, borderRadius: 8,
+                                        background: `rgba(${theme.primaryRgb},0.12)`,
+                                        border: `1px solid rgba(${theme.primaryRgb},0.30)`,
+                                        display: "flex", alignItems: "center", justifyContent: "center",
+                                        flexShrink: 0
+                                    }}>
+                                        <div style={{ width: 10, height: 10, borderRadius: 3, background: theme.primary, opacity: 0.85 }} />
+                                    </div>
+                                    <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", color: theme.primary, textTransform: "uppercase" }}>
+                                        Full Capability Stack
+                                    </span>
+                                </div>
                                 <h2 style={{
-                                    fontSize: isMobile ? 26 : isTablet ? 32 : 40,
-                                    fontWeight: 800, color: "#0f172a",
-                                    letterSpacing: "-0.03em", margin: "10px 0 0"
+                                    fontSize: isMobile ? 26 : isTablet ? 32 : 42,
+                                    fontWeight: 800, color: "#f1f5f9",
+                                    letterSpacing: "-0.03em", margin: "0 0 12px",
+                                    maxWidth: 560
                                 }}>
                                     Built for complex workflows.
                                 </h2>
+                                <p style={{ fontSize: 15, color: "#64748b", lineHeight: 1.65, margin: 0, maxWidth: 480 }}>
+                                    Every feature connects. Every workflow is accounted for.
+                                </p>
                             </motion.div>
 
                             <div style={{
@@ -551,8 +738,9 @@ export function ProductPage({ productId })
                 </section>
 
                 {/* ── FINAL CTA ─────────────────────────────────────────────── */}
-                <section style={{ background: "#020617", padding: isMobile ? "72px 0" : "120px 0", textAlign: "center" }}>
-                    <div style={{ maxWidth: 600, margin: "0 auto", padding: `0 ${px}` }}>
+                <section style={{ background: "#020617", padding: isMobile ? "72px 0" : "120px 0", textAlign: "center", position: "relative", overflow: "hidden" }}>
+                    <div style={{ position: "absolute", inset: 0, background: `radial-gradient(ellipse 60% 80% at 50% 100%, ${theme.glow}, transparent)`, pointerEvents: "none" }} />
+                    <div style={{ maxWidth: 600, margin: "0 auto", padding: `0 ${px}`, position: "relative", zIndex: 1 }}>
                         <h2 style={{
                             fontSize: isMobile ? 30 : 42,
                             fontWeight: 800, color: "#ffffff",
@@ -563,6 +751,7 @@ export function ProductPage({ productId })
                         <p style={{ fontSize: isMobile ? 15 : 17, color: "#94a3b8", marginBottom: 40, lineHeight: 1.6 }}>
                             Join the industry leaders using {data.title} to transform their daily operations.
                         </p>
+                        <SteamButton>
                         <button
                             style={{
                                 background: theme.primary, color: "#fff", border: "none",
@@ -577,6 +766,7 @@ export function ProductPage({ productId })
                         >
                             Book a Demo
                         </button>
+                        </SteamButton>
                         <p style={{ fontSize: 13, color: "#475569", marginTop: 20, fontWeight: 500 }}>
                             No credit card required · Free forever plan available
                         </p>
@@ -655,3 +845,4 @@ export function ProductPageDemo()
         </div>
     );
 }
+

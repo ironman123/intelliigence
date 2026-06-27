@@ -1,4 +1,4 @@
-import { useRef } from "react";
+﻿import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import "../styles/video-interlude.css";
 
@@ -84,3 +84,5 @@ export default function VideoInterlude()
         </section>
     );
 }
+
+

@@ -113,20 +113,74 @@
     background: #ffffff;
     color: #0f172a;
     font-weight: 500;
-    /* Thinner, more modern */
     font-size: 14px;
-    /* Slightly smaller */
     padding: 12px 26px;
     border-radius: 6px;
-    /* Less rounded for a sharper, enterprise feel */
     border: none;
     cursor: pointer;
-    transition: all 0.2s ease;
     letter-spacing: 0.01em;
+    position: relative;
+    overflow: hidden;
+    /* Color transitions when slider fill covers the button */
+    transition: color 0.4s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    --gx: 50%;
+    --gy: 50%;
+}
+
+/* Slider fill — slides in from the left on hover */
+.btn-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 60%, #3b82f6 100%);
+    transform: translateX(-102%);
+    transition: transform 0.42s cubic-bezier(0.76, 0, 0.24, 1);
+    z-index: 1;
+    border-radius: inherit;
+}
+
+/* Radial mouse-glow on top of slider fill */
+.btn-primary::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle 90px at var(--gx) var(--gy),
+        rgba(255, 255, 255, 0.22) 0%,
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 2;
+}
+
+.btn-primary:hover::after {
+    transform: translateX(0);
+}
+
+.btn-primary:hover::before {
+    opacity: 1;
+}
+
+/* Text span sits above both pseudo-elements */
+.btn-text {
+    position: relative;
+    z-index: 3;
 }
 
 .btn-primary:hover {
-    background: #e2e8f0;
+    color: #ffffff;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px -5px rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 28px rgba(37, 99, 235, 0.4);
+}
+
+/* Particle canvas — sits between video overlay (z:1) and text content (z:10) */
+.hero-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    display: block;
 }

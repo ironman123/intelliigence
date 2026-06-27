@@ -1,14 +1,13 @@
-"use client";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+﻿"use client";
+import React, { useRef, useState } from "react";
+import { Link } from "react-router";
 import ProjectModal from "./ProjectModal";
 import SchedulingModal from "./SchedulingModal";
+import EntropicCanvas from "./EntropicCanvas";
+import SparkleButton from "./SparkleButton";
 import
 {
     Linkedin,
-    Twitter,
-    Youtube,
-    Facebook,
     ArrowUpRight,
     MessageCircle,
     Mail,
@@ -71,26 +70,24 @@ const PRODUCTS = [
 ];
 
 const AI_SOLUTIONS = [
-    { label: "Generative AI & RAG Agents", href: "/solutions/core#genai" },
+    { label: "Generative AI & RAG Agents", href: "/solutions/core#gen-ai" },
     { label: "Workflow Automation (NLP)", href: "/solutions/core#automation" },
-    { label: "Data Engineering & Pipelines", href: "/solutions/core#data" },
-    { label: "Predictive ML & Forecasting", href: "/solutions/core#predictive" },
-    { label: "AI-Native SaaS Engineering", href: "/solutions/core#native" },
+    { label: "Data Engineering & Pipelines", href: "/solutions/core#data-engineering" },
+    { label: "Predictive ML & Forecasting", href: "/solutions/core#predictive-ml" },
+    { label: "AI-Native SaaS Engineering", href: "/solutions/core#software-engineering" },
 ];
 
 const EMERGING = [
     { label: "Precision Diagnostics", href: "/solutions/emerging#healthcare" },
     { label: "Smart Agriculture", href: "/solutions/emerging#agriculture" },
-    { label: "Urban Planning & Digital Twins", href: "/solutions/emerging#urban" },
+    { label: "Urban Planning & Digital Twins", href: "/solutions/emerging#smart-city" },
     { label: "Energy Grid Optimization", href: "/solutions/emerging#energy" },
-    { label: "Disaster Response AI", href: "/solutions/emerging#climate" },
+    { label: "Disaster Response AI", href: "/solutions/emerging#disaster" },
 ];
 
 const COMPANY = [
     { label: "Home", href: "/" },
     { label: "Our Story", href: "/about" },
-    { label: "Case Studies", href: "/case-studies" },
-    { label: "Careers", href: "/careers" },
     { label: "Contact", href: "/contact" },
 ];
 
@@ -98,13 +95,14 @@ const COMPANY = [
 export default function Footer()
 {
     const currentYear = new Date().getFullYear();
-    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isProjectOpen, setIsProjectOpen] = useState(false);
+    const footerRef = useRef(null);
 
     return (
         <>
-            <footer style={styles.footer}>
+            <footer ref={footerRef} style={styles.footer}>
+                <EntropicCanvas containerRef={footerRef} scheme="dark" />
                 {/* ── Subtle grid texture overlay ── */}
                 <div style={styles.gridOverlay} aria-hidden="true" />
 
@@ -115,7 +113,7 @@ export default function Footer()
                         <div style={styles.ctaLeft}>
                             <img
                                 src="/images/logo.png"
-                                alt="Company Logo"
+                                alt="Entropic System"
                                 style={styles.logo}
                             />
                             <h2 style={styles.headline}>
@@ -129,42 +127,50 @@ export default function Footer()
 
                             {/* Contact row */}
                             <div style={styles.contactRow}>
-                                <a
-                                    href="https://wa.me/917060816597"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={styles.contactChip}
-                                    onMouseEnter={e =>
-                                    {
-                                        e.currentTarget.style.borderColor = "#25d366";
-                                        e.currentTarget.style.color = "#25d366";
-                                    }}
-                                    onMouseLeave={e =>
-                                    {
-                                        e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
-                                        e.currentTarget.style.color = "#a1a1aa";
-                                    }}
+                                <SparkleButton
+                                    sparkColors={["#ffffff", "#d4fce8", "#86efac", "#4ade80", "#f0fdf4"]}
                                 >
-                                    <MessageCircle size={14} style={{ color: "#25d366", flexShrink: 0 }} />
-                                    +91 70608 16597
-                                </a>
-                                <a
-                                    href="mailto:entropicsys@gmail.com"
-                                    style={styles.contactChip}
-                                    onMouseEnter={e =>
-                                    {
-                                        e.currentTarget.style.borderColor = "#3b82f6";
-                                        e.currentTarget.style.color = "#3b82f6";
-                                    }}
-                                    onMouseLeave={e =>
-                                    {
-                                        e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
-                                        e.currentTarget.style.color = "#a1a1aa";
-                                    }}
+                                    <a
+                                        href="https://wa.me/917060816597"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={styles.contactChip}
+                                        onMouseEnter={e =>
+                                        {
+                                            e.currentTarget.style.borderColor = "#25d366";
+                                            e.currentTarget.style.color = "#25d366";
+                                        }}
+                                        onMouseLeave={e =>
+                                        {
+                                            e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
+                                            e.currentTarget.style.color = "#a1a1aa";
+                                        }}
+                                    >
+                                        <MessageCircle size={14} style={{ color: "#25d366", flexShrink: 0 }} />
+                                        +91 70608 16597
+                                    </a>
+                                </SparkleButton>
+                                <SparkleButton
+                                    sparkColors={["#ffffff", "#dbeafe", "#93c5fd", "#60a5fa", "#eff6ff"]}
                                 >
-                                    <Mail size={14} style={{ color: "#3b82f6", flexShrink: 0 }} />
-                                    entropicsys@gmail.com
-                                </a>
+                                    <a
+                                        href="mailto:entropicsys@gmail.com"
+                                        style={styles.contactChip}
+                                        onMouseEnter={e =>
+                                        {
+                                            e.currentTarget.style.borderColor = "#3b82f6";
+                                            e.currentTarget.style.color = "#3b82f6";
+                                        }}
+                                        onMouseLeave={e =>
+                                        {
+                                            e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
+                                            e.currentTarget.style.color = "#a1a1aa";
+                                        }}
+                                    >
+                                        <Mail size={14} style={{ color: "#3b82f6", flexShrink: 0 }} />
+                                        entropicsys@gmail.com
+                                    </a>
+                                </SparkleButton>
                             </div>
                         </div>
 
@@ -210,30 +216,35 @@ export default function Footer()
                         </p>
                         <div style={styles.productsGrid}>
                             {PRODUCTS.map((p) => (
-                                <a
+                                <SparkleButton
                                     key={p.id}
-                                    href={`/products/${p.id}`}
-                                    style={styles.productChip}
-                                    onMouseEnter={e =>
-                                    {
-                                        e.currentTarget.style.borderColor = p.color + "60";
-                                        e.currentTarget.style.background = p.color + "12";
-                                        e.currentTarget.querySelector(".picon").style.color = p.color;
-                                    }}
-                                    onMouseLeave={e =>
-                                    {
-                                        e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)";
-                                        e.currentTarget.style.background = "rgba(255,255,255,0.03)";
-                                        e.currentTarget.querySelector(".picon").style.color = "#52525b";
-                                    }}
+                                    sparkColors={["#ffffff", p.color + "cc", p.color + "88", p.color + "55", "#f8fafc"]}
+                                    style={{ display: "block" }}
                                 >
-                                    <span className="picon" style={{ color: "#52525b", transition: "color 0.2s", display: "flex" }}>
-                                        {p.icon}
-                                    </span>
-                                    <span style={styles.productChipName}>{p.label}</span>
-                                    <span style={styles.productChipCat}>{p.category}</span>
-                                    <ArrowRight size={11} style={{ marginLeft: "auto", color: "#3f3f46", flexShrink: 0 }} />
-                                </a>
+                                    <Link
+                                        to={`/products/${p.id}`}
+                                        style={styles.productChip}
+                                        onMouseEnter={e =>
+                                        {
+                                            e.currentTarget.style.borderColor = p.color + "60";
+                                            e.currentTarget.style.background = p.color + "12";
+                                            e.currentTarget.querySelector(".picon").style.color = p.color;
+                                        }}
+                                        onMouseLeave={e =>
+                                        {
+                                            e.currentTarget.style.borderColor = "rgba(255,255,255,0.07)";
+                                            e.currentTarget.style.background = "rgba(255,255,255,0.03)";
+                                            e.currentTarget.querySelector(".picon").style.color = "#52525b";
+                                        }}
+                                    >
+                                        <span className="picon" style={{ color: "#52525b", transition: "color 0.2s", display: "flex" }}>
+                                            {p.icon}
+                                        </span>
+                                        <span style={styles.productChipName}>{p.label}</span>
+                                        <span style={styles.productChipCat}>{p.category}</span>
+                                        <ArrowRight size={11} style={{ marginLeft: "auto", color: "#3f3f46", flexShrink: 0 }} />
+                                    </Link>
+                                </SparkleButton>
                             ))}
                         </div>
                     </div>
@@ -250,8 +261,8 @@ export default function Footer()
                             <ul style={styles.linkList}>
                                 {COMPANY.map(l => (
                                     <li key={l.href}>
-                                        <a
-                                            href={l.href}
+                                        <Link
+                                            to={l.href}
                                             style={styles.link}
                                             onMouseEnter={e =>
                                             {
@@ -263,7 +274,7 @@ export default function Footer()
                                                 e.currentTarget.style.color = "#71717a";
                                                 e.currentTarget.style.paddingLeft = "0";
                                             }}
-                                        >{l.label}</a>
+                                        >{l.label}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -277,8 +288,8 @@ export default function Footer()
                             <ul style={styles.linkList}>
                                 {AI_SOLUTIONS.map(l => (
                                     <li key={l.href}>
-                                        <a
-                                            href={l.href}
+                                        <Link
+                                            to={l.href}
                                             style={styles.link}
                                             onMouseEnter={e =>
                                             {
@@ -290,7 +301,7 @@ export default function Footer()
                                                 e.currentTarget.style.color = "#71717a";
                                                 e.currentTarget.style.paddingLeft = "0";
                                             }}
-                                        >{l.label}</a>
+                                        >{l.label}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -304,8 +315,8 @@ export default function Footer()
                             <ul style={styles.linkList}>
                                 {EMERGING.map(l => (
                                     <li key={l.href}>
-                                        <a
-                                            href={l.href}
+                                        <Link
+                                            to={l.href}
                                             style={styles.link}
                                             onMouseEnter={e =>
                                             {
@@ -317,7 +328,7 @@ export default function Footer()
                                                 e.currentTarget.style.color = "#71717a";
                                                 e.currentTarget.style.paddingLeft = "0";
                                             }}
-                                        >{l.label}</a>
+                                        >{l.label}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -330,15 +341,15 @@ export default function Footer()
                             </h4>
                             <ul style={styles.linkList}>
                                 {[
-                                    { label: "Embodied AI & Robotics", href: "/solutions/vision#embodied" },
+                                    { label: "Embodied AI & Robotics", href: "/solutions/vision#embodied-ai" },
                                     { label: "Autonomous Agent Swarms", href: "/solutions/vision#swarms" },
                                     { label: "Generative World Models", href: "/solutions/vision#simulators" },
-                                    { label: "Neuro-Symbolic Reasoning", href: "/solutions/vision#neuro" },
+                                    { label: "Neuro-Symbolic Reasoning", href: "/solutions/vision#neuro-symbolic" },
                                     { label: "Brain-Computer Interfaces", href: "/solutions/vision#bci" },
                                 ].map(l => (
                                     <li key={l.href}>
-                                        <a
-                                            href={l.href}
+                                        <Link
+                                            to={l.href}
                                             style={styles.link}
                                             onMouseEnter={e =>
                                             {
@@ -350,7 +361,7 @@ export default function Footer()
                                                 e.currentTarget.style.color = "#71717a";
                                                 e.currentTarget.style.paddingLeft = "0";
                                             }}
-                                        >{l.label}</a>
+                                        >{l.label}</Link>
                                     </li>
                                 ))}
                             </ul>
@@ -403,12 +414,12 @@ export default function Footer()
                                 ].map((l, i) => (
                                     <React.Fragment key={l.href}>
                                         {i > 0 && <span style={{ color: "#27272a" }}>·</span>}
-                                        <a
-                                            href={l.href}
+                                        <Link
+                                            to={l.href}
                                             style={styles.legalLink}
                                             onMouseEnter={e => e.currentTarget.style.color = "#a1a1aa"}
                                             onMouseLeave={e => e.currentTarget.style.color = "#52525b"}
-                                        >{l.label}</a>
+                                        >{l.label}</Link>
                                     </React.Fragment>
                                 ))}
                             </div>
@@ -695,3 +706,4 @@ const styles = {
         transition: "color 0.15s",
     },
 };
+

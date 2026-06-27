@@ -9,4 +9,8 @@ body {
     background: var(--white);
     color: var(--black);
     overflow-x: hidden;
+    /* crisper text rendering — small professional polish */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }

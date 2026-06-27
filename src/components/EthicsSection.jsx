@@ -1,5 +1,6 @@
-import { useState } from "react";
+﻿import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import EntropicCanvas from "./EntropicCanvas";
 
 const COMMITMENTS = [
     {
@@ -68,9 +69,12 @@ export default function EthicsSection()
     const [activeKey, setActiveKey] = useState(null);
     const [expanded, setExpanded] = useState(null);
     const activeItem = COMMITMENTS.find((c) => c.key === activeKey);
+    const sectionRef = useRef(null);
 
     return (
-        <section style={S.section}>
+        <section ref={sectionRef} style={{ ...S.section, position: "relative", overflow: "hidden" }}>
+            <EntropicCanvas containerRef={sectionRef} scheme="light" />
+            <div style={{ ...S.inner, position: "relative", zIndex: 1 }}>
 
             {/* ── HEADER ── */}
             <div style={S.header}>
@@ -204,6 +208,8 @@ export default function EthicsSection()
                 })}
             </div>
 
+            </div>
+
             <style>{`
                 @media (min-width: 768px) { .ethics-mobile { display: none !important; } }
                 @media (max-width: 767px) { .ethics-desktop { display: none !important; } }
@@ -217,9 +223,10 @@ const S = {
         background: "#fafafa",
         borderTop: "1px solid #f1f5f9",
         borderBottom: "1px solid #f1f5f9",
-        padding: "80px 6vw",
+        padding: "80px 0",
         fontFamily: "'Inter', system-ui, sans-serif",
     },
+    inner: { maxWidth: 1200, margin: "0 auto", padding: "0 24px", width: "100%" },
     header: { maxWidth: 600, marginBottom: 48 },
     eyebrow: { display: "flex", alignItems: "center", gap: 12, marginBottom: 18 },
     eyebrowLine: { display: "block", width: 28, height: 1, background: "#cbd5e1" },
@@ -263,3 +270,4 @@ const S = {
     accordionLeft: { display: "flex", alignItems: "center", gap: 12, flex: 1, minWidth: 0 },
     accordionBody: { padding: "4px 16px 20px 40px", background: "#f8fafc", display: "flex", flexDirection: "column", gap: 8 },
 };
+

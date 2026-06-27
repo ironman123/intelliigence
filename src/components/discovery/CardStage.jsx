@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+﻿import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, setStartIndex } from "react";
 import
 {
@@ -91,3 +91,4 @@ export default function CardStage({ cards, categoryKey })
         </div>
     );
 }
+
